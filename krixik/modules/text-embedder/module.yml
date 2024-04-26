@@ -1,0 +1,37 @@
+module:
+  name: text-embedder
+  models: 
+    - name: multi-qa-MiniLM-L6-cos-v1
+      params: 
+        quantize:
+          type: bool
+          default: true
+    - name: msmarco-distilbert-dot-v5
+      params: 
+        quantize:
+          type: bool
+          default: true
+    - name: all-MiniLM-L12-v2
+      params: 
+        quantize:
+          type: bool
+          default: true
+    - name: all-mpnet-base-v2
+      params: 
+        quantize:
+          type: bool
+          default: true
+    - name: all-MiniLM-L6-v2
+      params: 
+        quantize:
+          type: bool
+          default: true
+  input: 
+    type: json
+  output:
+    type: npy
+  defaults: 
+    model: multi-qa-MiniLM-L6-cos-v1
+    params:
+      quantize: true
+

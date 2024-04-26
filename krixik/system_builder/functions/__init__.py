@@ -1,0 +1,11 @@
+list_endpoint = "/krixik-core-list"
+update_endpoint = "/krixik-core-update"
+delete_endpoint = "/krixik-core-delete"
+show_tree_endpoint = "/krixik-core-show-tree"
+upload_status_endpoint = "/krixik-core-process-status"
+upload_presigned_endpoint = "/krixik-core-process"
+fetch_output_endpoint = "/krixik-core-fetch-output"
+cli_checkin_endpoint = "/cli-checkin"
+keyword_search_endpoint = "/keyword-query-files"
+vector_search_endpoint = "/vector-query-files"
+

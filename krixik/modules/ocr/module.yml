@@ -1,0 +1,11 @@
+module:
+  name: ocr
+  models: 
+    - name: tesseract-en
+    - name: tesseract-es
+  input:
+    type: image
+  output:
+    type: json
+  defaults:
+    model: tesseract-en

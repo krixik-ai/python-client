@@ -1,0 +1,11 @@
+module:
+  name: summarize
+  models: 
+    - name: bart-large-cnn
+    - name: text-summarization
+  input: 
+    type: text
+  output: 
+    type: json
+  defaults:
+    model: bart-large-cnn

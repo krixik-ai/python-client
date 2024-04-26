@@ -1,0 +1,11 @@
+module:
+  name: json-to-txt
+  models: 
+    - name: base
+  input: 
+    type: json
+  output: 
+    type: text
+  defaults: 
+    model: base
+

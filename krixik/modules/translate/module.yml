@@ -1,0 +1,17 @@
+module:
+  name: translate
+  models: 
+    - name: opus-mt-de-en
+    - name: opus-mt-en-es
+    - name: opus-mt-es-en
+    - name: opus-mt-en-fr
+    - name: opus-mt-fr-en
+    - name: opus-mt-it-en
+    - name: opus-mt-zh-en
+  input: 
+    type: json
+  output: 
+    type: json
+  defaults:
+    model: opus-mt-en-es
+

@@ -1,0 +1,14 @@
+module:
+  name: transcribe
+  models: 
+    - name: whisper-tiny
+    - name: whisper-base
+    - name: whisper-small
+    - name: whisper-medium
+    - name: whisper-large-v3
+  input: 
+    type: audio
+  output:
+    type: json
+  defaults:
+    model: whisper-tiny

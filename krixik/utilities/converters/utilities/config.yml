@@ -1,0 +1,9 @@
+convertable_extensions:
+  - name: docx
+    convert: txt
+  - name: pdf
+    convert: txt
+  - name: pptx
+    convert: txt
+  - name: mp4
+    convert: mp3 

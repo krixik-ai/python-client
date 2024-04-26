@@ -1,0 +1,13 @@
+module:
+  name: caption 
+  models: 
+    - name: vit-gpt2-image-captioning
+    - name: git-base
+    - name: blip-image-captioning-base
+    - name: blip-image-captioning-large
+  input:
+    type: image
+  output: 
+    type: json
+  defaults:
+    model: vit-gpt2-image-captioning

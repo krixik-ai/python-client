@@ -1,0 +1,21 @@
+data_types:
+  text:
+    - .txt
+    - .pdf
+    - .docx
+    - .pptx
+  json:
+    - .json
+  image: 
+    - .jpg
+    - .jpeg
+    - .png
+  audio: 
+    - .mp3
+    - .mp4
+  npy:
+    - .npy
+  faiss:
+    - .faiss
+  db:
+    - .db

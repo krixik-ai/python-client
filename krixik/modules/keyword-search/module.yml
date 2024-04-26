@@ -1,0 +1,10 @@
+module:
+  name: keyword-search
+  models: 
+    - name: base
+  input: 
+    type: text
+  output:
+    type: db
+  defaults:
+    model: base
