@@ -13,7 +13,7 @@ That's why we're here. **Welcome to Krixik**, where you can easily assemble and 
 
 ## What can you do with Krixik?
 
-For example, you can...
+With Krixik, you can...
 
 - ...run semantic search on 540 focus group transcripts and perform sentiment analysis on each result.
   - Pipeline: [Parse → Embed → Vector Search → Sentiment Analysis]
