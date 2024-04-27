@@ -160,7 +160,7 @@ Now that there is at least one file in the pipeline, we can use the file's `file
 
 ```python
 my_pipeline_2.vector_search(query="The text you wish to semantically search for goes here",
-                            file_ids=['file_id_1'])
+                            file_ids=['file_id_from_above'])
 ```
 
 That's it! You have now transcribed a file, processed the transcript, performed vector search on it, and can reuse the pipeline for as many files and queries as you like... all of it in a couple of minutes and with a few lines of code.
