@@ -19,7 +19,7 @@ With Krixik, you can...
   - Pipeline: [Parse → Embed → Vector Search → Sentiment Analysis]
 - ...transcribe a year's worth of Peruvian political speeches, translate them to English, and summarize each one.
   - Pipeline: [Transcribe → Translate → Summarize]
-- ...easily consume your open-source OCR model of choice.
+- ...easily and serverlessly consume your open-source OCR model of choice.
   - Pipeline: [OCR]
 
 ## Core concepts
