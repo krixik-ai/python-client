@@ -3,12 +3,12 @@ nav:
   - Home: index.md
   - About: about.md
   - Quickstart: quickstart.md
-  - Pipeline examples:
-    - single module:
-      - 'parser': parser.md
-      - 'json-to-txt': json-to-txt.md
-      - 'keyword-db': keyword-db.md
-      - 'vector-db': vector-db.md
+  - Modules:
+    - currently available:
+      - 'parser': modules/parser.md
+      - 'json-to-txt': modules/json-to-txt.md
+      - 'keyword-db': modules/keyword-db.md
+      - 'vector-db': modules/vector-db.md
   - System:
     - methods:
       - 'introduction': system/introduction.md
@@ -22,7 +22,8 @@ nav:
       - 'the show_tree method': system/show_tree.md
       - 'the keyword_search method': system/keyword_search_method.md
       - 'the vector_search method': system/vector_search_method.md
-    - pipeline builder:
+  - Pipeline builder:
+    - Overview:
       - 'introduction': pipeline_builder/introduction.md
       - 'view modules': pipeline_builder/existing_modules.md
       - 'create module': pipeline_builder/create_module.md
@@ -31,12 +32,12 @@ nav:
       - 'test your pipeline': pipeline_builder/testing_pipeline.md
       - 'useful pipeline properties': pipeline_builder/useful_pipeline_properties.md
       - 'save and load your pipeline config': pipeline_builder/save_load.md
-    - modules - advanced details:
+    - Modules - advanced details:
       - 'introduction': advanced_details/modules/introduction.md
       - 'click data': advanced_details/modules/click_data.md
       - 'module io data': advanced_details/modules/io_data.md
       - 'module io dataclasses': advanced_details/modules/io_dataclasses.md
-    - pipelines - advanced details:
+    - Pipelines - advanced details:
       - 'introduction': advanced_details/pipelines/introduction.md
       - 'building module by module': advanced_details/pipelines/modular_build.md
 
