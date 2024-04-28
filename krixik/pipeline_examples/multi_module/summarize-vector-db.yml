@@ -1,5 +1,5 @@
 pipeline:
-  name: summarize-vector-search-pipeline
+  name: summarize-vector-db-pipeline
   modules:
   - name: summarize
     models:
@@ -34,10 +34,8 @@ pipeline:
       params:
         chunk_size:
           type: int
-          default: 10
         overlap_size:
           type: int
-          default: 2
     defaults:
       model: sentence
     input:
@@ -86,7 +84,7 @@ pipeline:
       - .json
     output:
       type: npy
-  - name: vector-search
+  - name: vector-db
     models:
     - name: faiss
     defaults:

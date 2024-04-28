@@ -46,8 +46,39 @@ allowed_args_dict = {
     },
     "show_tree": {"symbolic_directory_path", "max_files", "verbose"},
     "process_status": {"request_id"},
-    "wrapper": {}
+    "keyword_search": {
+        "query",
+        "file_ids",
+        "file_names",
+        "symbolic_directory_paths",
+        "symbolic_file_paths",
+        "file_tags",
+        "sort_order",
+        "max_files",
+        "created_at_start",
+        "created_at_end",
+        "last_updated_start",
+        "last_updated_end",
+        "verbose"
+    },
+    "semantic_search": {
+        "query",
+        "file_ids",
+        "file_names",
+        "symbolic_directory_paths",
+        "symbolic_file_paths",
+        "file_tags",
+        "sort_order",
+        "max_files",
+        "created_at_start",
+        "created_at_end",
+        "last_updated_start",
+        "last_updated_end",
+        "verbose",
+        "k"
+    }
 }
+
 
 
 def kwargs_checker(func):

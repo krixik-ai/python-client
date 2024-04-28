@@ -1,6 +1,20 @@
 pipeline:
-  name: txt-keyword-search-pipeline
+  name: ocr-keyword-db-pipeline
   modules:
+  - name: ocr
+    models:
+    - name: tesseract-en
+    - name: tesseract-es
+    defaults:
+      model: tesseract-en
+    input:
+      type: image
+      permitted_extensions:
+      - .jpg
+      - .jpeg
+      - .png
+    output:
+      type: json
   - name: json-to-txt
     models:
     - name: base
@@ -12,11 +26,11 @@ pipeline:
       - .json
     output:
       type: text
-  - name: keyword-search
+  - name: keyword-db
     models:
-    - name: base
+    - name: sqlite
     defaults:
-      model: base
+      model: sqlite
     input:
       type: text
       permitted_extensions:

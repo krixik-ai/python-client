@@ -1,18 +1,20 @@
 pipeline:
-  name: ocr-keyword-search-pipeline
+  name: transcribe-keyword-db-pipeline
   modules:
-  - name: ocr
+  - name: transcribe
     models:
-    - name: tesseract-en
-    - name: tesseract-es
+    - name: whisper-tiny
+    - name: whisper-base
+    - name: whisper-small
+    - name: whisper-medium
+    - name: whisper-large-v3
     defaults:
-      model: tesseract-en
+      model: whisper-tiny
     input:
-      type: image
+      type: audio
       permitted_extensions:
-      - .jpg
-      - .jpeg
-      - .png
+      - .mp3
+      - .mp4
     output:
       type: json
   - name: json-to-txt
@@ -26,11 +28,11 @@ pipeline:
       - .json
     output:
       type: text
-  - name: keyword-search
+  - name: keyword-db
     models:
-    - name: base
+    - name: sqlite
     defaults:
-      model: base
+      model: sqlite
     input:
       type: text
       permitted_extensions:

@@ -1,19 +1,21 @@
 pipeline:
-  name: summarize-keyword-search-pipeline
+  name: translate-keyword-db-pipeline
   modules:
-  - name: summarize
+  - name: translate
     models:
-    - name: bart-large-cnn
-    - name: text-summarization
+    - name: opus-mt-de-en
+    - name: opus-mt-en-es
+    - name: opus-mt-es-en
+    - name: opus-mt-en-fr
+    - name: opus-mt-fr-en
+    - name: opus-mt-it-en
+    - name: opus-mt-zh-en
     defaults:
-      model: bart-large-cnn
+      model: opus-mt-en-es
     input:
-      type: text
+      type: json
       permitted_extensions:
-      - .txt
-      - .pdf
-      - .docx
-      - .pptx
+      - .json
     output:
       type: json
   - name: json-to-txt
@@ -27,11 +29,11 @@ pipeline:
       - .json
     output:
       type: text
-  - name: keyword-search
+  - name: keyword-db
     models:
-    - name: base
+    - name: sqlite
     defaults:
-      model: base
+      model: sqlite
     input:
       type: text
       permitted_extensions:

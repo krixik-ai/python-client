@@ -34,8 +34,17 @@ def process_status(**kwargs):
     pass
 
 @kwargs_checker
+def keyword_search(**kwargs):
+    pass
+
+@kwargs_checker
+def semantic_search(**kwargs):
+    pass
+
+@kwargs_checker
 def not_supported(**kwargs):
     pass
+
 
 
 success_data = [
@@ -47,6 +56,8 @@ success_data = [
     (process, {"file_id": "123", "file_name": "good.txt", "symbolic_directory_path": "/home", "symbolic_file_path": "/home/good.txt", "local_file_path": "/home/good.txt", "file_tags": "good", "file_description": "good", "modules": "good", "expire_time": "2021-01-01", "verbose": "True", "wait_for_process": "True", "local_save_directory": "/home", "og_local_file_path": "/home/good.txt"}),
     (show_tree, {"symbolic_directory_path": "/home", "max_files": 10, "verbose": "True"}),
     (process_status, {"process_id": "123"}),
+    (keyword_search, {"file_ids": "123", "file_names": "good.txt", "symbolic_directory_paths": "/home", "symbolic_file_paths": "/home/good.txt", "file_tags": "good", "sort_order": "asc", "max_files": 10, "created_at_start": "2021-01-01", "created_at_end": "2021-01-01", "last_updated_start": "2021-01-01", "last_updated_end": "2021-01-01", "verbose": "True"}),
+    (semantic_search, {"file_ids": "123", "file_names": "good.txt", "symbolic_directory_paths": "/home", "symbolic_file_paths": "/home/good.txt", "file_tags": "good", "sort_order": "asc", "max_files": 10, "created_at_start": "2021-01-01", "created_at_end": "2021-01-01", "last_updated_start": "2021-01-01", "last_updated_end": "2021-01-01", "verbose": "True"}),
 ]
 
 

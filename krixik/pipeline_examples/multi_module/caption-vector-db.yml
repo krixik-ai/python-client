@@ -1,12 +1,14 @@
 pipeline:
-  name: ocr-vector-search-pipeline
+  name: caption-vector-db-pipeline
   modules:
-  - name: ocr
+  - name: caption
     models:
-    - name: tesseract-en
-    - name: tesseract-es
+    - name: vit-gpt2-image-captioning
+    - name: git-base
+    - name: blip-image-captioning-base
+    - name: blip-image-captioning-large
     defaults:
-      model: tesseract-en
+      model: vit-gpt2-image-captioning
     input:
       type: image
       permitted_extensions:
@@ -33,10 +35,8 @@ pipeline:
       params:
         chunk_size:
           type: int
-          default: 10
         overlap_size:
           type: int
-          default: 2
     defaults:
       model: sentence
     input:
@@ -85,7 +85,7 @@ pipeline:
       - .json
     output:
       type: npy
-  - name: vector-search
+  - name: vector-db
     models:
     - name: faiss
     defaults:

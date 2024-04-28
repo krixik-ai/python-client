@@ -1,20 +1,19 @@
 pipeline:
-  name: caption-keyword-search-pipeline
+  name: summarize-keyword-db-pipeline
   modules:
-  - name: caption
+  - name: summarize
     models:
-    - name: vit-gpt2-image-captioning
-    - name: git-base
-    - name: blip-image-captioning-base
-    - name: blip-image-captioning-large
+    - name: bart-large-cnn
+    - name: text-summarization
     defaults:
-      model: vit-gpt2-image-captioning
+      model: bart-large-cnn
     input:
-      type: image
+      type: text
       permitted_extensions:
-      - .jpg
-      - .jpeg
-      - .png
+      - .txt
+      - .pdf
+      - .docx
+      - .pptx
     output:
       type: json
   - name: json-to-txt
@@ -28,11 +27,11 @@ pipeline:
       - .json
     output:
       type: text
-  - name: keyword-search
+  - name: keyword-db
     models:
-    - name: base
+    - name: sqlite
     defaults:
-      model: base
+      model: sqlite
     input:
       type: text
       permitted_extensions:

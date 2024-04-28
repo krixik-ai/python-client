@@ -54,7 +54,7 @@ def load_pipeline():
         pipeline.test_input(local_file_path=test_file)
         
     # reset the pipeline name so it is uniqe to this function
-    pipeline.pipeline_name = f"{pipeline.pipeline}-keyword_search"
+    pipeline.pipeline_name = f"{pipeline.pipeline}-keyword-db"
         
     # delete all files for pipeline before running tests
     current_files = pipeline.list(symbolic_directory_paths=["/*"])
@@ -69,12 +69,11 @@ def load_pipeline():
     # process all input files
     for test_file in test_files:
         output = pipeline.process(local_file_path=test_file,
-                                expire_time=60*5,
-                                modules={},
-                                local_save_directory=output_files_path,
-                                verbose=False,
-                                symbolic_directory_path="/home",
-                                file_tags=[
+                                  expire_time=60*5,
+                                  local_save_directory=output_files_path,
+                                  verbose=False,
+                                  symbolic_directory_path="/home",
+                                  file_tags=[
                                     {"book_category": "nonfiction"},
                                     {"book_author": "ford"},
                                     {"book_title": "my_life_and_work"}])

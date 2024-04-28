@@ -1,26 +1,20 @@
 pipeline:
-  name: standard-vector-search-pipeline
+  name: transcribe-vector-db-pipeline
   modules:
-  - name: parser
+  - name: transcribe
     models:
-    - name: sentence
-    - name: fixed
-      params:
-        chunk_size:
-          type: int
-          default: 10
-        overlap_size:
-          type: int
-          default: 2
+    - name: whisper-tiny
+    - name: whisper-base
+    - name: whisper-small
+    - name: whisper-medium
+    - name: whisper-large-v3
     defaults:
-      model: sentence
+      model: whisper-tiny
     input:
-      type: text
+      type: audio
       permitted_extensions:
-      - .txt
-      - .pdf
-      - .docx
-      - .pptx
+      - .mp3
+      - .mp4
     output:
       type: json
   - name: text-embedder
@@ -60,7 +54,7 @@ pipeline:
       - .json
     output:
       type: npy
-  - name: vector-search
+  - name: vector-db
     models:
     - name: faiss
     defaults:

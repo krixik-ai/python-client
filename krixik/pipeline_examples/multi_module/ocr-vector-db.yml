@@ -1,21 +1,49 @@
 pipeline:
-  name: translate-vector-search-pipeline
+  name: ocr-vector-db-pipeline
   modules:
-  - name: translate
+  - name: ocr
     models:
-    - name: opus-mt-de-en
-    - name: opus-mt-en-es
-    - name: opus-mt-es-en
-    - name: opus-mt-en-fr
-    - name: opus-mt-fr-en
-    - name: opus-mt-it-en
-    - name: opus-mt-zh-en
+    - name: tesseract-en
+    - name: tesseract-es
     defaults:
-      model: opus-mt-en-es
+      model: tesseract-en
+    input:
+      type: image
+      permitted_extensions:
+      - .jpg
+      - .jpeg
+      - .png
+    output:
+      type: json
+  - name: json-to-txt
+    models:
+    - name: base
+    defaults:
+      model: base
     input:
       type: json
       permitted_extensions:
       - .json
+    output:
+      type: text
+  - name: parser
+    models:
+    - name: sentence
+    - name: fixed
+      params:
+        chunk_size:
+          type: int
+        overlap_size:
+          type: int
+    defaults:
+      model: sentence
+    input:
+      type: text
+      permitted_extensions:
+      - .txt
+      - .pdf
+      - .docx
+      - .pptx
     output:
       type: json
   - name: text-embedder
@@ -55,7 +83,7 @@ pipeline:
       - .json
     output:
       type: npy
-  - name: vector-search
+  - name: vector-db
     models:
     - name: faiss
     defaults:

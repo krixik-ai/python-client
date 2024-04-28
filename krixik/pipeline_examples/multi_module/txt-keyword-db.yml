@@ -1,6 +1,17 @@
 pipeline:
-  name: keyword-db-pipeline
+  name: txt-keyword-db-pipeline
   modules:
+  - name: json-to-txt
+    models:
+    - name: base
+    defaults:
+      model: base
+    input:
+      type: json
+      permitted_extensions:
+      - .json
+    output:
+      type: text
   - name: keyword-db
     models:
     - name: sqlite

@@ -1,53 +1,37 @@
 pipeline:
-  name: caption-vector-search-pipeline
+  name: transcribe-translate-vector-db-pipeline
   modules:
-  - name: caption
+  - name: transcribe
     models:
-    - name: vit-gpt2-image-captioning
-    - name: git-base
-    - name: blip-image-captioning-base
-    - name: blip-image-captioning-large
+    - name: whisper-tiny
+    - name: whisper-base
+    - name: whisper-small
+    - name: whisper-medium
+    - name: whisper-large-v3
     defaults:
-      model: vit-gpt2-image-captioning
+      model: whisper-tiny
     input:
-      type: image
+      type: audio
       permitted_extensions:
-      - .jpg
-      - .jpeg
-      - .png
+      - .mp3
+      - .mp4
     output:
       type: json
-  - name: json-to-txt
+  - name: translate
     models:
-    - name: base
+    - name: opus-mt-de-en
+    - name: opus-mt-en-es
+    - name: opus-mt-es-en
+    - name: opus-mt-en-fr
+    - name: opus-mt-fr-en
+    - name: opus-mt-it-en
+    - name: opus-mt-zh-en
     defaults:
-      model: base
+      model: opus-mt-en-es
     input:
       type: json
       permitted_extensions:
       - .json
-    output:
-      type: text
-  - name: parser
-    models:
-    - name: sentence
-    - name: fixed
-      params:
-        chunk_size:
-          type: int
-          default: 10
-        overlap_size:
-          type: int
-          default: 2
-    defaults:
-      model: sentence
-    input:
-      type: text
-      permitted_extensions:
-      - .txt
-      - .pdf
-      - .docx
-      - .pptx
     output:
       type: json
   - name: text-embedder
@@ -87,7 +71,7 @@ pipeline:
       - .json
     output:
       type: npy
-  - name: vector-search
+  - name: vector-db
     models:
     - name: faiss
     defaults:

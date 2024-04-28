@@ -1,20 +1,21 @@
 pipeline:
-  name: transcribe-vector-search-pipeline
+  name: translate-vector-db-pipeline
   modules:
-  - name: transcribe
+  - name: translate
     models:
-    - name: whisper-tiny
-    - name: whisper-base
-    - name: whisper-small
-    - name: whisper-medium
-    - name: whisper-large-v3
+    - name: opus-mt-de-en
+    - name: opus-mt-en-es
+    - name: opus-mt-es-en
+    - name: opus-mt-en-fr
+    - name: opus-mt-fr-en
+    - name: opus-mt-it-en
+    - name: opus-mt-zh-en
     defaults:
-      model: whisper-tiny
+      model: opus-mt-en-es
     input:
-      type: audio
+      type: json
       permitted_extensions:
-      - .mp3
-      - .mp4
+      - .json
     output:
       type: json
   - name: text-embedder
@@ -54,7 +55,7 @@ pipeline:
       - .json
     output:
       type: npy
-  - name: vector-search
+  - name: vector-db
     models:
     - name: faiss
     defaults:

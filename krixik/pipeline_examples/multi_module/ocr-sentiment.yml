@@ -33,10 +33,8 @@ pipeline:
       params:
         chunk_size:
           type: int
-          default: 10
         overlap_size:
           type: int
-          default: 2
     defaults:
       model: sentence
     input:
