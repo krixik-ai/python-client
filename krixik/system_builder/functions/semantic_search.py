@@ -2,7 +2,7 @@ import json
 import requests
 from datetime import datetime
 from typing import List
-from krixik.system_builder.functions import vector_search_endpoint
+from krixik.system_builder.functions import semantic_search_endpoint
 
 from krixik.utilities.utilities import vprint
 from krixik.utilities.validators.system.base.timestamp_bookends import (
@@ -14,7 +14,7 @@ from krixik.utilities.validators.utilities.decorators import type_check_inputs
 
 @check_init_decorator
 @type_check_inputs
-def vector_search(
+def semantic_search(
     self,
     *,
     query: str | None = None,
@@ -147,7 +147,7 @@ def vector_search(
     try:
         # make request
         response = requests.post(
-            (self._KrixikBasePipeline__api_url or "") + vector_search_endpoint,
+            (self._KrixikBasePipeline__api_url or "") + semantic_search_endpoint,
             headers=headers,
             json=payload_data,
             timeout=60,

@@ -2,8 +2,8 @@
 import os
 from tests.krixik import output_files_path
 from krixik.__base__ import library_base_dir
-from tests.krixik.system_builder.functions.vector_search.utilities.test_data import test_data
-from tests.krixik.system_builder.functions.vector_search.utilities.test_data import wait_for_test_data
+from tests.krixik.system_builder.functions.semantic_search.utilities.test_data import test_data
+from tests.krixik.system_builder.functions.semantic_search.utilities.test_data import wait_for_test_data
 
 from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
 from krixik import krixik

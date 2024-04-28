@@ -150,11 +150,11 @@ Check the process status using the `process_status` method.  Feed in the `proces
 search.process_status(process_id=output_data['process_id'])
 ```
 
-Once the process is complete, you can query your file using vector and keyword search.  To perform vector search use the `.vector_search` method as shown below.
+Once the process is complete, you can query your file using vector and keyword search.  To perform vector search use the `.semantic_search` method as shown below.
  
 ```python
 # vector search
-search.vector_search(file_ids=[output_data['file_id']], 
+search.semantic_search(file_ids=[output_data['file_id']], 
                      query='my search query goes here')
 ```
 

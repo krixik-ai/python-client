@@ -11,7 +11,7 @@ from krixik.system_builder.functions.checkin import checkin
 
 from krixik.pipeline_builder.pipeline import CreatePipeline
 from krixik.system_builder.base import KrixikBasePipeline
-from krixik.system_builder.functions.vector_search import vector_search
+from krixik.system_builder.functions.semantic_search import semantic_search
 from krixik.system_builder.functions.keyword_search import keyword_search
 
 
@@ -99,7 +99,7 @@ class krixik:
         if custom_pipeline.module_chain[-1] == "vector-db":
             if len(custom_pipeline.module_chain) > 1:
                 if custom_pipeline.module_chain[-2] == "text-embedder":
-                    pipeline_object.vector_search = types.MethodType(vector_search, pipeline_object)
+                    pipeline_object.semantic_search = types.MethodType(semantic_search, pipeline_object)
 
 
         if custom_pipeline.module_chain[-1] == "keyword-db":

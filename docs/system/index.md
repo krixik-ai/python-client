@@ -59,7 +59,7 @@ A table of contents for the remainder of this document is shown below.
 - [the `.keyword_search` method](#the-keyword_search-method)
     [a simple keyword search pipeline](#a-simple-keyword-db-pipeline)
     [invoking the `keyword_search`  method](#invoking-the-keyword-db-method)
-- [the `.vector_search` method](#the-vector_search-method)
+- [the `.semantic_search` method](#the-vector_search-method)
     [a simple vector search pipeline](#a-simple-vector-db-pipeline)
     [invoking the `vector_search`  method](#invoking-the-vector-db-method)
 
@@ -1334,9 +1334,9 @@ json_print(keyword_output)
 
 Here we can see one returned search result in `items`, as well as stop words removed from the input query shown in the return `warnings`.
 
-## the `.vector_search` method
+## the `.semantic_search` method
 
-krixik's `.vector_search` method is a convenience function for both embedding and querying - and can be used with any pipeline containing a consecutive pair of []`text-embedder`](LINK HERE) and [`vector-db`](LINK HERE) modules.
+krixik's `.semantic_search` method is a convenience function for both embedding and querying - and can be used with any pipeline containing a consecutive pair of []`text-embedder`](LINK HERE) and [`vector-db`](LINK HERE) modules.
 
 ### a simple vector search pipeline
 
@@ -1410,7 +1410,7 @@ Let's look at an example.
 
 ```python
 # perform vector_search over the input file
-vector_output = pipeline.vector_search(query="it was cold night",
+vector_output = pipeline.semantic_search(query="it was cold night",
                                         file_ids=[process_output["file_id"]])
 
 # nicely print the output of this process

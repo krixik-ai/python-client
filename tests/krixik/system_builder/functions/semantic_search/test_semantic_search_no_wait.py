@@ -1,5 +1,5 @@
-from tests.krixik.system_builder.functions.vector_search.utilities.setup import load_but_no_process_pipeline
-from tests.krixik.system_builder.functions.vector_search.utilities.setup import output_files_path
+from tests.krixik.system_builder.functions.semantic_search.utilities.setup import load_but_no_process_pipeline
+from tests.krixik.system_builder.functions.semantic_search.utilities.setup import output_files_path
 import time
 
 
@@ -16,7 +16,7 @@ def test_1(subtests):
                                       verbose=False,
                                       wait_for_process=False)
     
-    api_output = pipeline.vector_search(file_ids=[process_output["file_id"]],
+    api_output = pipeline.semantic_search(file_ids=[process_output["file_id"]],
                                         query="hello world")
     api_status = api_output["status_code"]
     api_message = api_output["message"]
@@ -32,11 +32,11 @@ def test_1(subtests):
         max_count = 30
         time_step = 4
         count = 0        
-        api_output = pipeline.vector_search(file_ids=[process_output["file_id"]],
+        api_output = pipeline.semantic_search(file_ids=[process_output["file_id"]],
                                             query="hello world")
         api_message = api_output["message"]
         while not_finished_message in api_message and count < max_count:
-            api_output = pipeline.vector_search(file_ids=[process_output["file_id"]],
+            api_output = pipeline.semantic_search(file_ids=[process_output["file_id"]],
                                                 query="hello world")
             api_message = api_output["message"]
             time.sleep(time_step)

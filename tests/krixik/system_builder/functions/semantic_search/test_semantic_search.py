@@ -1,4 +1,4 @@
-from tests.krixik.system_builder.functions.vector_search.utilities.setup import load_pipeline
+from tests.krixik.system_builder.functions.semantic_search.utilities.setup import load_pipeline
 from tests.utilities.dynamodb_interactions import check_meter
 import uuid
 import pytest
@@ -14,7 +14,7 @@ def test_1(pipeline):
     with pytest.raises(
         ValueError, match=r".*query is empty - please enter a query\.*"
     ):
-        pipeline.vector_search()
+        pipeline.semantic_search()
 
 
 def test_2(pipeline):
@@ -22,13 +22,13 @@ def test_2(pipeline):
     with pytest.raises(
         ValueError, match=r".*please provide at least one query argument\.*"
     ):
-        pipeline.vector_search(query="hello world")
+        pipeline.semantic_search(query="hello world")
 
 
 def test_3(pipeline, subtests):
     """vector_search succeeds with sort_order ascending, and check on created_at order"""
     with subtests.test(msg="main"):
-        results = pipeline.vector_search(
+        results = pipeline.semantic_search(
             query="hello world",
             symbolic_directory_paths=["/*"],
             sort_order="ascending",
@@ -45,7 +45,7 @@ def test_3(pipeline, subtests):
 def test_4(pipeline, subtests):
     """vector_search succeeds with sort_order descending, and check on created_at order"""
     with subtests.test(msg="main-2"):
-        results = pipeline.vector_search(
+        results = pipeline.semantic_search(
             query="hello world",
             symbolic_directory_paths=["/*"],
             sort_order="descending",
@@ -61,7 +61,7 @@ def test_4(pipeline, subtests):
 
 def test_5(pipeline):
     """test vector_search with sort_order = global"""
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query="hello world",
         symbolic_directory_paths=["/*"],
         sort_order="global",
@@ -83,7 +83,7 @@ def test_6(pipeline, subtests):
 
     with subtests.test(msg="non extant symbolic_directory_path"):
         # non extant file_name
-        results = pipeline.vector_search(
+        results = pipeline.semantic_search(
             query=query, file_names=["a file that does not exist.txt"]
         )
         assert results["status_code"] == 200
@@ -94,7 +94,7 @@ def test_6(pipeline, subtests):
 
     with subtests.test(msg="non extant symbolic_file_path"):
         # non extant symbolic_directory_path
-        results = pipeline.vector_search(
+        results = pipeline.semantic_search(
             query=query, symbolic_directory_paths=["/a/proper/file/path/to/nowwhere"]
         )
         assert results["status_code"] == 200
@@ -104,7 +104,7 @@ def test_6(pipeline, subtests):
 
     with subtests.test(msg="non extant symbolic_file_path"):
         # non extant symbolic_file_path
-        results = pipeline.vector_search(
+        results = pipeline.semantic_search(
             query=query,
             symbolic_file_paths=[
                 "/a/proper/file/path/to/nowwhere/a file that does not exist.txt"
@@ -119,7 +119,7 @@ def test_6(pipeline, subtests):
     with subtests.test(msg="non extant file_id"):
         # non extant file_id
         fake_file_id = str(uuid.uuid4())
-        results = pipeline.vector_search(query=query, file_ids=[fake_file_id])
+        results = pipeline.semantic_search(query=query, file_ids=[fake_file_id])
         assert results["status_code"] == 200
         assert len(results["items"]) == 0
 
@@ -134,7 +134,7 @@ def test_7(pipeline):
     all_items = pipeline.list(symbolic_directory_paths=["/*"])
     test_file_name = all_items["items"][0]["file_name"]
 
-    results = pipeline.vector_search(query=query, file_names=[test_file_name])
+    results = pipeline.semantic_search(query=query, file_names=[test_file_name])
     assert results["status_code"] == 200
 
 
@@ -146,7 +146,7 @@ def test_8(pipeline):
     all_items = pipeline.list(symbolic_directory_paths=["/*"])
     test_symbolic_directory_path = all_items["items"][0]["symbolic_directory_path"]
 
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query=query, symbolic_directory_paths=[test_symbolic_directory_path]
     )
     assert results["status_code"] == 200
@@ -161,7 +161,7 @@ def test_9(pipeline):
     test_symbolic_directory_path = all_items["items"][0]["symbolic_directory_path"]
     test_symbolic_file_path = test_symbolic_directory_path + "/" + test_file_name
 
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query=query, symbolic_file_paths=[test_symbolic_file_path]
     )
     assert results["status_code"] == 200
@@ -172,7 +172,7 @@ def test_10(pipeline):
     query = "What is the foundation of business"
     test_symbolic_directory_path_stump = "/home/*"
 
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query=query, symbolic_directory_paths=[test_symbolic_directory_path_stump]
     )
     assert results["status_code"] == 200
@@ -188,7 +188,7 @@ def test_11(pipeline):
     file_id = all_items["items"][1]["file_id"]
 
     # run specific query
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query="hello world", file_ids=[file_id], file_names=[file_name]
     )
 
@@ -201,7 +201,7 @@ def test_11(pipeline):
     symbolic_directory_path = all_items["items"][1]["symbolic_directory_path"]
 
     # run specific list
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query="hello world",
         file_names=[file_name],
         symbolic_directory_paths=[symbolic_directory_path],
@@ -211,7 +211,7 @@ def test_11(pipeline):
     assert len(results["items"]) >= 1
 
     # run specific list
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query="hello world",
         file_ids=[file_id],
         symbolic_directory_paths=[symbolic_directory_path],
@@ -236,7 +236,7 @@ def test_12(pipeline):
     assert len(file_ids) > 1
 
     # query for first file_id and second file_name
-    query_results = pipeline.vector_search(
+    query_results = pipeline.semantic_search(
         query="hello world", file_ids=file_ids[:2]
     )
 
@@ -261,7 +261,7 @@ def test_13(pipeline):
     assert len(file_names) > 1
 
     # vector_search for first file_id and second file_name
-    query_results = pipeline.vector_search(
+    query_results = pipeline.semantic_search(
         query="hello world", file_names=file_names[:2]
     )
 
@@ -283,7 +283,7 @@ def test_14(pipeline):
     symbolic_directory_paths = list(set(symbolic_directory_paths))
 
     # query for first file_id and second file_name
-    query_results = pipeline.vector_search(
+    query_results = pipeline.semantic_search(
         query="hello world", symbolic_directory_paths=symbolic_directory_paths
     )
 
@@ -295,7 +295,7 @@ def test_15(pipeline):
     """success with vector search using multiple symbolic_directory_path stumps"""
     symbolic_directory_paths = ["/etc/*", "/my/*", "/home/*"]
 
-    query_results = pipeline.vector_search(
+    query_results = pipeline.semantic_search(
         query="hello world", symbolic_directory_paths=symbolic_directory_paths
     )
     assert query_results["status_code"] == 200
@@ -303,13 +303,13 @@ def test_15(pipeline):
 
 def test_16(pipeline):
     """success with vector search using file_name previx"""
-    query_results = pipeline.vector_search(query="hello world", file_names=["my*"])
+    query_results = pipeline.semantic_search(query="hello world", file_names=["my*"])
     assert query_results["status_code"] == 200
     
     
 def test_17(pipeline):
     """success with vector and keyword search using file_name suffix"""
-    query_results = pipeline.vector_search(
+    query_results = pipeline.semantic_search(
         query="hello world", file_names=["*.txt"]
     )
     assert query_results["status_code"] == 200
@@ -317,7 +317,7 @@ def test_17(pipeline):
 
 def test_18(pipeline):
     """success with vector and keyword search using file_name substring"""
-    query_results = pipeline.vector_search(
+    query_results = pipeline.semantic_search(
         query="hello world", file_names=["*life*"]
     )
 
@@ -336,7 +336,7 @@ def test_19(pipeline):
     item_last_updated = item["last_updated"]
 
     # try searching and recovering this file by created_at_end
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query="hello world", created_at_end=item_created_at
     )
 
@@ -350,7 +350,7 @@ def test_19(pipeline):
     assert item_id in item_ids
     
     # try searching and recovering this file by last_updated_end
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query="hello world", last_updated_end=item_last_updated
     )
 
@@ -373,7 +373,7 @@ test_data = [
 @pytest.mark.parametrize("file_tags, expected_output", test_data)
 def test_20(pipeline, file_tags, expected_output):
     """success with keyword search using file_tags stump"""
-    results = pipeline.vector_search(query="hello world", file_tags=file_tags)
+    results = pipeline.semantic_search(query="hello world", file_tags=file_tags)
     assert results["status_code"] == expected_output
 
     if file_tags == [{"book_category": "*"}]:
@@ -392,11 +392,11 @@ def test_21(pipeline):
     # define k_bar
     k_bar = 5
     query = "what is the foundation of business"
-    first_query_results = pipeline.vector_search(
+    first_query_results = pipeline.semantic_search(
         query=query, symbolic_file_paths=[symbolic_file_path], k=k_bar
     )["items"][0]["search_results"][:k_bar]
 
-    second_query_results = pipeline.vector_search(
+    second_query_results = pipeline.semantic_search(
         query=query, symbolic_file_paths=[symbolic_file_path], k=k_bar + 1
     )["items"][0]["search_results"][:k_bar]
 
@@ -405,11 +405,11 @@ def test_21(pipeline):
     # define k_bar
     k_bar = 5
     query = "real knowledge comes from work"
-    first_query_results = pipeline.vector_search(
+    first_query_results = pipeline.semantic_search(
         query=query, symbolic_file_paths=[symbolic_file_path], k=k_bar
     )["items"][0]["search_results"][:k_bar]
 
-    second_query_results = pipeline.vector_search(
+    second_query_results = pipeline.semantic_search(
         query=query, symbolic_file_paths=[symbolic_file_path], k=k_bar + 1
     )["items"][0]["search_results"][:k_bar]
 
@@ -425,7 +425,7 @@ def test_22(pipeline):
 
     # search for hello world in all files
     k = 5
-    search_results = pipeline.vector_search(
+    search_results = pipeline.semantic_search(
         query="hello world", file_ids=list_file_ids, k=k
     )
 
@@ -445,7 +445,7 @@ def test_22(pipeline):
 def test_23(pipeline):
     """alignment of file_id returns of list and query with same symbolic_directory_path stump"""
     def vector_search(symbolic_directory_path: str):
-        output = pipeline.vector_search(
+        output = pipeline.semantic_search(
             query="hello world", symbolic_directory_paths=[symbolic_directory_path]
         )
         items = output["items"]
@@ -478,7 +478,7 @@ test_data = [
     
 def test_24(pipeline):
     """Ordinal checks of vector_search"""
-    file_output_data = pipeline.vector_search(
+    file_output_data = pipeline.semantic_search(
         symbolic_directory_paths=[f"/*"], query="hello world", max_files=1, k=5
     )
     search_results = file_output_data["items"][0]["search_results"]
@@ -495,7 +495,7 @@ def test_24(pipeline):
 def test_25(pipeline):
     """failure of both vector search when no query provided"""
     with pytest.raises(ValueError, match=r".*query is empty\.*"):
-        pipeline.vector_search(
+        pipeline.semantic_search(
             symbolic_directory_paths=["/*"], sort_order="ascending", max_files=10
         )
 
@@ -505,7 +505,7 @@ def test_26(pipeline):
     with pytest.raises(
         ValueError, match=r".*please provide at least one query argument\.*"
     ):
-        pipeline.vector_search(query="hello world")
+        pipeline.semantic_search(query="hello world")
         
         
 def test_27(pipeline):
@@ -519,7 +519,7 @@ def test_27(pipeline):
     symbolic_directory_path = all_items["items"][0]["symbolic_directory_path"]
 
     fake_file_name = "not a real file name.txt"
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query=query, file_ids=[file_id], file_names=[fake_file_name]
     )
     assert results["status_code"] == 200
@@ -530,7 +530,7 @@ def test_27(pipeline):
 
     # dne symbolic_directory_path
     fake_symbolic_directory_path = "/oh/hi/there"
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query=query,
         file_names=[file_name],
         symbolic_directory_paths=[fake_symbolic_directory_path],
@@ -545,7 +545,7 @@ def test_27(pipeline):
 
     # dne file_id
     fake_file_id = str(uuid.uuid4())
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query=query,
         file_ids=[fake_file_id],
         symbolic_directory_paths=[symbolic_directory_path],
@@ -570,7 +570,7 @@ def test_28(pipeline):
     item_created_at = first_item["created_at"]
 
     # try searching and recovering this file by created_at_end
-    result = pipeline.vector_search(
+    result = pipeline.semantic_search(
         query="hello world",
         symbolic_directory_paths=["/*"],
         created_at_end=item_created_at,
@@ -587,7 +587,7 @@ def test_29(pipeline):
     listing_file_ids = [file_ids[0], file_ids[0], file_ids[1]]
 
     # vector search
-    results = pipeline.vector_search(
+    results = pipeline.semantic_search(
         query="hello", file_ids=listing_file_ids, verbose=False
     )
     assert results["status_code"] == 200

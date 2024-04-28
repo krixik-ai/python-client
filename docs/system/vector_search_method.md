@@ -1,11 +1,11 @@
-## the `.vector_search` method
+## the `.semantic_search` method
 
 krixik's `vector_search` method is a convenience function for both embedding and querying - and so can be used with pipelines containing both `text-embedder` and `vector-db` modules in succession.
 
 A table of contents for this section is shown below.
 
 - [a simple vector search pipeline](#a-simple-vector-db-pipeline)
-- [invoking the `.vector_search`  method](#invoking-the-vector_search-method)
+- [invoking the `.semantic_search`  method](#invoking-the-vector_search-method)
 
 
 ### a simple vector search pipeline
@@ -30,7 +30,7 @@ custom = CreatePipeline(name='vector-db-pipeline-1',
 pipeline = krixik.load_pipeline(pipeline=custom)
 ```
 
-### invoking the `.vector_search`  method
+### invoking the `.semantic_search`  method
 
 We can now perform any of the core system methods on our custom pipeline (e.g., `.process`, `.list`, etc.,).  Additionally we can invoke the `vector_search` method.
 
@@ -79,7 +79,7 @@ Let's look at an example.
 
 ```python
 # perform vector_search over the input file
-vector_output = pipeline.vector_search(query="it was cold night",
+vector_output = pipeline.semantic_search(query="it was cold night",
                                         file_ids=[process_output["file_id"]])
 
 # nicely print the output of this process
