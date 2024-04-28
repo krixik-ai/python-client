@@ -1336,7 +1336,7 @@ Here we can see one returned search result in `items`, as well as stop words rem
 
 ## the `.vector_search` method
 
-The `.vector_search` method can be used with any pipeline that ends with `vector-search` module.
+krixik's `.vector_search` method is a convenience function for both embedding and querying - and can be used with any pipeline containing a consecutive pair of []`text-embedder`](LINK HERE) and [`vector-search`](LINK HERE) modules.
 
 ### a simple vector search pipeline
 

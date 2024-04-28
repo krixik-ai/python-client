@@ -1,6 +1,6 @@
 ## the `.vector_search` method
 
-The `.vector_search` method can be used with any pipeline that ends with `vector-search` module.
+krixik's `vector_search` method is a convenience function for both embedding and querying - and so can be used with pipelines containing both `text-embedder` and `vector-search` modules in succession.
 
 A table of contents for this section is shown below.
 

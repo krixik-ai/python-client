@@ -13,8 +13,8 @@ nav:
       - 'the update method': system/update.md
       - 'the delete method': system/delete.md
       - 'the show_tree method': system/show_tree.md
-      - 'the keyword_search method': system/keyword_search.md
-      - 'the vector_search method': system/vector_search.md
+      - 'the keyword_search method': system/keyword_search_method.md
+      - 'the vector_search method': system/vector_search_method.md
     - pipeline builder:
       - 'introduction': pipeline_builder/introduction.md
       - 'view modules': pipeline_builder/existing_modules.md
