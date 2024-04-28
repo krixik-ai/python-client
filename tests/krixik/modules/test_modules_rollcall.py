@@ -14,4 +14,7 @@ test_dir_available_modules.sort()
 
 def test_available_modules():
     """ensure that modules directories in krixik and test are the same"""
+    print(f'available_modules {available_modules}')
+    print(f'test_dir_available_modules {test_dir_available_modules}')
+
     assert available_modules == test_dir_available_modules
