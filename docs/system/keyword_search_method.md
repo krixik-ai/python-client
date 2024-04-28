@@ -7,7 +7,6 @@ A table of contents for this section is shown below.
 - [a simple keyword search pipeline](#a-simple-keyword-search-pipeline)
 - [invoking the `.keyword_search`  method](#invoking-the-keyword_search-method)
 
-
 ### a simple keyword search pipeline
 
 Below we construct the simplest custom pipeline that satisfies this criteria - a pipeline consisting of the `keyword-search` module alone.
@@ -73,7 +72,9 @@ Here the `process_output` key value is `null` since the return object is a datab
 
 With `.process` complete we can run `keyword_search` on our input file. 
 
-The `keyword_search` method takes in the exact same arguments as [the `.list` method](list.md) - that is `file_ids`, `file_names`, etc., - plus one additional argument: `query`.  The `query` is a string of words to be queried individually.
+The `keyword_search` method takes in the exact same arguments as [the `.list` method](list.md) - that is `file_ids`, `file_names`, etc., - plus one additional argument: `query`.  
+
+`keyword_search` takes in a input argument `query` containing desired keywords separated by spaces, and searches through your database(s) for these keywords as well as their lemmatized stems.
 
 Let's look at an example.
 
