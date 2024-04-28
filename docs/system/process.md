@@ -154,12 +154,13 @@ These optional do not change how `.process` runs or treats input / output data -
 
 Optional inputs include
 
+- `modules`: model and parameter selections for pipeline modules
 - `symbolic_directory_path` - a unix formatted directory path (default is `/etc`)
 - `file_name` - a custom file name (randomly assigned name by default)
 - `file_tags` - a list of custom file tags (none by default)
 - `file_description` - a custom file description (none by default)
 
-The first three of these  - `symbolic_directory_path`, `file_name`, and `file_tags` - can be used to retrieve the record of your process at a later time using the [`.list` method](list.md).  They can also be used as filters for search if your pipeline ends with a `keyword-search` [LINK HERE] or `vector-search` [LINK HERE] module.
+These three arguments  - `symbolic_directory_path`, `file_name`, and `file_tags` - can be used to retrieve the record of your process at a later time using the [`.list` method](list.md).  They can also be used as filters for search if your pipeline ends with a `keyword-search` [LINK HERE] or `vector-search` [LINK HERE] module.
 
 The `file_description` can be used to provide a description of the file.
 
@@ -170,7 +171,7 @@ Lets use the `.process` method with and without these arguments.
 # define path to an input file from examples directory
 test_file = "../../examples/input_data/1984_very_short.txt"
 
-# process for search
+# process for parser
 process_output = pipeline.process(local_file_path = test_file,
                                   local_save_directory=".", # save output in current directory
                                   expire_time=60*5,         # set all process data to expire in 5 minutes
@@ -180,6 +181,30 @@ process_output = pipeline.process(local_file_path = test_file,
                                   file_name = "some_snippets.txt",
                                   file_tags = [{"author": "orwell"}, {"category": "fiction"}],
                                   file_description = "the first paragraph of 1984")
+```
+
+The `modules` argument is optional since when not set default model options are made for each module in a pipeline.
+
+To use any non-default model you must define the `modules` input argument when using `.process`.  
+
+For example, the `parser` module has a secondary model called `fixed` which takes in two parameters.  You can employ it in an invocation of `.process` like this (see the [`parser` example](LINK HERE) for further information).
+
+```python
+# process using parser
+process_output = pipeline.process(local_file_path = test_file,
+                                  local_save_directory=".", # save output in current directory
+                                  expire_time=60*5,         # set all process data to expire in 5 minutes
+                                  wait_for_process=True,    # wait for process to complete before regaining ide
+                                  verbose=False,            # set verbosity to False
+                                  symbolic_directory_path = "/my/custom/filepath",
+                                  file_name = "some_snippets.txt",
+                                  file_tags = [{"author": "orwell"}, {"category": "fiction"}],
+                                  file_description = "the first paragraph of 1984",
+                                  modules={"parser":{"model":"fixed",
+                                                     "params":{
+                                                         "chunk_size": 10,
+                                                         "overlap_size": 2
+                                                     }}})
 ```
 
 ### defaults when using `.process`

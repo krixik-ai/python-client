@@ -6,10 +6,8 @@ module:
       params: 
         chunk_size:
           type: int    # define limits and any contstraints in your associated validator
-          default: 10
         overlap_size:
           type: int    # define limits and any contstraints in your associated validator
-          default: 2
   input: 
     type: text
   output: 
