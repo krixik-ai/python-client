@@ -2,6 +2,13 @@ site_name: krixik docs
 nav:
   - Home: index.md
   - About: about.md
+  - Quickstart: quickstart.md
+  - Pipeline examples:
+    - single module:
+      - 'parser': parser.md
+      - 'json-to-txt': json-to-txt.md
+      - 'keyword-db': keyword-db.md
+      - 'vector-db': vector-db.md
   - System:
     - methods:
       - 'introduction': system/introduction.md
