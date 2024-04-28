@@ -6,7 +6,7 @@ Easily consume modular AI pipelines from a secure API, in python.
  
 - [Introduction to krixik](#introduction-to-krixik)
 - [Two popular modular AI pipelines](#two-popular-ai-pipelines)
-    - [Vector search pipeline](#vector-search-pipeline)
+    - [Vector search pipeline](#vector-db-pipeline)
     - [Transcription pipeline](#transcription-pipeline)
 - [Introduction to the krixik cli](#introduction-to-the-krixik-cli)
 - [Register an account](#register-an-account)

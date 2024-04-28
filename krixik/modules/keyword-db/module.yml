@@ -1,10 +1,10 @@
 module:
-  name: keyword-search
+  name: keyword-db
   models: 
-    - name: base
+    - name: sqlite
   input: 
     type: text
   output:
     type: db
   defaults:
-    model: base
+    model: sqlite

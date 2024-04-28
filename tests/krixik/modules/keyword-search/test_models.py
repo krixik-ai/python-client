@@ -1,9 +1,9 @@
 import importlib
 import pytest
 
-module = importlib.import_module("krixik.modules.keyword-search")
+module = importlib.import_module("krixik.modules.keyword-db")
 module_config = module.module_config
-module_selector = importlib.import_module("krixik.modules.keyword-search.models")
+module_selector = importlib.import_module("krixik.modules.keyword-db.models")
 model_selection_setup = module_selector.model_selection_setup
 test_data = importlib.import_module("tests.krixik.modules")
 baseline_test_failue_data = test_data.baseline_failure_model_data

@@ -6,8 +6,8 @@ import pytest
 
 
 test_failure_data = [
-    ["vector-search", "text-embedder"],
-    ["parser", "vector-search"],
+    ["vector-db", "text-embedder"],
+    ["parser", "vector-db"],
 ]
 
 
@@ -20,7 +20,7 @@ def test_1(module_names):
 
 
 test_success_data = [
-    ["parser", "text-embedder", "vector-search"],
+    ["parser", "text-embedder", "vector-db"],
     ["transcribe", "translate"],
 ]
 
@@ -34,11 +34,11 @@ def test_2(module_names):
 
 test_failure_local_paths = [
     (
-        ["parser", "text-embedder", "vector-search"],
+        ["parser", "text-embedder", "vector-db"],
         text_files_path + "not a real file.txt",
     ),
     (
-        ["parser", "text-embedder", "vector-search"],
+        ["parser", "text-embedder", "vector-db"],
         audio_files_path + "Is AI Actually Useful short.mp3",
     ),
     (["transcribe", "translate"], text_files_path + "1984_short.txt"),
@@ -56,7 +56,7 @@ def test_3(module_names, local_file_path):
 
 test_success_local_paths = [
     (
-        ["parser", "text-embedder", "vector-search"],
+        ["parser", "text-embedder", "vector-db"],
         text_files_path + "1984_short.txt",
     ),
     (
@@ -76,8 +76,8 @@ def test_4(module_names, local_file_path):
 
 test_success_local_paths = [
     (
-        ["parser", "text-embedder", "vector-search"],
-        "vector-search-pipeline.yml",
+        ["parser", "text-embedder", "vector-db"],
+        "vector-db-pipeline.yml",
     ),
 ]
 

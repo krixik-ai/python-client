@@ -1,16 +1,16 @@
 ## the `.vector_search` method
 
-krixik's `vector_search` method is a convenience function for both embedding and querying - and so can be used with pipelines containing both `text-embedder` and `vector-search` modules in succession.
+krixik's `vector_search` method is a convenience function for both embedding and querying - and so can be used with pipelines containing both `text-embedder` and `vector-db` modules in succession.
 
 A table of contents for this section is shown below.
 
-- [a simple vector search pipeline](#a-simple-vector-search-pipeline)
+- [a simple vector search pipeline](#a-simple-vector-db-pipeline)
 - [invoking the `.vector_search`  method](#invoking-the-vector_search-method)
 
 
 ### a simple vector search pipeline
 
-Below we construct the simplest custom pipeline that satisfies this criteria - a standard vector search pipeline consisting of three modules: a `parser`, `text-embedder`, and `vector-search` index.
+Below we construct the simplest custom pipeline that satisfies this criteria - a standard vector search pipeline consisting of three modules: a `parser`, `text-embedder`, and `vector-db` index.
 
 ```python
 # import custom module creation tools
@@ -20,10 +20,10 @@ from krixik.pipeline_builder.pipeline import CreatePipeline
 # instantiate module
 module_1 = Module(module_type="parser")
 module_2 = Module(module_type="text-embedder")
-module_3 = Module(module_type="vector-search")
+module_3 = Module(module_type="vector-db")
 
 # create custom pipeline object
-custom = CreatePipeline(name='vector-search-pipeline-1', 
+custom = CreatePipeline(name='vector-db-pipeline-1', 
                         module_chain=[module_1, module_2, module_3])
 
 # pass the custom object to the krixik operator (note you can also do this by passing its config)
@@ -34,7 +34,7 @@ pipeline = krixik.load_pipeline(pipeline=custom)
 
 We can now perform any of the core system methods on our custom pipeline (e.g., `.process`, `.list`, etc.,).  Additionally we can invoke the `vector_search` method.
 
-Lets first process a file with our new pipeline.  The `vector-search` module takes in a text file, and returns `faiss` vector database consisting of all non-trivial `(snippet, line_numbers)` tuples from the input.
+Lets first process a file with our new pipeline.  The `vector-db` module takes in a text file, and returns `faiss` vector database consisting of all non-trivial `(snippet, line_numbers)` tuples from the input.
 
 
 ```python
@@ -54,7 +54,7 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "vector-search-pipeline-1",
+      "pipeline": "vector-db-pipeline-1",
       "request_id": "1a09068c-872a-4389-a399-7281e2d1764e",
       "file_id": "f69aac3d-e674-45d5-ab33-f16196ce82b2",
       "message": "SUCCESS - output fetched for file_id f69aac3d-e674-45d5-ab33-f16196ce82b2.Output saved to location(s) listed in process_output_files.",

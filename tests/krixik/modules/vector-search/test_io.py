@@ -3,7 +3,7 @@
 # import pytest
 
 # test_success_data = [
-#      ("vector-search", f"{json_files_path}/valid.npy"),
+#      ("vector-db", f"{json_files_path}/valid.npy"),
 #  ]
 
 # @pytest.mark.parametrize("module_name, file_path", test_success_data)
@@ -12,7 +12,7 @@
 
 
 # test_failure_data = [
-#     ("vector-search", f"{json_files_path}/invalid_1.npy"),
+#     ("vector-db", f"{json_files_path}/invalid_1.npy"),
 # ]
 
 # @pytest.mark.parametrize("module_name, file_path", test_failure_data)

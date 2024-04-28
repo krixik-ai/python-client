@@ -96,10 +96,13 @@ class krixik:
                 
         pipeline_object.test_input = custom_pipeline.test_input
         
-        if custom_pipeline.module_chain[-1] == "vector-search":
-            pipeline_object.vector_search = types.MethodType(vector_search, pipeline_object)
+        if custom_pipeline.module_chain[-1] == "vector-db":
+            if len(custom_pipeline.module_chain) > 1:
+                if custom_pipeline.module_chain[-2] == "text-embedder":
+                    pipeline_object.vector_search = types.MethodType(vector_search, pipeline_object)
 
-        if custom_pipeline.module_chain[-1] == "keyword-search":
+
+        if custom_pipeline.module_chain[-1] == "keyword-db":
             pipeline_object.keyword_search = types.MethodType(keyword_search, pipeline_object)
         
         return pipeline_object

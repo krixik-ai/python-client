@@ -15,7 +15,7 @@ krixik.available_modules
 
     ['caption',
      'json-to-txt',
-     'keyword-search',
+     'keyword-db',
      'ocr',
      'parser',
      'sentiment',
@@ -23,5 +23,5 @@ krixik.available_modules
      'text-embedder',
      'transcribe',
      'translate',
-     'vector-search']
+     'vector-db']
 

@@ -9,6 +9,6 @@ from krixik.pipeline_builder.module import Module
 # create a few modules
 module_1 = Module(module_type='transcribe')
 module_2 = Module(module_type='text-embedder')
-module_3 = Module(module_type="vector-search")
+module_3 = Module(module_type="vector-db")
 module_4 = Module(module_type="parser")
 ```

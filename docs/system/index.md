@@ -57,11 +57,11 @@ A table of contents for the remainder of this document is shown below.
 - [the `.delete` method](#the-delete-method)
 - [the `.show_tree` method](#the-show_tree-method)
 - [the `.keyword_search` method](#the-keyword_search-method)
-    [a simple keyword search pipeline](#a-simple-keyword-search-pipeline)
-    [invoking the `keyword_search`  method](#invoking-the-keyword-search-method)
+    [a simple keyword search pipeline](#a-simple-keyword-db-pipeline)
+    [invoking the `keyword_search`  method](#invoking-the-keyword-db-method)
 - [the `.vector_search` method](#the-vector_search-method)
-    [a simple vector search pipeline](#a-simple-vector-search-pipeline)
-    [invoking the `vector_search`  method](#invoking-the-vector-search-method)
+    [a simple vector search pipeline](#a-simple-vector-db-pipeline)
+    [invoking the `vector_search`  method](#invoking-the-vector-db-method)
 
 ## Base pipeline setup
 
@@ -240,7 +240,7 @@ Optional inputs include
 - `file_tags` - a list of custom file tags (none by default)
 - `file_description` - a custom file description (none by default)
 
-These three arguments  - `symbolic_directory_path`, `file_name`, and `file_tags` - can be used to retrieve the record of your process at a later time using the [`.list` method](list.md).  They can also be used as filters for search if your pipeline ends with a `keyword-search` [LINK HERE] or `vector-search` [LINK HERE] module.
+These three arguments  - `symbolic_directory_path`, `file_name`, and `file_tags` - can be used to retrieve the record of your process at a later time using the [`.list` method](list.md).  They can also be used as filters for search if your pipeline ends with a `keyword-db` [LINK HERE] or `vector-db` [LINK HERE] module.
 
 The `file_description` can be used to provide a description of the file.
 
@@ -1216,11 +1216,11 @@ show_tree_output = pipeline.show_tree(symbolic_directory_path='/*')
 
 ## the `.keyword_search` method
 
-The `.keyword_search` method can be used with any pipeline that ends with `keyword-search` module.
+The `.keyword_search` method can be used with any pipeline that ends with `keyword-db` module.
 
 ### a simple keyword search pipeline
 
-Below we construct the simplest custom pipeline that satisfies this criteria - a pipeline consisting of the `keyword-search` module alone.
+Below we construct the simplest custom pipeline that satisfies this criteria - a pipeline consisting of the `keyword-db` module alone.
 
 
 ```python
@@ -1229,10 +1229,10 @@ from krixik.pipeline_builder.module import Module
 from krixik.pipeline_builder.pipeline import CreatePipeline
 
 # instantiate module
-module_1 = Module(module_type="keyword-search")
+module_1 = Module(module_type="keyword-db")
 
 # create custom pipeline object
-custom = CreatePipeline(name='keyword-search-pipeline-1', 
+custom = CreatePipeline(name='keyword-db-pipeline-1', 
                         module_chain=[module_1])
 
 # pass the custom object to the krixik operator (note you can also do this by passing its config)
@@ -1243,7 +1243,7 @@ pipeline = krixik.load_pipeline(pipeline=custom)
 
 We can now perform any of the core system methods on our custom pipeline (e.g., `.process`, `.list`, etc.,).  Additionally we can invoke the `keyword_search` method.
 
-Lets first process a file with our new pipeline.  The `keyword-search` module takes in a text file, and returns `sqlite` keyword database consisting of all non-trivial `(keyword, line_number, token_number)` tuples from the input.
+Lets first process a file with our new pipeline.  The `keyword-db` module takes in a text file, and returns `sqlite` keyword database consisting of all non-trivial `(keyword, line_number, token_number)` tuples from the input.
 
 
 ```python
@@ -1265,7 +1265,7 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "keyword-search-pipeline-1",
+      "pipeline": "keyword-db-pipeline-1",
       "request_id": "d1a2cfe0-2d28-41ff-93bb-c262cc2bcab4",
       "file_id": "83279d22-2f50-48fd-8650-f8a58e7ce103",
       "message": "SUCCESS - output fetched for file_id 83279d22-2f50-48fd-8650-f8a58e7ce103.Output saved to location(s) listed in process_output_files.",
@@ -1336,11 +1336,11 @@ Here we can see one returned search result in `items`, as well as stop words rem
 
 ## the `.vector_search` method
 
-krixik's `.vector_search` method is a convenience function for both embedding and querying - and can be used with any pipeline containing a consecutive pair of []`text-embedder`](LINK HERE) and [`vector-search`](LINK HERE) modules.
+krixik's `.vector_search` method is a convenience function for both embedding and querying - and can be used with any pipeline containing a consecutive pair of []`text-embedder`](LINK HERE) and [`vector-db`](LINK HERE) modules.
 
 ### a simple vector search pipeline
 
-Below we construct the simplest custom pipeline that satisfies this criteria - a standard vector search pipeline consisting of three modules: a `parser`, `text-embedder`, and `vector-search` index.
+Below we construct the simplest custom pipeline that satisfies this criteria - a standard vector search pipeline consisting of three modules: a `parser`, `text-embedder`, and `vector-db` index.
 
 
 ```python
@@ -1351,10 +1351,10 @@ from krixik.pipeline_builder.pipeline import CreatePipeline
 # instantiate module
 module_1 = Module(module_type="parser")
 module_2 = Module(module_type="text-embedder")
-module_3 = Module(module_type="vector-search")
+module_3 = Module(module_type="vector-db")
 
 # create custom pipeline object
-custom = CreatePipeline(name='vector-search-pipeline-1', 
+custom = CreatePipeline(name='vector-db-pipeline-1', 
                         module_chain=[module_1, module_2, module_3])
 
 # pass the custom object to the krixik operator (note you can also do this by passing its config)
@@ -1365,7 +1365,7 @@ pipeline = krixik.load_pipeline(pipeline=custom)
 
 We can now perform any of the core system methods on our custom pipeline (e.g., `.process`, `.list`, etc.,).  Additionally we can invoke the `vector_search` method.
 
-Lets first process a file with our new pipeline.  The `vector-search` module takes in a text file, and returns `faiss` vector database consisting of all non-trivial `(snippet, line_numbers)` tuples from the input.
+Lets first process a file with our new pipeline.  The `vector-db` module takes in a text file, and returns `faiss` vector database consisting of all non-trivial `(snippet, line_numbers)` tuples from the input.
 
 
 ```python
@@ -1385,7 +1385,7 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "vector-search-pipeline-1",
+      "pipeline": "vector-db-pipeline-1",
       "request_id": "1a09068c-872a-4389-a399-7281e2d1764e",
       "file_id": "f69aac3d-e674-45d5-ab33-f16196ce82b2",
       "message": "SUCCESS - output fetched for file_id f69aac3d-e674-45d5-ab33-f16196ce82b2.Output saved to location(s) listed in process_output_files.",

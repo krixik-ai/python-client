@@ -2,7 +2,7 @@ import importlib
 from krixik.modules.utilities.model import base_model_setup
 from krixik.modules.utilities.model_selection import ModelSelection
 
-module = importlib.import_module("krixik.modules.keyword-search")
+module = importlib.import_module("krixik.modules.vector-db")
 module_config = module.module_config
 available_models = module_config["available_models"]
 default_model = module_config["default_model"]

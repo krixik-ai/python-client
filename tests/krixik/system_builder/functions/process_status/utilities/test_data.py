@@ -9,16 +9,16 @@ test_data = {
 }
 
 test_data_multi = {
-    "standard-vector-search": [
+    "standard-vector-db": [
         {"local_file_path": f"{text_files_path}1984_short.txt"}
     ],
-    "transcribe-translate-vector-search": [
+    "transcribe-translate-vector-db": [
         {"local_file_path": f"{audio_files_path}valid_1.mp3"}
     ],
 }
 
 test_failure_data = {
-    "standard-vector-search": [
+    "standard-vector-db": [
         {"local_file_path": f"{text_files_path}random_chars.txt"}
     ],
 }

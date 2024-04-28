@@ -2,7 +2,7 @@
 
 Let's build a standard text search pipeline using modules.
  
-First we instantiate our modules - here we need the `parser`, `text-embedder`, and `vector-search` modules.  The `parser` currently takes care of setting up `keyword-search`.
+First we instantiate our modules - here we need the `parser`, `text-embedder`, and `vector-db` modules.  The `parser` currently takes care of setting up `keyword-db`.
 
 
 ```python
@@ -11,18 +11,18 @@ from krixik.pipeline_builder.module import Module
 # define a text search pipeline using modules
 parser = Module(module_type='parser')
 text_embedder = Module(module_type='text-embedder')
-vector_search = Module(module_type='vector-search')
+vector_search = Module(module_type='vector-db')
 ```
 
 We want to make a pipeline from these four modules that looks like this
 
-`parser` --> `text-embedder` --> `vector-search`
+`parser` --> `text-embedder` --> `vector-db`
 
 That is, a sequence of discrete processing steps:
 
 - the `parser` module takes a *json* file as *input* and outputs a *json* file of text snippets
 - the `text-embedder` processes as *input* the *json* output from the `parser`'s and produces numpy *output*
-- the `vector-search` module takes as *input* the numpy *output* from `text-embedder` and produces a vector index as *output*
+- the `vector-db` module takes as *input* the numpy *output* from `text-embedder` and produces a vector index as *output*
 
 With our modules instantiated they can be added one a time using pipeline's `.add` api, or all together at instantiation of the pipeline.  
 
@@ -40,7 +40,7 @@ Connection or "click-ability" tests are performed on the instantiation of this o
 
 These tests catch incompatible module connections.  For example if we try the pipeline
 
-`vector-search` --> `text-embedder`
+`vector-db` --> `text-embedder`
 
 our instantiation will fail with a message about *why* the connection won't work. 
 
@@ -93,7 +93,7 @@ fail_pipeline = CreatePipeline(name='my-failed-pipeline',
         168 ):
 
 
-    TypeError: format type mismatch between vector-search - whose output format is faiss - and text-embedder - whose input format is json
+    TypeError: format type mismatch between vector-db - whose output format is faiss - and text-embedder - whose input format is json
 
 
 For more details on what's happening with these tests see Section 2 of this document.  For now the details are not critical.

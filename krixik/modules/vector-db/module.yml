@@ -1,5 +1,5 @@
 module:
-  name: vector-search
+  name: vector-db
   models: 
     - name: faiss
   input: 

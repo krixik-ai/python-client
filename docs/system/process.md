@@ -160,7 +160,7 @@ Optional inputs include
 - `file_tags` - a list of custom file tags (none by default)
 - `file_description` - a custom file description (none by default)
 
-These three arguments  - `symbolic_directory_path`, `file_name`, and `file_tags` - can be used to retrieve the record of your process at a later time using the [`.list` method](list.md).  They can also be used as filters for search if your pipeline ends with a `keyword-search` [LINK HERE] or `vector-search` [LINK HERE] module.
+These three arguments  - `symbolic_directory_path`, `file_name`, and `file_tags` - can be used to retrieve the record of your process at a later time using the [`.list` method](list.md).  They can also be used as filters for search if your pipeline ends with a `keyword-db` [LINK HERE] or `vector-db` [LINK HERE] module.
 
 The `file_description` can be used to provide a description of the file.
 

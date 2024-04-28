@@ -13,7 +13,7 @@ text_search_pipeline.module_chain
 
 
 
-    ['parser', 'text-embedder', 'vector-search']
+    ['parser', 'text-embedder', 'vector-db']
 
 
 
@@ -134,7 +134,7 @@ json_print(text_search_pipeline.config)
             }
           },
           {
-            "name": "vector-search",
+            "name": "vector-db",
             "models": [
               {
                 "name": "faiss"

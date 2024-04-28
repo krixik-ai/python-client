@@ -2,7 +2,7 @@
 from tests.krixik.pipeline_examples.single_module.utilities.setup import prep_pipeline_and_data, run_test
 import pytest
 
-module_name = "vector-search"
+module_name = "vector-db"
 all_setup_data = prep_pipeline_and_data(module_name)
 
 @pytest.mark.parametrize("setup_data", all_setup_data)
