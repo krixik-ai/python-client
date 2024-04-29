@@ -11,6 +11,8 @@ nav:
       - 'vector-db': modules/vector-db.md
       - 'transcribe': modules/transcribe.md
       - 'translate': modules/translate.md
+      - 'caption': modules/caption.md
+      - 'ocr': modules/ocr.md
   - System:
     - methods:
       - 'introduction': system/introduction.md
