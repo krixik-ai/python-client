@@ -3,6 +3,8 @@ nav:
   - Home: index.md
   - About: about.md
   - Quickstart: quickstart.md
+  - Pipeline examples:
+    - 'transcription pipeilnes': transcription_examples.md
   - Modules:
     - currently available:
       - 'parser': modules/parser.md
