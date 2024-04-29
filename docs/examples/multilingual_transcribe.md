@@ -22,6 +22,8 @@ krixik.init(api_key = MY_API_KEY,
             api_url = MY_API_URL)
 ```
 
+    SUCCESS: You are now authenticated.
+
 
 This small function prints dictionaries very nicely in notebooks / markdown.
 

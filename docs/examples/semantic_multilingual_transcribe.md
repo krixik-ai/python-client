@@ -1,4 +1,4 @@
-# semantically searchable multi-lingual transcription pipeline
+# semantically searchable multilingual transcription pipeline
 
 This document details a modular pipeline that takes in an audio/video file, transcribes it, translates the transcription into a desired language, and makes the result semantically searchable.
 
@@ -23,7 +23,6 @@ from krixik import krixik
 krixik.init(api_key = MY_API_KEY, 
             api_url = MY_API_URL)
 ```
-
 
 This small function prints dictionaries very nicely in notebooks / markdown.
 
@@ -99,9 +98,12 @@ Video(test_file)
 ```
 
 
+
+
 <video src="../input_data/Interesting Facts About Colombia.mp4" controls  >
       Your browser does not support the <code>video</code> element.
     </video>
+
 
 
 The input video content language content is English.  We will use the `opus-mt-en-es` model of the [`translate`](modules/translate.md) to translate the transcript of this video into Spanish.
@@ -122,24 +124,15 @@ process_output = pipeline.process(local_file_path = test_file,
 
     INFO: Checking that file size falls within acceptable parameters...
     INFO:...success!
-    converted ../input_data/Interesting Facts About Colombia.mp4 to: /var/folders/k9/0vtmhf0s5h56gt15mkf07b1r0000gn/T/tmp5xuokbb_/krixik_converted_version_Interesting Facts About Colombia.mp3
+    converted ../input_data/Interesting Facts About Colombia.mp4 to: /var/folders/k9/0vtmhf0s5h56gt15mkf07b1r0000gn/T/tmpx8cbg3dq/krixik_converted_version_Interesting Facts About Colombia.mp3
     INFO: hydrated input modules: {'transcribe': {'model': 'whisper-tiny', 'params': {}}, 'translate': {'model': 'opus-mt-en-es', 'params': {}}, 'json-to-txt': {'model': 'base', 'params': {}}, 'parser': {'model': 'sentence', 'params': {}}, 'text-embedder': {'model': 'multi-qa-MiniLM-L6-cos-v1', 'params': {'quantize': True}}, 'vector-db': {'model': 'faiss', 'params': {}}}
     INFO: symbolic_directory_path was not set by user - setting to default of /etc
-    INFO: file_name was not set by user - setting to random file name: krixik_generated_file_name_vtwcehmsxh.mp3
+    INFO: file_name was not set by user - setting to random file name: krixik_generated_file_name_zwbfmbgmqs.mp3
     INFO: wait_for_process is set to True.
-    INFO: file will expire and be removed from you account in 300 seconds, at Mon Apr 29 12:25:45 2024 UTC
+    INFO: file will expire and be removed from you account in 300 seconds, at Mon Apr 29 15:16:13 2024 UTC
     INFO: transcribe-translate-semantic-pipeline file process and input processing started...
     INFO: metadata can be updated using the .update api.
-    INFO: This process's request_id is: 91147d41-0b25-651c-6f85-6727d909e68c
-    INFO: File process and processing status:
-    SUCCESS: module 1 (of 6) - transcribe processing complete.
-    SUCCESS: module 2 (of 6) - translate processing complete.
-    SUCCESS: module 3 (of 6) - json-to-txt processing complete.
-    SUCCESS: module 4 (of 6) - parser processing complete.
-    SUCCESS: module 5 (of 6) - text-embedder processing complete.
-    SUCCESS: module 6 (of 6) - vector-db processing complete.
-    SUCCESS: pipeline process complete.
-    SUCCESS: process output downloaded
+    INFO: This process's request_id is: 8fe280e7-afba-a7b2-a167-dab239ccca3e
 
 
 The output of this process is printed below.  Because the output of this particular pipeline is a database file, the process output is shown as null in the output.  The local address of the output file itself has been returned to the address noted in the `process_output_files` key.
@@ -171,7 +164,7 @@ Because our pipeline has `text-embedder` and `vector-db` modules we can semantic
 
 ```python
 # semantically search translated transcription
-search_output = pipeline.semantic_search(query="ellos importan y tu no", 
+search_output = pipeline.semantic_search(query="hechos realmente bsicos", 
                                          file_ids=[process_output["file_id"]])
 
 json_print(search_output)
