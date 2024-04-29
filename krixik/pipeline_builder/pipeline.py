@@ -6,6 +6,7 @@ from krixik.pipeline_builder.module import Module
 from krixik.utilities.validators.data.utilities.decorators import datatype_validator
 from krixik.utilities.validators.data.utilities.read_config import check_inverse_config
 from krixik.modules.utilities.io_validator import is_valid
+from krixik.pipeline_builder.utilities.config_checker import config_check
 
 MAX_MODULES = 10
 
@@ -46,11 +47,6 @@ class CreatePipeline:
         self.__pipeline_config = None
         self.__module_chain_configs = []
         
-        if self.name is not None:
-            if not isinstance(self.name, str):
-                raise ValueError(f"FAILURE: your custom pipeline name - {self.name} - is not a string")
-            if len(self.name) == 0 or len(self.name) > 64:
-                raise ValueError(f"FAILURE: your name - {self.name} - must be greater than 1 and less than 64 characters")
 
         if config_path is not None:
             if not isinstance(config_path, str):

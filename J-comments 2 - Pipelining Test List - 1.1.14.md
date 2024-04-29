@@ -309,11 +309,15 @@ P2.7 - MODULE_CHAIN VALIDITY TESTS [Test with known good matches]
 
  could be interesting try it
 
+
 P2.8 - CREATEPIPELINE CONFIG_PATH TYPE CHECK TESTS
 - As integer
 - As dictionary
 - As boolean
 - As dictionary
+
+unnecessary imo
+
 
 P2.9 - CREATEPIPELINE CONFIG_PATH ARGUMENT VALIDITY TESTS [RANDOMIZE BETWEEN KEYWORD AND POSITIONAL]
 - Random string
@@ -331,6 +335,12 @@ P2.9 - CREATEPIPELINE CONFIG_PATH ARGUMENT VALIDITY TESTS [RANDOMIZE BETWEEN KEY
 - File is fine, but name is a single character
 - File is fine, but name includes Chinese and accented Latin Characters
 - File is fine, but name is impossibly long
+
+
+lol don't even know what to say autism at its best probably unnecessary
+
+look if someone puts in a goofy path taht doesn't exist they 
+
 
 P2.10 - CREATEPIPELINE CONFIG_PATH YAML VALIDITY TESTS [RANDOMIZE BETWEEN .YML AND .YAML]
 - Yaml is re-extensioned from other sort of file
