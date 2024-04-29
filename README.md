@@ -38,6 +38,8 @@ A **model** is a bespoke processing function contained within a module. Many of 
 
 **Parameters** can be set for each module when a pipeline is run and allow for further customization. Each has a default value, so setting them is optional. For instance, one parameterizable item is which specific AI model you want active within a given module.
 
+--
+
 New modules and models will constantly be added to the Krixik library. To see all available modules at any given time, run the following:
 
 ```python
