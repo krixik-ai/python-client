@@ -185,20 +185,20 @@ json_print(process_output)
     {
       "status_code": 200,
       "pipeline": "translate-pipeline-1",
-      "request_id": "9ed6bbb4-bff0-42fa-92f0-258cf0ab7379",
-      "file_id": "afc89e4a-2e0c-4247-bb15-a851bc74a999",
-      "message": "SUCCESS - output fetched for file_id afc89e4a-2e0c-4247-bb15-a851bc74a999.Output saved to location(s) listed in process_output_files.",
+      "request_id": "d8abf348-0780-4786-b9d7-4325b7402847",
+      "file_id": "00ce8caf-9604-4b06-b498-21ccb70f153e",
+      "message": "SUCCESS - output fetched for file_id 00ce8caf-9604-4b06-b498-21ccb70f153e.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": [
         {
-          "translated_snippet": "Me encanta esta pelcula y la vea una y otra vez!"
+          "snippet": "Me encanta esta pelcula y la vea una y otra vez!"
         },
         {
-          "translated_snippet": "El beneficio de explotacin ascendi a 9,4 millones EUR, frente a 11,7 millones EUR en 2004."
+          "snippet": "El beneficio de explotacin ascendi a 9,4 millones EUR, frente a 11,7 millones EUR en 2004."
         }
       ],
       "process_output_files": [
-        "./afc89e4a-2e0c-4247-bb15-a851bc74a999.json"
+        "./00ce8caf-9604-4b06-b498-21ccb70f153e.json"
       ]
     }
 
@@ -213,7 +213,7 @@ with open(process_output['process_output_files'][0], "r") as file:
     print(file.read())  
 ```
 
-    [{"translated_snippet": "Me encanta esta pelcula y la vea una y otra vez!"}, {"translated_snippet": "El beneficio de explotacin ascendi a 9,4 millones EUR, frente a 11,7 millones EUR en 2004."}]
+    [{"snippet": "Me encanta esta pelcula y la vea una y otra vez!"}, {"snippet": "El beneficio de explotacin ascendi a 9,4 millones EUR, frente a 11,7 millones EUR en 2004."}]
 
 
 ### using the spanish to english translation model
@@ -267,20 +267,20 @@ json_print(process_output)
     {
       "status_code": 200,
       "pipeline": "translate-pipeline-1",
-      "request_id": "e55ea141-9175-4527-bfb2-440c8a3025f5",
-      "file_id": "0528d382-8bcd-43cb-a1ac-0c076d7cb31f",
-      "message": "SUCCESS - output fetched for file_id 0528d382-8bcd-43cb-a1ac-0c076d7cb31f.Output saved to location(s) listed in process_output_files.",
+      "request_id": "9a78b0d7-d699-4886-ac67-3622ba73fe37",
+      "file_id": "be556616-4ddd-4228-b504-81d61c605c54",
+      "message": "SUCCESS - output fetched for file_id be556616-4ddd-4228-b504-81d61c605c54.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": [
         {
-          "translated_snippet": "I love this movie and see it over and over again!"
+          "snippet": "I love this movie and see it over and over again!"
         },
         {
-          "translated_snippet": "The operating profit amounted to EUR 9,4 million, compared with EUR 11,7 million in 2004."
+          "snippet": "The operating profit amounted to EUR 9,4 million, compared with EUR 11,7 million in 2004."
         }
       ],
       "process_output_files": [
-        "./0528d382-8bcd-43cb-a1ac-0c076d7cb31f.json"
+        "./be556616-4ddd-4228-b504-81d61c605c54.json"
       ]
     }
 
