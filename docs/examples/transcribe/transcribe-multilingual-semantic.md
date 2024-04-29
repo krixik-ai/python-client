@@ -133,6 +133,15 @@ process_output = pipeline.process(local_file_path = test_file,
     INFO: transcribe-translate-semantic-pipeline file process and input processing started...
     INFO: metadata can be updated using the .update api.
     INFO: This process's request_id is: 8fe280e7-afba-a7b2-a167-dab239ccca3e
+    INFO: File process and processing status:
+    SUCCESS: module 1 (of 6) - transcribe processing complete.
+    SUCCESS: module 2 (of 6) - translate processing complete.
+    SUCCESS: module 3 (of 6) - json-to-txt processing complete.
+    SUCCESS: module 4 (of 6) - parser processing complete.
+    SUCCESS: module 5 (of 6) - text-embedder processing complete.
+    SUCCESS: module 6 (of 6) - vector-db processing complete.
+    SUCCESS: pipeline process complete.
+    SUCCESS: process output downloaded
 
 
 The output of this process is printed below.  Because the output of this particular pipeline is a database file, the process output is shown as null in the output.  The local address of the output file itself has been returned to the address noted in the `process_output_files` key.
@@ -146,13 +155,13 @@ json_print(process_output)
     {
       "status_code": 200,
       "pipeline": "transcribe-translate-semantic-pipeline",
-      "request_id": "4ed11ce5-63de-4d99-8f3c-46d7d0db1448",
-      "file_id": "4e291196-62c3-48f8-8b69-3a0aac85a99f",
-      "message": "SUCCESS - output fetched for file_id 4e291196-62c3-48f8-8b69-3a0aac85a99f.Output saved to location(s) listed in process_output_files.",
+      "request_id": "9665283b-37de-45d1-a642-5fa8335b9154",
+      "file_id": "09726c99-015c-4cd8-8ae9-dc9e354c86e8",
+      "message": "SUCCESS - output fetched for file_id 09726c99-015c-4cd8-8ae9-dc9e354c86e8.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": null,
       "process_output_files": [
-        "/Users/jeremywatt/Desktop/krixik-cli/docs/examples/4e291196-62c3-48f8-8b69-3a0aac85a99f.faiss"
+        "/Users/jeremywatt/Desktop/krixik-cli/docs/examples/09726c99-015c-4cd8-8ae9-dc9e354c86e8.faiss"
       ]
     }
 
@@ -172,55 +181,55 @@ json_print(search_output)
 
     {
       "status_code": 200,
-      "request_id": "6cee11c9-afaa-4e21-9214-7b7a4c214dda",
+      "request_id": "da2b7d61-da08-4cfa-9af8-2893b8f02f8f",
       "message": "Successfully queried 1 user file.",
       "warnings": [],
       "items": [
         {
-          "file_id": "4e291196-62c3-48f8-8b69-3a0aac85a99f",
+          "file_id": "09726c99-015c-4cd8-8ae9-dc9e354c86e8",
           "file_metadata": {
-            "file_name": "krixik_generated_file_name_vtwcehmsxh.mp3",
+            "file_name": "krixik_generated_file_name_zwbfmbgmqs.mp3",
             "symbolic_directory_path": "/etc",
             "file_tags": [],
             "num_vectors": 39,
-            "created_at": "2024-04-29 19:20:46",
-            "last_updated": "2024-04-29 19:20:46"
+            "created_at": "2024-04-29 22:11:14",
+            "last_updated": "2024-04-29 22:11:14"
           },
           "search_results": [
             {
-              "snippet": "Me importa.",
+              "snippet": "Miramos algunos hechos realmente bsicos.",
               "line_numbers": [
                 1
               ],
-              "distance": 0.262
+              "distance": 0.093
             },
             {
-              "snippet": "El canal donde miro las culturas y lugares de la gente.",
+              "snippet": "Bienvenidos de nuevo a los hechos F2D.",
               "line_numbers": [
                 1
               ],
-              "distance": 0.266
+              "distance": 0.267
             },
             {
-              "snippet": "Y tambin en 2007, la UE, la Unin Europea, otorg al caf colombiano una denominacin de origen protegida.",
+              "snippet": "Es interesante el hecho de que en 2007, los principales lugares que equivalan a una zona de amortiguacin de aproximadamente 207.000 hectreas, que se denominan el paisaje cultural del caf, fueron considerados Patrimonio de la Humanidad por la UNESCO.",
               "line_numbers": [
                 1
               ],
-              "distance": 0.272
+              "distance": 0.292
             },
             {
-              "snippet": "Lo s. Ustedes estn ah sentados, cinco dlares dicen que va a hablar de caf.",
+              "snippet": "S. Entonces me estoy pagando por esto.",
               "line_numbers": [
                 1
               ],
-              "distance": 0.279
+              "distance": 0.313
             },
             {
-              "snippet": "Pero si eres nuevo aqu, nete a m todos los lunes para aprender sobre nuevos pases de todo el mundo.",
+              "snippet": "Bueno, lo soy.",
               "line_numbers": [
                 1
               ],
-              "distance": 0.282
+              "distance": 0.337
             }
           ]
         }

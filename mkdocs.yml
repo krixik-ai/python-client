@@ -4,9 +4,11 @@ nav:
   - About: about.md
   - Quickstart: quickstart.md
   - Pipeline examples:
-    - 'transcription pipeilnes': transcription_examples.md
-    - 'multilingual transcription': examples/multilingual_transcribe.md
-    - 'semantically searchable multilingual transcription': examples/semantic_multilingual_transcribe.md
+    - transcribe examples:
+      - 'transcription pipeilnes': transcription_examples.md
+      - 'multilingual transcription': examples/transcribe/transcribe-multilingual.md
+      - 'semantically searchable multilingual transcription': examples/transcribe/transcribe-multilingual-semantic.md
+      - 'transcribe to sentiment analysis': examples/transcribe/transcribe-sentiment.md
   - Modules:
     - currently available:
       - 'parser': modules/parser.md
