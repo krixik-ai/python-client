@@ -112,4 +112,33 @@ def test_6():
     module_names = ['parser'] * (MAX_MODULES + 1)
     module_chain = [Module(module_name) for module_name in module_names]
     with pytest.raises(ValueError):
-        CreatePipeline(module_chain=module_chain)
+        CreatePipeline(name="my_pipeline", module_chain=module_chain)
+        
+
+test_fail_data = [
+    [],
+    "",
+    "a"*65,
+    1
+]
+
+@pytest.mark.parametrize("name", test_fail_data)
+def test_7(name):
+    """fail test that pipeline input name obeys basic type checking"""
+    with pytest.raises((TypeError, ValueError)):
+        CreatePipeline(name=name)
+
+
+test_fail_data = [
+    {},
+    [],
+    [1],
+    [True],
+    1
+]
+
+@pytest.mark.parametrize("chain", test_fail_data)
+def test_8(chain):
+    """fail test that pipeline module_chain obeys basic type checking"""
+    with pytest.raises((TypeError, ValueError)):
+        CreatePipeline(module_chain=chain)

@@ -45,11 +45,27 @@ class CreatePipeline:
         self.__module_chain_output_process_keys = []
         self.__pipeline_config = None
         self.__module_chain_configs = []
+        
+        if self.name is not None:
+            if not isinstance(self.name, str):
+                raise ValueError(f"FAILURE: your custom pipeline name - {self.name} - is not a string")
+            if len(self.name) == 0 or len(self.name) > 64:
+                raise ValueError(f"FAILURE: your name - {self.name} - must be greater than 1 and less than 64 characters")
 
         if config_path is not None:
+            if not isinstance(config_path, str):
+                raise TypeError(f"FAILURE: config_path - {config_path} - not a string")
             self.load(config_path)
 
         if module_chain is not None:
+            if not isinstance(module_chain, list):
+                raise TypeError(f"FAILURE: module_chain - {module_chain} - is not a list")
+            if len(module_chain) == 0:
+                raise ValueError(f"FAIULRE: module_chain - {module_chain} is empty")
+            for item in module_chain:
+                if not isinstance(item, str):
+                    raise TypeError(f"FAILURE: item in module_chain - {item} - is not a string")
+            
             if len(module_chain) > MAX_MODULES:
                 raise ValueError(
                     f"pipelines cannot currently have more than {MAX_MODULES} modules"

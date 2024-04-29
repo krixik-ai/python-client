@@ -21,8 +21,8 @@ P2 - Pipeline tests
 
 P1.1 - AVAILABLE_MODULES TESTS
 1 - Confirm `.available_modules` is working well
-2 - Attempt without .init
-3 - Attempt without internet connection
+2 - Attempt without .init --> SHOULD WORK 
+3 - Attempt without internet connection --> SHOULD WORK
 
 P1.2 - MODULE INSTANTIATION LABEL VALIDITY AND TYPE CHECK TESTS
  - Module label is too long
@@ -34,20 +34,47 @@ P1.2 - MODULE INSTANTIATION LABEL VALIDITY AND TYPE CHECK TESTS
  - Module label is list
  - Module label is string
 
+there's no label for Module at present - by label i imagine you're referring to "custom name"
+
+for the actual name of the module - module_type - you can use this if you want to try out fails
+
+ ```python
+ from krixik.pipeline_builder.module import Module
+
+test_items = ['a',1,True,[],{}]
+
+for item in test_items:
+    try:
+        module_1 = Module(module_type=item)
+    except Exception as e:
+        print(f"FAILURE: item {item} failed with exception {e}")
+```
+
+
 P1.3 - MODULE DUPLICATION TESTS
  - Module name duplication in same code execution (cell)
  - Module name duplication in different code execution (cell)
  - Module type duplication in same code execution (cell)
  - Module type duplicaiton in different code excution (cell)
 
+
+don't understand these
+
+
 P1.4 - MODULE FUNCTION ARGUMENT TESTS
  - Null all arguments
  - Inexistent argument
  - Inexistent argument and `module_type`
 
+try it but unecessary imo
+
+
 P1.5 - RENAMED MODULE_TYPE ARGUMENT TESTS
  - `name` argument by itself
  - `name` argument with `module_type`
+
+ try it but unecessary imo
+
 
 P1.6 - MODULE_TYPE TYPE CHECK AND VALIDITY TESTS
  - As integer
@@ -57,18 +84,45 @@ P1.6 - MODULE_TYPE TYPE CHECK AND VALIDITY TESTS
  - As random string
  - As empty string
 
+try it but unecessary imo - see above
+
+ ```python
+ from krixik.pipeline_builder.module import Module
+
+test_items = ['a',1,True,[],{}]
+
+for item in test_items:
+    try:
+        module_1 = Module(module_type=item)
+    except Exception as e:
+        print(f"FAILURE: item {item} failed with exception {e}")
+```
+
+
+
 P1.7 - MODULE INSTANTIATION WITHOUT .INIT OR INTERNET CONNECTION TESTS
  - Attempt without .init
  - Attempt without internet connection
 
+Module doesn't require init or internet connection
+
+
 P1.8 - .CONFIG PROPERTY ON INEXISTENT MODULE TESTS
  - Attempt on an inexistent module
+
+unnecessary imo
+
 
 P1.9 - .CONFIG PROPERTY ON REPLACED MODULE TESTS
  - Attempt on a module that's been duplicated
 
+not sure what this means
+
+
 P1.10 - .CONFIG PROPERTY ON FAILED MODULE TESTS
  - Attempt on a module whose creation failed
+
+not sure what this means but probably good
 
 P1.11 - .CONFIG PROPERTY ON CURRENT MODULES TESTS
  - On Caption
@@ -83,15 +137,28 @@ P1.11 - .CONFIG PROPERTY ON CURRENT MODULES TESTS
  - On Translate
  - On Vector search
 
+probably unnecssary imo - the same piece of code generates config for any input module - maybe you want to once over each not sure
+
+
  P1.12 - .CONFIG PROPERTY ON MODULE WITHOUT .INIT OR INTERNET CONNECTION TESTS
  - Attempt without .init
  - Attempt without internet connection
 
+
+.config works without .init and without internet connection
+
+
 P1.13 - .CLICK_DATA PROPERTY ON INEXISTENT MODULE TESTS
  - Attempt on an inexistent module
 
+you won't be able to attempt - will fail on instantiation
+
+
 P1.14 - .CLICK_DATA PROPERTY ON REPLACED MODULE TESTS
  - Attempt on a module that's been duplicated
+
+not sure what this means but maybe do it
+
 
 P1.15 - .CLICK_DATA PROPERTY ON FAILED MODULE TESTS
  - Attempt on a module whose creation failed
@@ -166,10 +233,17 @@ P2.1 - PIPELINE INSTANTIATION LABEL VALIDITY AND TYPE CHECK TESTS
  - Pipeline label is list
  - Pipeline label is string
 
+good catch, added type checking - play around with if you want but i'd skip
+
+
 P2.2 - CREATEPIPELINE NULL ARGUMENTS TESTS
  0 - Call help to see all arguments
  - All arguments null
  - [Null each argument and, if few enough, by MECE sets] [[If there are more than module_chain, name, config_path, and the load one, must make moar tests]]
+
+ --> you can instantiate with no args
+ --> not sure what you mean by second one
+
 
 P2.3 - CREATEPIPELINE NAME ARGUMENT TYPE CHECK AND VALIDITY TESTS
  - As integer
@@ -182,15 +256,23 @@ P2.3 - CREATEPIPELINE NAME ARGUMENT TYPE CHECK AND VALIDITY TESTS
  - As string, much too long
  - As string, includes Chinese and accented characters
 
+ already done
+
+
 P2.4 - PIPELINE NAME DUPLICATION TESTS
  - In same code cell execution
  - In separate code cell execution
+
+not sure what you mean here
 
 P2.5 - MODULE_CHAIN TYPE CHECK TESTS
  - As integer
  - As string
  - As boolean
  - As dictionary
+
+ tested already
+
 
 P2.6 - MODULE_CHAIN COMPONENT TESTS [Test with known good matches]
  - One, as a string
@@ -215,12 +297,17 @@ P2.6 - MODULE_CHAIN COMPONENT TESTS [Test with known good matches]
  - Two, including a one-character name module
  [3x] - Three, combination of the above
 
+ tested already
+
+
 P2.7 - MODULE_CHAIN VALIDITY TESTS [Test with known good matches]
  - List is empty
  - List is much too long
  - List repeats same module many times (within cap)
  - List repeats same module type but different instances
  - List includes a module with no name, just two consecutive commas
+
+ could be interesting try it
 
 P2.8 - CREATEPIPELINE CONFIG_PATH TYPE CHECK TESTS
 - As integer
