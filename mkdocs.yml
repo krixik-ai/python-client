@@ -5,6 +5,8 @@ nav:
   - Quickstart: quickstart.md
   - Pipeline examples:
     - 'transcription pipeilnes': transcription_examples.md
+    - 'multilingual transcription': examples/multilingual_transcribe.md
+    - 'semantically searchable multilingual transcription': examples/semantic_multilingual_transcribe.md
   - Modules:
     - currently available:
       - 'parser': modules/parser.md
