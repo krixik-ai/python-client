@@ -34,15 +34,15 @@ A **pipeline** is a self-contained sequence of one or more modules that is consu
 
 A **module** is a processing step with a unique input/output data footprint. Each model contains a parameterizable AI model or support function.
 
+A **model** is a bespoke processing function contained within a module. Many of these are AI models, but some are simple "support functions" for inter-pipeline data preparation or transformation.
+
+**Parameters** can be set for each module when a pipeline is run and allow for further customization. Each has a default value, so setting them is optional. For instance, one parameterizable item is which specific AI model you want active within a given module.
+
 New modules and models will constantly be added to the Krixik library. To see all available modules at any given time, run the following:
 
 ```python
 krixik.available_modules
 ```
-
-A **model** is a bespoke processing function contained within a module. Many of these are AI models, but some are simple "support functions" for inter-pipeline data preparation or transformation.
-
-**Parameters** can be set for each module when a pipeline is run and allow for further customization. Each has a default value, so setting them is optional. For instance, one parameterizable item is which specific AI model you want active within a given module.
 
 ## Quickstart guide
 
