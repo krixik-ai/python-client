@@ -26,7 +26,7 @@ With Krixik, you can...
 
 ### Components of a krixik pipeline
 
-In a nutshell, Krixik **pipelines** are comprised of one or more sequentially connected **modules**. These modules are containers for a range of (possibly) **parameterized** AI **models** or support functions.
+Krixik **pipelines** are comprised of one or more sequentially connected **modules**. These modules are containers for a range of (possibly) **parameterized** AI **models** or support functions.
 
 Let's examine each of the above-highlighted terms.
 
@@ -34,7 +34,7 @@ A **pipeline** is a self-contained sequence of one or more modules that is consu
 
 A **module** is a processing step with a unique input/output data footprint. Each model contains a parameterizable AI model or support function.
 
-To see all available modules at any given time, run the following:
+New modules and models will constantly be added to the Krixik library. To see all available modules at any given time, run the following:
 
 ```python
 krixik.available_modules
@@ -100,13 +100,13 @@ custom_pipeline_1 = CreatePipeline(name='my-transcribe-pipeline-1',
                                    module_chain=[module_1])
 ```
 
-With our custom pipeline defined we can now load it for use with the `load_pipeline` method.
+With your custom pipeline defined you can load it for use with the `load_pipeline` method.
 
 ```python
 my_pipeline_1 = krixik.load_pipeline(pipeline=custom_pipeline_1)
 ```
 
-The pipeline is ready! Now we can process audio and video files through it to generate transcripts of them.
+The pipeline is ready! Now you can process audio and video files through it to generate transcripts of them.
 
 ```python
 my_pipeline_1.process(local_file_path='./path/to/my/mp3/or/mp4')
@@ -117,9 +117,9 @@ The outputs of this pipeline will be a timestamped transcript of your input audi
 
 ### Extending your pipeline
 
-Suppose we wanted to make the output of the `transcribe` module immediately vector searchable.
+Suppose you wanted to make the output of the `transcribe` module immediately vector searchable.
 
-We would need to do the following after transcription:
+You would need to do the following after transcription:
 
 1.  *Transform* the transcript into a text file
 2.  *Parse* the text using a sliding window, chunking it into (possibly overlapping) snippets
@@ -129,7 +129,7 @@ We would need to do the following after transcription:
 
 Locally creating and testing this sequence of steps would be time consuming—orchestrating them in a secure production service even more so. And that's without trying to make it all serverless.
 
-With **Krixik**, however, we can rapidly add this functionality to our original pipeline by just adding a few modules. Syntax remains as above:
+With **Krixik**, however, you can rapidly add this functionality to your original pipeline by just adding a few modules. Syntax remains as above:
 
 ```python
 from krixik.pipeline_builder.module import Module
@@ -150,13 +150,13 @@ custom_pipeline_2 = CreatePipeline(name='my-transcribe-pipeline-2',
 my_pipeline_2 = krixik.load_pipeline(pipeline=custom_pipeline_2)
 ```
 
-Let's process a file through our new pipeline.
+Let's process a file through your new pipeline.
 
 ```python
 my_pipeline_2.process(local_file_path='./path/to/my/mp3/or/mp4')
 ```
 
-Now that there is at least one file in the pipeline, we can use the file's `file_id`—which was returned at the end of the above process—to perform semantic search on the associated transcript with `.vector_search`:
+Now that there is at least one file in the pipeline, you can use the file's `file_id`—which was returned at the end of the above process—to perform semantic search on the associated transcript with `.vector_search`:
 
 ```python
 my_pipeline_2.vector_search(query="The text you wish to semantically search for goes here",
@@ -180,6 +180,6 @@ If you'd like to learn more, please visit: [[FOUR BULLETS BELOW ARE LINKS]]
 
 Excited about Krixik graduating from beta? So are we! We're confident that this product is going to kick a monumental amount of ass, and we'd love to have you on board when it does.
 
-If you wish to be in the loop about launch and other matters (we promise not to spam), please subscribe to occasional correspondence from us [[HERE]]
+If you wish to be in the loop about launch and other matters (we promise not to spam), please subscribe to occasional correspondence from us [[HERE]].
 
 Thanks for reading, and welcome to Krixik!
