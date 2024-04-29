@@ -5,12 +5,14 @@ nav:
   - Quickstart: quickstart.md
   - Pipeline examples:
     - transcribe examples:
-      - 'transcription pipeilnes': transcription_examples.md
+      - 'overview': examples/transcribe/overview.md
+      - 'semantically searchable transcription': examples/transcribe/transcribe-semantic.md
       - 'multilingual transcription': examples/transcribe/transcribe-multilingual.md
       - 'semantically searchable multilingual transcription': examples/transcribe/transcribe-multilingual-semantic.md
       - 'transcribe to sentiment analysis': examples/transcribe/transcribe-sentiment.md
   - Modules:
     - currently available:
+      - 'overview': modules/overview.md
       - 'parser': modules/parser.md
       - 'json-to-txt': modules/json-to-txt.md
       - 'keyword-db': modules/keyword-db.md
@@ -21,7 +23,7 @@ nav:
       - 'ocr': modules/ocr.md
   - System:
     - methods:
-      - 'introduction': system/introduction.md
+      - 'overview': system/overview.md
       - 'base pipeline setup': system/base.md
       - 'the process method': system/process.md
       - 'the process_status method': system/process_status.md
