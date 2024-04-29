@@ -1,0 +1,25 @@
+pipeline:
+  name: parser-pipeline
+  modules:
+  - name: parser
+    models:
+    - name: sentence
+    - name: fixed
+      params:
+        chunk_size:
+          type: int
+          default: 10
+        overlap_size:
+          type: int
+          default: 4
+    defaults:
+      model: sentence
+    input:
+      type: text
+      permitted_extensions:
+      - .txt
+      - .pdf
+      - .docx
+      - .pptx
+    output:
+      type: json

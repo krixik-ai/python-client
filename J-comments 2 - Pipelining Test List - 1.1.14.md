@@ -337,9 +337,8 @@ P2.9 - CREATEPIPELINE CONFIG_PATH ARGUMENT VALIDITY TESTS [RANDOMIZE BETWEEN KEY
 - File is fine, but name is impossibly long
 
 
-lol don't even know what to say autism at its best probably unnecessary
+i hate python next time we use static language - checks added with tests
 
-look if someone puts in a goofy path taht doesn't exist they 
 
 
 P2.10 - CREATEPIPELINE CONFIG_PATH YAML VALIDITY TESTS [RANDOMIZE BETWEEN .YML AND .YAML]
@@ -356,18 +355,34 @@ P2.10 - CREATEPIPELINE CONFIG_PATH YAML VALIDITY TESTS [RANDOMIZE BETWEEN .YML A
 [2x, or as many as need be] - Yaml has pipeline in it, but it's not all there. Some parts are missing
 [2x, or as many as need be] - Yaml has had a single random character thrown in there
 
+unnecessary imo but you do you - we have tests
+
+
 P2.11 - PIPELINE INSTANTIATION WITHOUT .INIT OR INTERNET CONNECTION TESTS
  - Attempt without .init
  - Attempt without internet connection
 
+can use without init or internet
+
+
 P2.12 - .ADD METHOD ON INEXISTENT PIPELINE TESTS
   - Try on an inexistent pipeline
+
+not following - what u mean - i think you mean module?  should be able to add try it out
+
 
 P2.13 - .ADD METHOD ON REPLACED PIPELINE TESTS
   - Try on an replaced pipeline
 
+not following - what u mean - i think you mean module?  should be able to add try it out
+
+
 P2.14 - .ADD METHOD ON FAILED PIPELINE TESTS
  - Attempt on a pipeline whose creation failed
+
+
+not following - what u mean - i think you mean module?  should be able to add try it out
+
 
 P2.15 - .ADD METHOD ON DIFFERENT PIPELINES TESTS
  - On preexistent single-module pipeline
@@ -376,12 +391,20 @@ P2.15 - .ADD METHOD ON DIFFERENT PIPELINES TESTS
  - On same-cell multi-module pipeline
  - On pipeline that is just at its module cap
 
+
+not following - what u mean - i think you mean module?  should be able to add try it out
+
 [[FEATURE REQUEST FOR LATER: SHOULD ONE BE ABLE TO "SUBTRACT" A MODULE, JUST AS ONE ADDS ONE? POP OFF THE TOP ONE?]]
+
+at some point but its easy enough for now i think to just re-create
+
 
 P2.16 - .ADD METHOD NULL ARGUMENT TESTS
 0 - Call help to see all arguments
  - Null all arguments
  - [Null each argument and, if few enough, by MECE sets]
+
+ not sure what you mean
 
 P2.17 - .ADD METHOD ARGUMENT TYPE CHECK TESTS
 1 - String
@@ -391,6 +414,9 @@ P2.17 - .ADD METHOD ARGUMENT TYPE CHECK TESTS
 5 - Dictionary
 6 - Undeclared variable
 
+- i think you mean module?  not a bad idea - added type check and tests
+
+
 P2.18 - .ADD METHOD ARGUMENT VALIDITY TESTS
 1 - Replaced module
 2 - Module already in pipeline but not adjacent
@@ -398,20 +424,32 @@ P2.18 - .ADD METHOD ARGUMENT VALIDITY TESTS
 4 - Creation-failed module
 5 - Same type of module already in pipeline but not same instance
 
+not sure exactly what this is - try it
+
+
 P2.19 - .ADD METHOD WITHOUT .INIT OR INTERNET CONNECTION TESTS
  - Attempt without .init
  - Attempt without internet connection
+
+works without internet or init
+
 
 P2.20 - .SAVE METHOD NULL ARGUMENT TESTS
 0 - Call help to see all arguments
  - Null all arguments
  - [Null each argument and, if few enough, by MECE sets]
 
+unnecessary imo - already checked and tested
+
+
 P2.21 - .SAVE CONFIG_PATH TYPE CHECK TESTS [MAY HAVE TO DO OTHER SUBSETS OF THERE ARE OTHER ARGUMENTS, BUT I THINK NOT]
 - As integer
 - As dictionary
 - As boolean
 - As dictionary
+
+unnecessary imo - already checked and tested
+
 
 P2.22 - .SAVE CONFIG_PATH VALIDITY TESTS [RANDOMIZE BETWEEN KEYWORD AND POSITIONAL]
 - Random string
@@ -430,6 +468,10 @@ P2.22 - .SAVE CONFIG_PATH VALIDITY TESTS [RANDOMIZE BETWEEN KEYWORD AND POSITION
 - File is fine, but name includes Chinese and accented Latin Characters
 - File is fine, but name is impossibly long
 
+
+unnecessary imo - already checked and tested
+
+
 P2.23 - .SAVE CONFIG_PATH YAML VALIDITY TESTS [RANDOMIZE BETWEEN .YML AND .YAML]
 - Yaml is re-extensioned from other sort of file
 - Yaml is blank
@@ -441,15 +483,25 @@ P2.23 - .SAVE CONFIG_PATH YAML VALIDITY TESTS [RANDOMIZE BETWEEN .YML AND .YAML]
 - Yaml has multiple properly formatted pipelines in it, but also some random crap
 - Yaml has properly formatted pipelines in it, but a trillion of them
 
+
+interesting do this one
+
+
 P2.24 - .SAVE METHOD WITHOUT .INIT OR INTERNET CONNECTION TESTS
  - Attempt without .init
  - Attempt without internet connection
+
+both fine without init or internet
+
 
 P2.25 - .LOAD_PIPELINE NULL AND DOUBLED ARGUMENTS TESTS
  0 - Call help to see all arguments
  - All arguments null
  - [Null each argument and, if few enough, by MECE sets]
  - Include both 'pipeline' and 'config_path' [tbd if there are other arguments]
+
+try it out
+
 
 P2.26 - .LOAD_PIPELINE PIPELINE ARGUMENT TYPE CHECK TESTS
 - As integer
@@ -459,16 +511,26 @@ P2.26 - .LOAD_PIPELINE PIPELINE ARGUMENT TYPE CHECK TESTS
 - As list
 - As undefined variable
 
+
+done but try it
+
+
 P2.27 - .LOAD_PIPELINE PIPELINE ARGUMENT VALIDITY TESTS
 - Replaced pipeline
 - Creation-failed pipeline
 - Successfully made but tricky pipeline, like multiple same module
+
+done but try it
+
 
 P2.28 - .LOAD_PIPELINE CONFIG_PATH ARGUMENT TYPE CHECK TESTS
 - As integer
 - As dictionary
 - As boolean
 - As dictionary
+
+done
+
 
 P2.29 - .LOAD_PIPELINE CONFIG_PATH ARGUMENT VALIDITY TESTS [RANDOMIZE BETWEEN KEYWORD AND POSITIONAL]
 - Random string
@@ -487,6 +549,9 @@ P2.29 - .LOAD_PIPELINE CONFIG_PATH ARGUMENT VALIDITY TESTS [RANDOMIZE BETWEEN KE
 - File is fine, but name includes Chinese and accented Latin Characters
 - File is fine, but name is impossibly long
 
+checked and tested, probably not needed, some not good - file_name too long - we don't define whats on their machine
+
+
 P2.30 - .LOAD_PIPELINE CONFIG_PATH YAML VALIDITY TESTS [RANDOMIZE BETWEEN .YML AND .YAML]
 - Yaml is re-extensioned from other sort of file
 - Yaml is blank
@@ -501,32 +566,59 @@ P2.30 - .LOAD_PIPELINE CONFIG_PATH YAML VALIDITY TESTS [RANDOMIZE BETWEEN .YML A
 [2x, or as many as need be] - Yaml has pipeline in it, but it's not all there. Some parts are missing
 [2x, or as many as need be] - Yaml has had a single random character thrown in there
 
+
+same as above
+
+
 P2.31 - .LOAD_PIPELINE METHOD WITHOUT .INIT OR INTERNET CONNECTION TESTS
  - Attempt without .init
  - Attempt without internet connection
 
+
+load_pipeline fine without init or connection
+
+
+
 P2.32 - ALL TWO-MODULE PIPELINE CREATION COMBINATION TESTS - [RANDOMIZE BETWEEN MODULE_CHAIN AND .ADD, OCCASIONALLY LOAD SOME OF THEM]
 - [ATTEMPT EVERY PERMUTATION OF EVERY SINGLE TWO-MODULE COMBINATION, INCLUDING DOUBLE-UPS; CONFIRM THAT WHAT SHOULD CLICK CLICKS AND WHAT SHOULDN'T DOESN'T]
+
+yep do it
+
 
 P2.33 - EXISTING PIPELINE AUGMENTATION INTO 3+ MODULES WITH .ADD
 [15x] - Random two module pipeline, random module .added, duplication allowed
 [10x] - Random 3+ module pipeline, random module .added, duplication allowed
 
+yep do it
+
+
 P2.34 - NEW 3+ MODULE CREATION WITH MODULE_CHAIN
 [30x] - RNG from 3 to cap, all modules randomly selected, duplication allowed
+
+yep do it
+
 
 P2.35 - .CONFIG PROPERTY ON INEXISTENT PIPELINE TESTS
  - Attempt on an inexistent module
 
+ not sure - can try it
+
+
 P2.36 - .CONFIG PROPERTY ON REPLACED PIPELINE TESTS
  - Attempt on a module that's been duplicated
+
+not sure what this means
 
 P2.37 - .CONFIG PROPERTY ON FAILED PIPELINE TESTS
  - Attempt on a module whose creation failed
 
+ not sure
+
 P2.38 - .CONFIG PROPERTY ON PIPELINES LOADED VS NOT LOADED INTO OPERATOR
  - .config on a pipeline not yet loaded
  - .config on same pipeline now loaded
+
+
 
 P2.39 - .CONFIG PROPERTY ON SEARCH PIPELINES WITH VS WITHOUT FILES IN THEM
  - .config on semantic search pipeline without file in it
@@ -536,17 +628,30 @@ P2.39 - .CONFIG PROPERTY ON SEARCH PIPELINES WITH VS WITHOUT FILES IN THEM
  - .config on same keyword search pipeline with a file in it
  - .config on same keyword search pipeline with multiple files in it
 
+
+not sure what you mean here - the config is distinct from any files you process with the associated pipeline
+
+
 P2.40 - .CONFIG PROPERTY ON CURRENT PIPELINE TESTS
 [10x] - Run .config on existing pipelines; make sure all modules are covered at least once
+
+not sure what this means - we run tests on each module individually and in multiple combinations - se the "pipeline_examples" subidr of krixik cli
+
 
 P2.41 - .CONFIG PROPERTY ON PIPELINE WITHOUT .INIT OR INTERNET CONNECTION TESTS
  - Attempt without .init
  - Attempt without internet connection
 
+can use without .init or conneciton
+
+
 P2.42 - .TEST_INPUT ON INVALID PIPELINE TESTS
 - .test_input on inexistent pipeline
 - .test_input on replaced pipeline
 - .test_input on failed pipeline
+
+do it
+
 
 P2.43 - TEST_._INPUT ON DIFFERENT TYPES OF PIPELINES TESTS [Randomize how many modules in pipeline, from 1 to cap]
  - Start with Caption (off-type input)
@@ -575,16 +680,27 @@ P2.43 - TEST_._INPUT ON DIFFERENT TYPES OF PIPELINES TESTS [Randomize how many m
  - Start with Vector search (off-type input)
  - Start with Vector search (on-type input)
 
+
+yep do it
+
+
 P2.44 - .TEST_INPUT METHOD NULL ARGUMENT TESTS
 0 - Call help to see all arguments [If there are more, set of subsets must be expanded]
  - Null all arguments
  - [Null each argument and, if few enough, by MECE sets]
+
+not sure what this means
 
 P2.45 - .TEST_INPUT LOCAL_FILE_PATH TYPE CHECK TESTS
 - As integer
 - As boolean
 - As list
 - As dictionary
+
+
+type checked and tested but you do u
+
+
 
 P2.46 - .TEST_INPUT LOCAL_FILE_PATH VALIDITY TESTS
 - Random string

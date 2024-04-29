@@ -14,4 +14,4 @@ def config_check(filename):
         except yaml.YAMLError:
             raise yaml.YAMLError(f"FAILURE: config is not a valid yaml - {filename}")
     else:
-        raise Exception(f"FAILURE: config - {filename} - failed to load with exception {e}")
+        raise ValueError(f"FAILURE: config - {filename} - does not end with valid extension .yml or .yaml")

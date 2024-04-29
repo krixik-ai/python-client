@@ -13,6 +13,8 @@ from krixik.pipeline_builder.pipeline import CreatePipeline
 from krixik.system_builder.base import KrixikBasePipeline
 from krixik.system_builder.functions.semantic_search import semantic_search
 from krixik.system_builder.functions.keyword_search import keyword_search
+from krixik.pipeline_builder.utilities.config_checker import config_check
+
 
 
 class krixik:
@@ -73,12 +75,14 @@ class krixik:
             raise ValueError("config_path or pipeline must be passed")
         
         if config_path is not None and pipeline is not None:
-            raise ValueError("only one of config_path or pipeline can be passed")
+            raise ValueError("only one of config_path or pipeline can be passed, not both")
         
         if config_path is not None:
-            # instantiate custom pipeline object
+            config_check(config_path)
             custom_pipeline = CreatePipeline(config_path=config_path)
         else:
+            if not isinstance(pipeline, CreatePipeline):
+                raise TypeError(f"pipeline -{pipeline} not proper CreatePipeline object")
             custom_pipeline = pipeline        
 
         # pass init
