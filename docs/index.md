@@ -1,4 +1,9 @@
-# Welcome to krixik
+# Welcome to krixik!
 
-This is the homepage of our docs
+krixik is a systems tool to help you easily assemble and serverlessly consume modular AI pipelines through secure Python APIs.
+
+## Pipelines, modules, and models
+
+## What you can build
+
 
