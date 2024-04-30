@@ -16,4 +16,7 @@ test_data = {
     "transcribe-translate-vector-db": [
         {"local_file_path": f"{audio_files_path}valid_1.mp3"}
     ],
+    "summarize-keyword-db": [
+        {"local_file_path": f"{text_files_path}1984_short.txt"}
+    ],
 }

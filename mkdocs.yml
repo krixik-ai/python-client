@@ -13,16 +13,16 @@ nav:
   - Modules:
     - currently available:
       - 'overview': modules/overview.md
-      - 'parser': modules/parser.md
+      - 'caption': modules/caption.md
       - 'json-to-txt': modules/json-to-txt.md
       - 'keyword-db': modules/keyword-db.md
-      - 'vector-db': modules/vector-db.md
+      - 'ocr': modules/ocr.md
+      - 'parser': modules/parser.md
       - 'summarize': modules/summarize.md
-      - 'text-embedder': modules/vector-db.md
+      - 'text-embedder': modules/text-embedder.md
       - 'transcribe': modules/transcribe.md
       - 'translate': modules/translate.md
-      - 'caption': modules/caption.md
-      - 'ocr': modules/ocr.md
+      - 'vector-db': modules/vector-db.md
   - System:
     - methods:
       - 'overview': system/overview.md
