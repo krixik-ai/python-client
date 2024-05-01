@@ -101,6 +101,8 @@ def get_presigned_url(self, payload_data):
             return True, result
         if response.status_code == 400:
             return False, result
+        if response.status_code == 500:
+            raise requests.exceptions.HTTPError("FAILURE: request check in failed with status code 500")
     except requests.exceptions.HTTPError as e:
         if e.response.status_code == 400:
             raise ValueError(json.loads(e.response.text)["message"])

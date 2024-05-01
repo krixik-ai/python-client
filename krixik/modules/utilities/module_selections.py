@@ -76,7 +76,7 @@ def pipeline_selection_setup(
         if module_name in module_selection_names:
             module_params = module_selections[module_name]
         if str(f"module_{module_index+1}") in module_selection_names:
-            module_params = module_selections[module_name]
+            module_params = module_selections[f"module_{module_index+1}"]
         hydrated_module_selections = validate_module_selection(
             module_name, module_params
         )
