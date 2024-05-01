@@ -531,6 +531,10 @@ class KrixikBasePipeline:
             ),
             "expire_time": expire_time,
         }
+        
+        print(f"payload_data {payload_data}")
+        import sys
+        sys.exit(1)
 
         # get presigned url and file_id
         upload_check, self.upload_results = self._get_presigned_url(
