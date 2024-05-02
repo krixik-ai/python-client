@@ -67,7 +67,7 @@ class krixik:
             if not isinstance(item, str):
                 raise TypeError(f"module_chain must be a list of strings - the following item in it is not a string - {item}")
             if item not in available_modules:
-                raise ValueError(f"module_chain item -{item} - is not a currently one of the currently available modules -{available_modules}")
+                raise ValueError(f"module_chain item - {item} - is not a currently one of the currently available modules -{available_modules}")
         module_chain_ = [Module(m_name) for m_name in module_chain]
         custom = CreatePipeline(name=name,
                                 module_chain=module_chain_)
@@ -100,7 +100,7 @@ class krixik:
             custom_pipeline = CreatePipeline(config_path=config_path)
         else:
             if not isinstance(pipeline, CreatePipeline):
-                raise TypeError(f"pipeline -{pipeline} not proper CreatePipeline object")
+                raise TypeError(f"pipeline - {pipeline} not proper CreatePipeline object")
             custom_pipeline = pipeline        
 
         # pass init
