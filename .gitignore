@@ -1,6 +1,7 @@
+!requirements.txt
+!.readthedocs.yaml
 **/.env*
 bug_reports/
-!krixik/.env
 .ruff_cache/
 .vscode
 notebook_tests/
