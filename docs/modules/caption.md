@@ -1,4 +1,4 @@
-## the `caption` module
+## The `caption` module
 
 This document reviews the `caption` module - which takes as input an image and returns a text description of the input image.  Output data is returned as a json.
 
@@ -37,29 +37,20 @@ A table of contents for the remainder of this document is shown below.
 
 
 - [pipeline setup](#pipeline-setup)
-- [using the vit-gpt2-image-captioning model](#using-the-vit-gpt2-image-captioning-model)
-- [using the blip-image-captioning-base model](#using-the-blip-image-captioning-base-model)
+- [required input format](#required-input-format)
+- [using the default model](#using-the-default-model)
+- [using a non-default model](#using-a-non-default-model)
 
 
 ## Pipeline setup
 
-Below we setup a simple one module pipeline using the `caption` module. 
+Below we setup a simple one module pipeline using the `caption` module.  We do this by passing the module name to the `module_chain` argument of [`.create_pipeline`](LINK HERE) along with a name for our pipeline.
 
 
 ```python
-# import custom module creation tools
-from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
-
-# instantiate module
-module_1 = Module(module_type="caption")
-
-# create custom pipeline object
-custom = CreatePipeline(name='caption-pipeline-1', 
-                        module_chain=[module_1])
-
-# pass the custom object to the krixik operator (note you can also do this by passing its config)
-pipeline = krixik.load_pipeline(pipeline=custom)
+# create a pipeline with a single module
+pipeline = krixik.create_pipeline(name="my-caption-pipeline",
+                                  module_chain=["caption"])
 ```
 
 The `caption` module comes with a subset of popular caption models including the following:
@@ -73,13 +64,13 @@ These available modeling options and parameters are stored in our custom pipelin
 
 
 ```python
-# nicely print the configuration of uor custom pipeline
-json_print(custom.config)
+# nicely print pipeline configuration
+json_print(pipeline.config)
 ```
 
     {
       "pipeline": {
-        "name": "caption-pipeline-1",
+        "name": "my-caption-pipeline",
         "modules": [
           {
             "name": "caption",
@@ -119,21 +110,25 @@ json_print(custom.config)
 
 Here we can see the models and their associated parameters available for use.
 
-## using the english to spanish translation model
-
-We first define a path to a local input file.
+You can save this configuration to disk as well by executing
 
 
 ```python
-# define path to an input file
-test_file = "../input_data/resturant.png"
+pipeline.save("/valid/path/file.yml")
 ```
 
-Lets take a quick look at this file before processing.
+You can instantiate a pipeline directly from its configuration using the [.load_pipeline method](LINK HERE).
+
+## Required input format
+
+The `caption` module accepts `.png`, `.jpg`, and `.jpeg` images as input.
+
+Lets take a quick look at a valid input file - and then process it.
 
 
 ```python
-# examine contents of input file
+# examine contents of a valid input file
+test_file = "../input_data/resturant.png"
 from IPython.display import Image
 Image(filename=test_file) 
 ```
@@ -142,12 +137,14 @@ Image(filename=test_file)
 
 
     
-![png](caption_files/caption_14_0.png)
+![png](caption_files/caption_12_0.png)
     
 
 
 
-Now let's process it using the english to spanish model - `vit-gpt2-image-captioning`.  Because this is the default model we need not input the optional `modules` argument into `.process`.
+## Using the default model
+
+Let's process our test input file using the `default` model - `vit-gpt2-image-captioning`.  Because this is the default model we need not input the optional `modules` argument into `.process`.
 
 
 ```python
@@ -162,7 +159,7 @@ process_output = pipeline.process(local_file_path = test_file,
                                   verbose=False)            # set verbosity to False
 ```
 
-The output of this process is printed below.  Because the output of this particular module-model pair is json, the process output is provided in this object as well.  The output file itself has been returned to the address noted in the `process_output_files` key.
+The output of this process is printed below.  Because the output of this particular module-model pair is json, the process output is provided in this object as well.  The output file itself has been returned to the address noted in the `process_output_files` key.  The `file_id` of the processed input is used as a filename prefix for the output file.
 
 
 ```python
@@ -172,10 +169,10 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "caption-pipeline-1",
-      "request_id": "21f0e335-c8cf-43fe-a6e6-7cf9b0a508d8",
-      "file_id": "96c3ef30-e4a2-4daa-9765-b497fd12c6f4",
-      "message": "SUCCESS - output fetched for file_id 96c3ef30-e4a2-4daa-9765-b497fd12c6f4.Output saved to location(s) listed in process_output_files.",
+      "pipeline": "my-caption-pipeline",
+      "request_id": "95da0bae-6141-4aeb-b032-08c238e4f065",
+      "file_id": "0e381a4d-e3a1-43bb-b6ce-c21ed0c32aaa",
+      "message": "SUCCESS - output fetched for file_id 0e381a4d-e3a1-43bb-b6ce-c21ed0c32aaa.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": [
         {
@@ -183,7 +180,7 @@ json_print(process_output)
         }
       ],
       "process_output_files": [
-        "./96c3ef30-e4a2-4daa-9765-b497fd12c6f4.json"
+        "./0e381a4d-e3a1-43bb-b6ce-c21ed0c32aaa.json"
       ]
     }
 
@@ -194,38 +191,19 @@ We load in the text file output from `process_output_files` below.
 ```python
 # load in process output from file
 import json
-with open(process_output['process_output_files'][0], "r") as file:
-    print(file.read())  
-```
-
-    [{"caption": "a large group of people are in a restaurant"}]
-
-
-### using the blip-image-captioning-base model
-
-To use a non-default model like the spanish to english model `blip-image-captioning-base` we enter it explicitly as a `modules` selection when invoking `.process`.
-
-We use it below to process the following input.
-
-
-```python
-# define path to an input file
-test_file = "../input_data/valid_spanish.json"
-
-# examine contents of input file
-with open(test_file) as f:
-    json_print(json.load(f))
+json_print(json.load(open(process_output['process_output_files'][0])))
 ```
 
     [
       {
-        "snippet": "Me encanta esta pelcula y la vea una y otra vez!"
-      },
-      {
-        "snippet": "El beneficio de explotacin ascendi a 9,4 millones EUR, frente a 11,7 millones EUR en 2004."
+        "caption": "a large group of people are in a restaurant"
       }
     ]
 
+
+## Using a non-default model
+
+To use a non-default model like `blip-image-captioning-base` we enter it explicitly as a `modules` selection when invoking `.process`.
 
 
 ```python
@@ -241,7 +219,9 @@ process_output = pipeline.process(local_file_path = test_file,
                                   modules={"caption":{"model":"blip-image-captioning-base"}})
 ```
 
-The output of this process is printed below.  Because the output of this particular module-model pair is json, the process output is provided in this object as well.  The output file itself has been returned to the address noted in the `process_output_files` key.
+The output of this process is printed below.  
+
+Because the output of this particular module-model pair is json, the process output is provided in this object as well.  The output file itself has been returned to the address noted in the `process_output_files` key.  The `file_id` of the processed input is used as a filename prefix for the output file.
 
 
 ```python
@@ -251,10 +231,10 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "caption-pipeline-1",
-      "request_id": "bebae882-2c06-4e6c-8cf0-8e020af5451e",
-      "file_id": "404f517e-f812-4535-9c8e-5f0e46093f99",
-      "message": "SUCCESS - output fetched for file_id 404f517e-f812-4535-9c8e-5f0e46093f99.Output saved to location(s) listed in process_output_files.",
+      "pipeline": "my-caption-pipeline",
+      "request_id": "d3e6bc81-c71b-4866-aba0-d8c440586d7d",
+      "file_id": "7c33bf7c-3957-4a66-9856-25d80746e74f",
+      "message": "SUCCESS - output fetched for file_id 7c33bf7c-3957-4a66-9856-25d80746e74f.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": [
         {
@@ -262,7 +242,7 @@ json_print(process_output)
         }
       ],
       "process_output_files": [
-        "./404f517e-f812-4535-9c8e-5f0e46093f99.json"
+        "./7c33bf7c-3957-4a66-9856-25d80746e74f.json"
       ]
     }
 

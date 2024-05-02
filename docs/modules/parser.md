@@ -1,4 +1,4 @@
-## the parser module
+## The parser module
 
 This document reviews the `parser` module - which takes in input documents, cuts them up into pieces using different model logic, and returns the spliced input as json output. 
 
@@ -23,7 +23,6 @@ krixik.init(api_key = MY_API_KEY,
             api_url = MY_API_URL)
 ```
 
-
 This small function prints dictionaries very nicely in notebooks / markdown.
 
 
@@ -38,8 +37,9 @@ A table of contents for the remainder of this document is shown below.
 
 
 - [pipeline setup](#pipeline-setup)
-- [using the `sentence` model](#using-the-sentence-model)
-- [using the `fixed` model](#using-the-fixed-model)
+- [required input format](#required-input-format)
+- [using the default model](#using-the-default-model)
+- [using a non-default model](#using-a-non-default-model)
 
 ## Pipeline setup
 
@@ -47,19 +47,9 @@ Below we setup a simple one module pipeline using the `parser` module.  This par
 
 
 ```python
-# import custom module creation tools
-from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
-
-# instantiate module
-module_1 = Module(module_type="parser")
-
-# create custom pipeline object
-custom = CreatePipeline(name='parser-pipeline-1', 
-                        module_chain=[module_1])
-
-# pass the custom object to the krixik operator (note you can also do this by passing its config)
-pipeline = krixik.load_pipeline(pipeline=custom)
+# create a pipeline with a single module
+pipeline = krixik.create_pipeline(name="my-parser-pipeline",
+                                  module_chain=["parser"])
 ```
 
 The `parser` module comes with two models that determine how it cuts up an input text:
@@ -76,13 +66,13 @@ These available modeling options and parameters are stored in our custom pipelin
 
 
 ```python
-# nicely print the configuration of uor custom pipeline
-json_print(custom.config)
+# nicely print pipeline configuration
+json_print(pipeline.config)
 ```
 
     {
       "pipeline": {
-        "name": "parser-pipeline-1",
+        "name": "my-parser-pipeline",
         "modules": [
           {
             "name": "parser",
@@ -94,10 +84,12 @@ json_print(custom.config)
                 "name": "fixed",
                 "params": {
                   "chunk_size": {
-                    "type": "int"
+                    "type": "int",
+                    "default": 10
                   },
                   "overlap_size": {
-                    "type": "int"
+                    "type": "int",
+                    "default": 4
                   }
                 }
               }
@@ -125,21 +117,25 @@ json_print(custom.config)
 
 Here we can see the models and their associated parameters available for use.
 
-## using the `sentnece` model
-
-We first define a path to a local input file.
+You can save this configuration to disk as well by executing
 
 
 ```python
-# define path to an input file from examples directory
-test_file = "../../examples/input_data/1984_very_short.txt"
+pipeline.save("/valid/path/file.yml")
 ```
 
-Lets take a quick look at this file before processing.
+You can instantiate a pipeline directly from its configuration using the [.load_pipeline method](LINK HERE).
+
+## Required input format
+
+The `keyword-db` module accepts `.txt`, `.pdf`, `.docx`, and `.pptx` file formats as input.  The latter three (`.pdf`, `.docx`, and `.pptx`) are first converted to `.txt` prior to processing.
+
+Let's look at an example of a small valid input - and then process it.
 
 
 ```python
-# examine contents of input file
+# examine contents of a valid test input file
+test_file = "../input_data/1984_very_short.txt"
 with open(test_file, "r") as file:
     print(file.read())
 ```
@@ -151,24 +147,24 @@ with open(test_file, "r") as file:
     along with him.
 
 
-A paragraph of text consisting of two sentences.
+## Using the default model
 
-Now let's process it using our `sentence` parser.  Because `sentence` is the default model we need not input the optional `modules` argument into `.process`.
+Now let's process the input file above using the default model - `sentence`.  Because `sentence` is the default model we need not input the optional `modules` argument into `.process`.
 
 
 ```python
 # define path to an input file from examples directory
-test_file = "../../examples/input_data/1984_very_short.txt"
+test_file = "../input_data/1984_very_short.txt"
 
 # process for search
 process_output = pipeline.process(local_file_path = test_file,
                                   local_save_directory=".", # save output in current directory
-                                  expire_time=60*5,         # set all process data to expire in 5 minutes
+                                  expire_time=60*10,         # set all process data to expire in 5 minutes
                                   wait_for_process=True,    # wait for process to complete before regaining ide
                                   verbose=False)            # set verbosity to False
 ```
 
-The output of this process is printed below.  Because the output of this particular module-model pair is json, the process output is provided in the return response.
+The output of this process is printed below.  Because the output of this particular module-model pair is json, the process output is provided in the return response.  The output file itself has been returned to the address noted in the `process_output_files` key.  The `file_id` of the processed input is used as a filename prefix for the output file.
 
 
 ```python
@@ -178,10 +174,10 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "parser-pipeline-1",
-      "request_id": "e957e17f-ca3c-40bf-afd1-ebca1f27ba51",
-      "file_id": "9d94d011-b445-41fa-ae9e-92322726be96",
-      "message": "SUCCESS - output fetched for file_id 9d94d011-b445-41fa-ae9e-92322726be96.Output saved to location(s) listed in process_output_files.",
+      "pipeline": "my-parser-pipeline",
+      "request_id": "4ae3097b-e41b-4a32-95c6-f804198741dc",
+      "file_id": "29bbface-f0f4-49d5-b51c-54e1af9af4f5",
+      "message": "SUCCESS - output fetched for file_id 29bbface-f0f4-49d5-b51c-54e1af9af4f5.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": [
         {
@@ -201,7 +197,7 @@ json_print(process_output)
         }
       ],
       "process_output_files": [
-        "./9d94d011-b445-41fa-ae9e-92322726be96.json"
+        "./29bbface-f0f4-49d5-b51c-54e1af9af4f5.json"
       ]
     }
 
@@ -226,8 +222,7 @@ This process output is also stored in the file contained in `process_output_file
 # load in process output from file
 import json
 with open(process_output['process_output_files'][0], "r") as file:
-    process_output = json.load(file)
-    json_print(process_output)
+    json_print(json.load(file))
 ```
 
     [
@@ -249,14 +244,14 @@ with open(process_output['process_output_files'][0], "r") as file:
     ]
 
 
-### using the `fixed` model
+## Using a non-default model
 
-To use the `fixed` model we pass its name explicitly via the `modules` argument as follows.  This will implicitly pass the default parameter values for the `fixed` model.
+To use a non-default model like `fixed` we pass its name explicitly via the `modules` argument as follows.  This will implicitly pass the default parameter values for the `fixed` model.
 
 
 ```python
 # define path to an input file from examples directory
-test_file = "../../examples/input_data/1984_very_short.txt"
+test_file = "../input_data/1984_very_short.txt"
 
 # process for search
 process_output = pipeline.process(local_file_path = test_file,
@@ -271,15 +266,14 @@ process_output = pipeline.process(local_file_path = test_file,
                                                      }}})
 ```
 
-Examining the output below we can see that our input document was not cut into complete sentences, but chunks of text.  Each chunk is 10 words in length, and the consecutive chunks overlap by two words.
+Examining the output below we can see that our input document was not cut into complete sentences, but chunks of text.  Each chunk is 10 words in length, and the consecutive chunks overlap by two words.  
 
 
 ```python
 # load in process output from file
 import json
 with open(process_output['process_output_files'][0], "r") as file:
-    process_output = json.load(file)
-    json_print(process_output)
+    json_print(json.load(file))
 ```
 
     [

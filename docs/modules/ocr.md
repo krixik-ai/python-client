@@ -1,4 +1,4 @@
-## the `ocr` module
+## The `ocr` module
 
 This document reviews the `ocr` module - which takes as input an image and returns text detected from the input image.  Output data is returned as a json.
 
@@ -37,8 +37,9 @@ A table of contents for the remainder of this document is shown below.
 
 
 - [pipeline setup](#pipeline-setup)
-- [using the tesseract-en model](#using-the-tesseract-en-model)
-
+- [required input format](#required-input-format)
+- [using the default model](#using-the-default-model)
+- [using a non-default model](#using-a-non-default-model)
 
 
 ## Pipeline setup
@@ -47,19 +48,9 @@ Below we setup a simple one module pipeline using the `ocr` module.
 
 
 ```python
-# import custom module creation tools
-from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
-
-# instantiate module
-module_1 = Module(module_type="ocr")
-
-# create custom pipeline object
-custom = CreatePipeline(name='ocr-pipeline-1', 
-                        module_chain=[module_1])
-
-# pass the custom object to the krixik operator (note you can also do this by passing its config)
-pipeline = krixik.load_pipeline(pipeline=custom)
+# create a pipeline with a single module
+pipeline = krixik.create_pipeline(name="my-ocr-pipeline",
+                                  module_chain=["ocr"])
 ```
 
 The `ocr` module comes with a subset of popular caption models including the following:
@@ -71,13 +62,13 @@ These available modeling options and parameters are stored in our custom pipelin
 
 
 ```python
-# nicely print the configuration of uor custom pipeline
-json_print(custom.config)
+# nicely print pipeline configuration
+json_print(pipeline.config)
 ```
 
     {
       "pipeline": {
-        "name": "ocr-pipeline-1",
+        "name": "my-ocr-pipeline",
         "modules": [
           {
             "name": "ocr",
@@ -111,21 +102,25 @@ json_print(custom.config)
 
 Here we can see the models and their associated parameters available for use.
 
-### using the tesseract-en model
-
-We first define a path to a local input file.
+You can save this configuration to disk as well by executing
 
 
 ```python
-# define path to an input file
-test_file = "../input_data/seal.png"
+pipeline.save("/valid/path/file.yml")
 ```
 
-Lets take a quick look at this file before processing.
+You can instantiate a pipeline directly from its configuration using the [.load_pipeline method](LINK HERE).
+
+## Required input format
+
+The `caption` module accepts `.png`, `.jpg`, and `.jpeg` images as input.
+
+Lets take a quick look at a valid input file - and then process it.
 
 
 ```python
-# examine contents of input file
+# examine contents of a valid input file
+test_file = "../input_data/seal.png"
 from IPython.display import Image
 Image(filename=test_file) 
 ```
@@ -134,12 +129,14 @@ Image(filename=test_file)
 
 
     
-![png](ocr_files/ocr_14_0.png)
+![png](ocr_files/ocr_12_0.png)
     
 
 
 
-Now let's process it using the english to spanish model - `tesseract-en`.  Because this is the default model we need not input the optional `modules` argument into `.process`.
+## Using the default model
+
+Let's process the input file above using the default model - `tesseract-en`.  Because this is the default model we need not input the optional `modules` argument into `.process`.
 
 
 ```python
@@ -154,7 +151,7 @@ process_output = pipeline.process(local_file_path = test_file,
                                   verbose=False)            # set verbosity to False
 ```
 
-The output of this process is printed below.  Because the output of this particular module-model pair is json, the process output is provided in this object as well.  The output file itself has been returned to the address noted in the `process_output_files` key.
+The output of this process is printed below.  Because the output of this particular module-model pair is json, the process output is provided in this object as well.  The output file itself has been returned to the address noted in the `process_output_files` key.  The `file_id` of the processed input is used as a filename prefix for the output file.
 
 
 ```python
@@ -164,10 +161,10 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "ocr-pipeline-1",
-      "request_id": "28c7c4c1-665d-4f31-9b3b-632104db8d89",
-      "file_id": "4b61dcc9-8c87-4f7b-93cd-84337b0bad83",
-      "message": "SUCCESS - output fetched for file_id 4b61dcc9-8c87-4f7b-93cd-84337b0bad83.Output saved to location(s) listed in process_output_files.",
+      "pipeline": "my-ocr-pipeline",
+      "request_id": "913b0ff8-8c52-4416-88f4-69b144f6d132",
+      "file_id": "55d70b99-15fc-4574-80c4-de883f12a7f5",
+      "message": "SUCCESS - output fetched for file_id 55d70b99-15fc-4574-80c4-de883f12a7f5.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": [
         {
@@ -1089,7 +1086,7 @@ json_print(process_output)
         }
       ],
       "process_output_files": [
-        "./4b61dcc9-8c87-4f7b-93cd-84337b0bad83.json"
+        "./55d70b99-15fc-4574-80c4-de883f12a7f5.json"
       ]
     }
 

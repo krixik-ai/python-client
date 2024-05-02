@@ -1,4 +1,4 @@
-## the `summarize` module
+## The `summarize` module
 
 This document reviews the `summarize` module - which takes as input a document and returns a summary of its (text) contents.
 
@@ -23,7 +23,6 @@ krixik.init(api_key = MY_API_KEY,
             api_url = MY_API_URL)
 ```
 
-
 This small function prints dictionaries very nicely in notebooks / markdown.
 
 
@@ -36,31 +35,21 @@ def json_print(data):
 
 A table of contents for the remainder of this document is shown below.
 
-
 - [pipeline setup](#pipeline-setup)
+- [required input format](#required-input-format)
 - [using the default model](#using-the-default-model)
 - [recursive summarization](#recursive-summarization)
 - [using a non-default model](#using-a-non-default-model)
 
 ## Pipeline setup
 
-Below we setup a simple one module pipeline using the `keyword-search` module. 
+Below we setup a simple one module pipeline using the `summarize` module. 
 
 
 ```python
-# import custom module creation tools
-from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
-
-# instantiate module
-module_1 = Module(module_type="summarize")
-
-# create custom pipeline object
-custom = CreatePipeline(name='summarize-pipeline-1', 
-                        module_chain=[module_1])
-
-# pass the custom object to the krixik operator (note you can also do this by passing its config)
-pipeline = krixik.load_pipeline(pipeline=custom)
+# create a pipeline with a single module
+pipeline = krixik.create_pipeline(name="my-summarize-pipeline",
+                                  module_chain=["summarize"])
 ```
 
 The `summarize` module comes with a single model:
@@ -72,13 +61,13 @@ These available modeling options and parameters are stored in our custom pipelin
 
 
 ```python
-# nicely print the configuration of uor custom pipeline
-json_print(custom.config)
+# nicely print pipeline configuration
+json_print(pipeline.config)
 ```
 
     {
       "pipeline": {
-        "name": "summarize-pipeline-1",
+        "name": "my-summarize-pipeline",
         "modules": [
           {
             "name": "summarize",
@@ -113,21 +102,25 @@ json_print(custom.config)
 
 Here we can see the models and their associated parameters available for use.
 
-## using the default model
-
-We first define a path to a local input file.
+You can save this configuration to disk as well by executing
 
 
 ```python
-# define path to an input file from examples directory
-test_file = "../input_data/1984_short.txt"
+pipeline.save("/valid/path/file.yml")
 ```
 
-Lets take a quick look at this file before processing.
+You can instantiate a pipeline directly from its configuration using the [.load_pipeline method](LINK HERE).
+
+## Required input format
+
+The `keyword-db` module accepts `.txt`, `.pdf`, `.docx`, and `.pptx` file formats as input.  The latter three (`.pdf`, `.docx`, and `.pptx`) are first converted to `.txt` prior to processing.
+
+Let's look at an example of a small valid input - and then process it.
 
 
 ```python
-# examine contents of input file
+# examine contents of a valid test input file
+test_file = "../input_data/1984_short.txt"
 with open(test_file, "r") as file:
     print(file.read())
 ```
@@ -224,7 +217,9 @@ with open(test_file, "r") as file:
       IGNORANCE IS STRENGTH
 
 
-Now let's process it using our default model [bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn).  Since we are using the default model we need not input the optional `modules` argument into `.process`.
+## Using the default model
+
+Now let's process it using our default model - [bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn).  Since we are using the default model we need not input the optional `modules` argument into `.process`.
 
 
 ```python
@@ -249,14 +244,14 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "summarize-pipeline-1",
-      "request_id": "28078b30-03f5-4d76-b0dc-a30e22d18b6b",
-      "file_id": "942c59fd-2a61-4e99-b335-6d2f489a794f",
-      "message": "SUCCESS - output fetched for file_id 942c59fd-2a61-4e99-b335-6d2f489a794f.Output saved to location(s) listed in process_output_files.",
+      "pipeline": "my-summarize-pipeline",
+      "request_id": "c3f61dfa-8e10-45d5-9c69-174d520e6970",
+      "file_id": "72387b02-5ce5-4711-8358-6770f54dccd1",
+      "message": "SUCCESS - output fetched for file_id 72387b02-5ce5-4711-8358-6770f54dccd1.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": null,
       "process_output_files": [
-        "./942c59fd-2a61-4e99-b335-6d2f489a794f.txt"
+        "./72387b02-5ce5-4711-8358-6770f54dccd1.txt"
       ]
     }
 
@@ -305,7 +300,7 @@ That is, we feed the summary created above through the summarizer again - produc
 
 We do this next.
 
-### recursive summarization
+## Recursive summarization
 
 To produce a shorter summary of our original text we feed the first summarization made above into our summarizer.
 
@@ -382,7 +377,11 @@ with open(process_output['process_output_files'][0], "r") as file:
 
 And indeed this is very terse but representative summary of our original text.
 
-### using a non-default model
+If we wanted - we could reproduce this result (of summarizing a document recursively three times) by building a new pipeline that contained three `summarize` modules in succession.
+
+We explore just such an example in a [recursive summarization pipeline example](examples/summarize/recursive_summarize.md).
+
+## Using a non-default model
 
 To use a non-default model we simply define it explicitly in the `modules` input to `.process`.
 

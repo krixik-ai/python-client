@@ -1,4 +1,4 @@
-## the `keyword-db` module
+## The `keyword-db` module
 
 This document reviews the `keyword-db` module - which takes as input a document, parses the documents for non-trivial keywords and their lemmatized stems, and returns a database with this content.
 
@@ -23,8 +23,6 @@ krixik.init(api_key = MY_API_KEY,
             api_url = MY_API_URL)
 ```
 
-
-
 This small function prints dictionaries very nicely in notebooks / markdown.
 
 
@@ -39,7 +37,8 @@ A table of contents for the remainder of this document is shown below.
 
 
 - [pipeline setup](#pipeline-setup)
-- [using the `base` model](#using-the-base-model)
+- [required input format](#required-input-format)
+- [using the default model](#using-the-default-model)
 - [using the `keyword_search` method](#using-the-keyword-search-method)
 - [querying output databases locally](#querying-output-databases-locally)
 
@@ -49,19 +48,9 @@ Below we setup a simple one module pipeline using the `keyword-search` module.
 
 
 ```python
-# import custom module creation tools
-from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
-
-# instantiate module
-module_1 = Module(module_type="keyword-db")
-
-# create custom pipeline object
-custom = CreatePipeline(name='keyword-db-pipeline-1', 
-                        module_chain=[module_1])
-
-# pass the custom object to the krixik operator (note you can also do this by passing its config)
-pipeline = krixik.load_pipeline(pipeline=custom)
+# create a pipeline with a single module
+pipeline = krixik.create_pipeline(name="my-keyword-db-pipeline",
+                                  module_chain=["keyword-db"])
 ```
 
 The `keyword-search` module comes with a single model:
@@ -72,13 +61,13 @@ These available modeling options and parameters are stored in our custom pipelin
 
 
 ```python
-# nicely print the configuration of uor custom pipeline
-json_print(custom.config)
+# nicely print pipeline configuration
+json_print(pipeline.config)
 ```
 
     {
       "pipeline": {
-        "name": "keyword-db-pipeline-1",
+        "name": "my-keyword-db-pipeline",
         "modules": [
           {
             "name": "keyword-db",
@@ -110,21 +99,25 @@ json_print(custom.config)
 
 Here we can see the models and their associated parameters available for use.
 
-## using the `base` model
-
-We first define a path to a local input file.
+You can save this configuration to disk as well by executing
 
 
 ```python
-# define path to an input file from examples directory
-test_file = "../../examples/input_data/1984_very_short.txt"
+pipeline.save("/valid/path/file.yml")
 ```
 
-Lets take a quick look at this file before processing.
+You can instantiate a pipeline directly from its configuration using the [.load_pipeline method](LINK HERE).
+
+## Required input format
+
+The `keyword-db` module accepts `.txt`, `.pdf`, `.docx`, and `.pptx` file formats as input.  The latter three (`.pdf`, `.docx`, and `.pptx`) are first converted to `.txt` prior to processing.
+
+Let's look at an example of a small valid input - and then process it.
 
 
 ```python
-# examine contents of input file
+# examine contents of a valid test input file
+test_file = "../input_data/1984_very_short.txt"
 with open(test_file, "r") as file:
     print(file.read())
 ```
@@ -136,24 +129,24 @@ with open(test_file, "r") as file:
     along with him.
 
 
-Two sentences and their associated line numbers in the original text.
+## Using the default model
 
-Now let's process it using our `base` model.  Because `base` is the default model we need not input the optional `modules` argument into `.process`.
+Now let's process it using our default model - `base`.  Because `base` is the default model we need not input the optional `modules` argument into `.process`.
 
 
 ```python
 # define path to an input file from examples directory
-test_file = "../../examples/input_data/1984_very_short.txt"
+test_file = "../input_data/1984_very_short.txt"
 
 # process for search
 process_output = pipeline.process(local_file_path = test_file,
                                   local_save_directory=".", # save output in current directory
-                                  expire_time=60*3,         # set all process data to expire in 5 minutes
+                                  expire_time=60*10,         # set all process data to expire in 5 minutes
                                   wait_for_process=True,    # wait for process to complete before regaining ide
                                   verbose=False)            # set verbosity to False
 ```
 
-The output of this process is printed below.  Because the output of this particular module-model pair is a sqlite database, the process output is provided in this object is null.  However the file itself has been returned to the address noted in the `process_output_files` key.
+The output of this process is printed below.  Because the output of this particular module-model pair is a sqlite database, the process output is provided in this object is null.  However the file itself has been returned to the address noted in the `process_output_files` key.  The `file_id` of the processed input is used as a filename prefix for the output file.
 
 
 ```python
@@ -163,19 +156,19 @@ json_print(process_output)
 
     {
       "status_code": 200,
-      "pipeline": "keyword-search-pipeline-1",
-      "request_id": "9871ccde-80c7-4b17-9d05-fc07903ed1de",
-      "file_id": "b57921e2-306c-4d43-9150-7649b4b5aaf6",
-      "message": "SUCCESS - output fetched for file_id b57921e2-306c-4d43-9150-7649b4b5aaf6.Output saved to location(s) listed in process_output_files.",
+      "pipeline": "my-keyword-db-pipeline",
+      "request_id": "74615be1-3d00-415e-9003-d447f8a2ad63",
+      "file_id": "44ff5484-2a57-4cd3-8d57-eddf7cec30e2",
+      "message": "SUCCESS - output fetched for file_id 44ff5484-2a57-4cd3-8d57-eddf7cec30e2.Output saved to location(s) listed in process_output_files.",
       "warnings": [],
       "process_output": null,
       "process_output_files": [
-        "./b57921e2-306c-4d43-9150-7649b4b5aaf6.db"
+        "./44ff5484-2a57-4cd3-8d57-eddf7cec30e2.db"
       ]
     }
 
 
-### using the `keyword_search` method
+## Using the `keyword_search` method
 
 Any pipeline containing a `keyword-search` module automatically inherits access to the [`keyword_search` method](keyword_search_method.md).  This provides convenient sophisticated query access to the newly created keyword database in krixik.
 
@@ -195,7 +188,7 @@ json_print(keyword_output)
 
     {
       "status_code": 200,
-      "request_id": "27cd17f5-ac73-4771-aecb-8852aadb1bf0",
+      "request_id": "a5912e1b-e7d5-4082-b5c0-fb2bb28f74ed",
       "message": "Successfully queried 1 user file.",
       "warnings": [
         {
@@ -207,14 +200,14 @@ json_print(keyword_output)
       ],
       "items": [
         {
-          "file_id": "b57921e2-306c-4d43-9150-7649b4b5aaf6",
+          "file_id": "44ff5484-2a57-4cd3-8d57-eddf7cec30e2",
           "file_metadata": {
-            "file_name": "krixik_generated_file_name_tcrgnmbhcz.txt",
+            "file_name": "krixik_generated_file_name_xtbxaaerso.txt",
             "symbolic_directory_path": "/etc",
             "file_tags": [],
             "num_lines": 5,
-            "created_at": "2024-04-28 21:05:32",
-            "last_updated": "2024-04-28 21:05:32"
+            "created_at": "2024-05-02 22:14:06",
+            "last_updated": "2024-05-02 22:14:06"
           },
           "search_results": [
             {
@@ -228,7 +221,7 @@ json_print(keyword_output)
     }
 
 
-### querying output databases locally
+## Querying output databases locally
 
 We can now perform queries on the pulled keyword database whose location is given in `process_output_files`.
 
