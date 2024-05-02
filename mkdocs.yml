@@ -21,6 +21,7 @@ nav:
       - 'keyword-db': modules/keyword-db.md
       - 'ocr': modules/ocr.md
       - 'parser': modules/parser.md
+      - 'sentiment': modules/sentiment.md
       - 'summarize': modules/summarize.md
       - 'text-embedder': modules/text-embedder.md
       - 'transcribe': modules/transcribe.md
