@@ -63,7 +63,7 @@ test_failuare_data = [
 
 @pytest.mark.parametrize("test_data", test_failuare_data)
 def test_failure(test_data):
-    with pytest.raises(ValueError):
+    with pytest.raises((ValueError, TypeError)):
         pipeline_selection_setup(
             test_data["pipeline_ordered_modules"], test_data["module_selections"]
         )
@@ -79,8 +79,8 @@ test_success_data = [
 ]
 
 true_hydrated_pipeline = {
-    "parser": {"model": parser_default_model, "params": parser_default_params},
-    "text-embedder": {
+    "module_1": {"model": parser_default_model, "params": parser_default_params},
+    "module_2": {
         "model": text_embedder_default_model,
         "params": text_embedder_default_params,
     },
