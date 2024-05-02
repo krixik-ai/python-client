@@ -71,7 +71,7 @@ class krixik:
         module_chain_ = [Module(m_name) for m_name in module_chain]
         custom = CreatePipeline(name=name,
                                 module_chain=module_chain_)
-        cls.load_pipeline(pipeline=custom)
+        return cls.load_pipeline(pipeline=custom)
 
 
     @classmethod
@@ -115,7 +115,8 @@ class krixik:
             api_url=init_data["api_url"],
             api_check_val=init_data["api_check_val"]
         )
-                
+        
+        pipeline_object.save = custom_pipeline.save
         pipeline_object.test_input = custom_pipeline.test_input
         
         if custom_pipeline.module_chain[-1] == "vector-db":
