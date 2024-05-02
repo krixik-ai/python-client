@@ -118,6 +118,7 @@ class krixik:
         
         pipeline_object.save = custom_pipeline.save
         pipeline_object.test_input = custom_pipeline.test_input
+        pipeline_object.config = custom_pipeline.config
         
         if custom_pipeline.module_chain[-1] == "vector-db":
             if len(custom_pipeline.module_chain) > 1:
