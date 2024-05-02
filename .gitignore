@@ -200,4 +200,4 @@ cython_debug/
 #.idea/
 
 !**/requirements.txt
-!.readthedocs.yaml
+!**/.readthedocs.yaml
