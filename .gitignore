@@ -1,5 +1,8 @@
-!requirements.txt
+!.gitignore
+!**/requirements.txt
 !.readthedocs.yaml
+
+
 **/.env*
 bug_reports/
 .ruff_cache/
