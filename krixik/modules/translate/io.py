@@ -30,9 +30,8 @@ class InputStructure:
 class OutputStructure:
     format: Literal["json"] = "json"
     filename: str = "filename_example.json"
-    process_key: str = "translated_snippet"
+    process_key: str = "snippet"
     snippet: str = "This is the main text."
-    translated_snippet: str = "This is the translated text."
     other: Optional[Any] = None
 
     @property
@@ -47,6 +46,5 @@ class OutputStructure:
     def data_example(self):
         return {
             "snippet": self.snippet,
-            "translated_snippet": self.translated_snippet,
             "other": self.other,
         }

@@ -1,0 +1,67 @@
+pipeline:
+  name: transcribe-vector-db-pipeline
+  modules:
+  - name: transcribe
+    models:
+    - name: whisper-tiny
+    - name: whisper-base
+    - name: whisper-small
+    - name: whisper-medium
+    - name: whisper-large-v3
+    defaults:
+      model: whisper-tiny
+    input:
+      type: audio
+      permitted_extensions:
+      - .mp3
+      - .mp4
+    output:
+      type: json
+  - name: text-embedder
+    models:
+    - name: all-MiniLM-L6-v2
+      params:
+        quantize:
+          type: bool
+          default: true
+    - name: all-mpnet-base-v2
+      params:
+        quantize:
+          type: bool
+          default: true
+    - name: all-MiniLM-L12-v2
+      params:
+        quantize:
+          type: bool
+          default: true
+    - name: multi-qa-MiniLM-L6-cos-v1
+      params:
+        quantize:
+          type: bool
+          default: true
+    - name: msmarco-distilbert-dot-v5
+      params:
+        quantize:
+          type: bool
+          default: true
+    defaults:
+      model: all-MiniLM-L6-v2
+      params:
+        quantize: true
+    input:
+      type: json
+      permitted_extensions:
+      - .json
+    output:
+      type: npy
+  - name: vector-db
+    models:
+    - name: faiss
+    defaults:
+      model: faiss
+    input:
+      type: npy
+      permitted_extensions:
+      - .npy
+    output:
+      type: faiss

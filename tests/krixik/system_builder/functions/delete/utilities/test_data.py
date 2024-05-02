@@ -9,7 +9,7 @@ test_data = {
 }
 
 wait_for_test_data = {
-    "standard-vector-search": [
+    "standard-vector-db": [
         {"local_file_path": f"{text_files_path}1984_short.txt"},
     ]
 }

@@ -1,0 +1,45 @@
+pipeline:
+  name: translate-keyword-db-pipeline
+  modules:
+  - name: translate
+    models:
+    - name: opus-mt-de-en
+    - name: opus-mt-en-es
+    - name: opus-mt-es-en
+    - name: opus-mt-en-fr
+    - name: opus-mt-fr-en
+    - name: opus-mt-it-en
+    - name: opus-mt-zh-en
+    defaults:
+      model: opus-mt-en-es
+    input:
+      type: json
+      permitted_extensions:
+      - .json
+    output:
+      type: json
+  - name: json-to-txt
+    models:
+    - name: base
+    defaults:
+      model: base
+    input:
+      type: json
+      permitted_extensions:
+      - .json
+    output:
+      type: text
+  - name: keyword-db
+    models:
+    - name: sqlite
+    defaults:
+      model: sqlite
+    input:
+      type: text
+      permitted_extensions:
+      - .txt
+      - .pdf
+      - .docx
+      - .pptx
+    output:
+      type: db

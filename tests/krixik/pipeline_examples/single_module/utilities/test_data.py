@@ -7,7 +7,7 @@ module_test_data = {
     "json-to-txt": [
         {"local_file_path": f"{json_files_path}valid_1.json"}
     ],
-    "keyword-search": [
+    "keyword-db": [
         {"local_file_path": f"{text_files_path}1984_short.txt"}
     ],
     "ocr": [
@@ -31,7 +31,7 @@ module_test_data = {
     "translate": [
         {"local_file_path": f"{json_files_path}valid_1.json"}
     ],
-    "vector-search": [
+    "vector-db": [
         {"local_file_path": f"{npy_files_path}valid_1.npy"}
     ],
 }

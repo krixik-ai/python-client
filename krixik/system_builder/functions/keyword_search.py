@@ -10,8 +10,10 @@ from krixik.utilities.validators.system.base.timestamp_bookends import (
 )
 from krixik.system_builder.functions.checkin import check_init_decorator
 from krixik.utilities.validators.utilities.decorators import type_check_inputs
+from krixik.system_builder.utilities.decorators import kwargs_checker
 
 
+@kwargs_checker
 @check_init_decorator
 @type_check_inputs
 def keyword_search(

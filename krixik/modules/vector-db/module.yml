@@ -1,0 +1,10 @@
+module:
+  name: vector-db
+  models: 
+    - name: faiss
+  input: 
+    type: npy
+  output:
+    type: faiss
+  defaults:
+    model: faiss

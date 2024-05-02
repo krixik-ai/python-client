@@ -1,0 +1,10 @@
+module:
+  name: keyword-db
+  models: 
+    - name: sqlite
+  input: 
+    type: text
+  output:
+    type: db
+  defaults:
+    model: sqlite

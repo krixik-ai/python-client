@@ -133,7 +133,7 @@ json_print(reloaded_pipeline.config)
             }
           },
           {
-            "name": "vector-search",
+            "name": "vector-db",
             "models": [
               {
                 "name": "faiss"

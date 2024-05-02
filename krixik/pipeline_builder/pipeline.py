@@ -1,22 +1,22 @@
-import os
 import yaml
 from typing import Optional, List
 from collections import OrderedDict
 from krixik.pipeline_builder.module import Module
 from krixik.utilities.validators.data.utilities.decorators import datatype_validator
 from krixik.utilities.validators.data.utilities.read_config import check_inverse_config
-from krixik.modules.utilities.io_validator import is_valid
-
-MAX_MODULES = 10
+from krixik.pipeline_builder.utilities.config_checker import config_check
+from krixik.pipeline_builder.utilities.name_checker import name_check
+from krixik.pipeline_builder.utilities.chain_checker import chain_check
+from krixik.pipeline_builder.utilities.savepath_checker import savepath_check
+from krixik.pipeline_builder.utilities.input_checker import input_check
+from krixik.pipeline_builder import MAX_MODULES
 
 
 def represent_ordereddict(dumper, data):
     return dumper.represent_dict(data.items())
 
-
 def construct_ordereddict(loader, node):
     return OrderedDict(loader.construct_pairs(node))
-
 yaml.add_representer(OrderedDict, represent_ordereddict)
 yaml.add_constructor(
     yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, construct_ordereddict
@@ -46,14 +46,14 @@ class CreatePipeline:
         self.__pipeline_config = None
         self.__module_chain_configs = []
 
+        if self.name is not None:
+            name_check(self.name)
+
         if config_path is not None:
             self.load(config_path)
 
         if module_chain is not None:
-            if len(module_chain) > MAX_MODULES:
-                raise ValueError(
-                    f"pipelines cannot currently have more than {MAX_MODULES} modules"
-                )
+            chain_check(module_chain)
             for module in module_chain:
                 self.add(module)
             self.test_connections()
@@ -63,6 +63,8 @@ class CreatePipeline:
             raise ValueError(
                 f"cannot add additional module - pipelines cannot currently have more than {MAX_MODULES} modules"
             )
+        if not isinstance(module, Module):
+            raise TypeError(f"FAILURE: module - {module} - is not a proper Module object")
 
         if insert_index != -1:
             if insert_index < -1 or insert_index > len(self.__module_chain):
@@ -117,15 +119,7 @@ class CreatePipeline:
 
     @datatype_validator
     def test_input(self, *, local_file_path: str) -> None:
-        first_module = self.__module_chain[0]
-        first_module_input_format = first_module.input_format
-        file_ext = "." + local_file_path.split(".")[-1]
-        file_ext_format = check_inverse_config(file_ext)
-        if file_ext_format != first_module_input_format:
-            raise TypeError(
-                f"file extension {file_ext} does not match the expected input format {first_module_input_format}"
-            )
-        is_valid(first_module.name, local_file_path)
+        input_check(local_file_path, self.__module_chain)
         print(
             f"SUCCESS: local file {local_file_path} passed pipeline input test passed"
         )
@@ -213,10 +207,7 @@ class CreatePipeline:
         return convert_to_dict(self.__pipeline_config)
 
     def save(self, config_path: str) -> None:
-        file_path_ext = config_path.split(".")[-1]
-
-        if file_path_ext != "yml" and file_path_ext != "yaml":
-            raise ValueError("file_path must have a .yml or .yaml extension")
+        savepath_check(config_path)
 
         if self.name is None:
             raise ValueError(
@@ -228,14 +219,7 @@ class CreatePipeline:
             yaml.dump(self.__pipeline_config, file, default_flow_style=False, sort_keys=False)
 
     def load(self, pipeline_config_path: str) -> None:
-        if not os.path.exists(pipeline_config_path):
-            raise FileNotFoundError(f"file {pipeline_config_path} not found")
-
-        if (
-            pipeline_config_path.split(".")[-1] != "yml"
-            and pipeline_config_path.split(".")[-1] != "yaml"
-        ):
-            raise ValueError("pipeline_config_path must be a .yml or .yaml file")
+        config_check(pipeline_config_path)
 
         with open(pipeline_config_path, "r") as file:
             pipeline_config = yaml.safe_load(file)

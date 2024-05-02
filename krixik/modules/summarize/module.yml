@@ -6,6 +6,6 @@ module:
   input: 
     type: text
   output: 
-    type: json
+    type: text
   defaults:
     model: bart-large-cnn

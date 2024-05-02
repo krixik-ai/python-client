@@ -30,7 +30,7 @@ json_print(module_3.click_data)
       "output_process_type": "<class 'numpy.ndarray'>"
     }
     {
-      "module_name": "vector-search",
+      "module_name": "vector-db",
       "input_format": "npy",
       "output_format": "faiss",
       "input_process_key": "data",
@@ -42,19 +42,19 @@ json_print(module_3.click_data)
 
 This data suggests that we can "click" the modules together like this:
 
-`text-embedder` -> `vector-search`
+`text-embedder` -> `vector-db`
 
 but *not* like this
 
- `vector-search` -> `text-embedder`
+ `vector-db` -> `text-embedder`
 
-The first module connection (`text-embedder` -> `vector-search`) will work since - from the `click_data` of both modules - we can see that 
+The first module connection (`text-embedder` -> `vector-db`) will work since - from the `click_data` of both modules - we can see that 
 
-- `text-embedder` output_format (`npy`) == `vector-search` input_format (`npy`), and 
-- `text-embedder` output_process_type (`<class 'numpy.ndarray'>`) == `vector-search` input_process_type (`<class 'numpy.ndarray'>`)
+- `text-embedder` output_format (`npy`) == `vector-db` input_format (`npy`), and 
+- `text-embedder` output_process_type (`<class 'numpy.ndarray'>`) == `vector-db` input_process_type (`<class 'numpy.ndarray'>`)
 
 
-The latter connection ( `vector-search` -> `text-embedder`) will not work since we can see from the same data 
+The latter connection ( `vector-db` -> `text-embedder`) will not work since we can see from the same data 
 
-- `vector-search` output_format (`faiss`) != `text-embedder` input_format (`json`)
+- `vector-db` output_format (`faiss`) != `text-embedder` input_format (`json`)
 

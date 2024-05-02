@@ -56,8 +56,8 @@ test_success_data = [
 ]
 
 true_hydrated_pipeline = {
-    "parser": {"model": parser_default_model, "params": parser_default_params},
-    "text-embedder": {
+    "module_1": {"model": parser_default_model, "params": parser_default_params},
+    "module_2": {
         "model": text_embedder_default_model,
         "params": text_embedder_default_params,
     },
