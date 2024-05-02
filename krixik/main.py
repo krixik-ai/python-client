@@ -2,19 +2,16 @@ from typing import Optional
 from krixik.__version__ import __version__
 import tempfile
 import types
-
 from krixik.utilities.utilities import classproperty
-
 from krixik.modules import available_modules, get_module_details
-
 from krixik.system_builder.functions.checkin import checkin
-
 from krixik.pipeline_builder.pipeline import CreatePipeline
 from krixik.system_builder.base import KrixikBasePipeline
 from krixik.system_builder.functions.semantic_search import semantic_search
 from krixik.system_builder.functions.keyword_search import keyword_search
 from krixik.pipeline_builder.utilities.config_checker import config_check
-
+from krixik.pipeline_builder.module import Module
+from krixik.pipeline_builder.pipeline import CreatePipeline
 
 
 class krixik:
@@ -55,6 +52,27 @@ class krixik:
             "api_url": cls.__api_url,
             "api_check_val": cls.__api_check_val,
         }
+
+    @classmethod
+    def create_pipeline(cls,
+                        name: str,
+                        module_chain: list):
+        if not isinstance(name, str):
+            raise TypeError("pipeline name must be a string")
+        if not (len(name) > 0 and len(name) < 128):
+            raise ValueError("pipeline name must have length greater than 0 and less than 128")
+        if not isinstance(module_chain, list):
+            raise TypeError("module_chain must be a list of strings")
+        for item in module_chain:
+            if not isinstance(item, str):
+                raise TypeError(f"module_chain must be a list of strings - the following item in it is not a string - {item}")
+            if item not in available_modules:
+                raise ValueError(f"module_chain item -{item} - is not a currently one of the currently available modules -{available_modules}")
+        module_chain_ = [Module(m_name) for m_name in module_chain]
+        custom = CreatePipeline(name=name,
+                                module_chain=module_chain_)
+        cls.load_pipeline(pipeline=custom)
+
 
     @classmethod
     def load_pipeline(cls,
