@@ -116,7 +116,7 @@ class krixik:
             api_check_val=init_data["api_check_val"]
         )
         
-        pipeline_object.save = custom_pipeline.save
+        pipeline_object.save_pipeline = custom_pipeline.save
         pipeline_object.test_input = custom_pipeline.test_input
         pipeline_object.config = custom_pipeline.config
         
