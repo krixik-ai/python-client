@@ -206,7 +206,7 @@ class CreatePipeline:
         self._make_config()
         return convert_to_dict(self.__pipeline_config)
 
-    def save(self, config_path: str) -> None:
+    def save(self, *, config_path: str) -> None:
         savepath_check(config_path)
 
         if self.name is None:
