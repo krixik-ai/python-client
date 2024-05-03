@@ -23,7 +23,7 @@ class krixik:
     __local_conversion_directory = tempfile.gettempdir()
 
     @classmethod
-    def init(cls, api_key: str | None, api_url: str | None) -> None:
+    def init(cls, *, api_key: str | None, api_url: str | None) -> None:
         """krixik pipeline initialization method - initializes unique user session using api_key and api_url
 
         Parameters
@@ -55,6 +55,7 @@ class krixik:
 
     @classmethod
     def create_pipeline(cls,
+                        *,
                         name: str,
                         module_chain: list):
         if not isinstance(name, str):
@@ -73,9 +74,9 @@ class krixik:
                                 module_chain=module_chain_)
         return cls.load_pipeline(pipeline=custom)
 
-
     @classmethod
     def load_pipeline(cls,
+                      *,
                       config_path: Optional[str] = None,
                       pipeline: Optional[CreatePipeline] = None
                       ) -> object:
@@ -125,14 +126,13 @@ class krixik:
                 if custom_pipeline.module_chain[-2] == "text-embedder":
                     pipeline_object.semantic_search = types.MethodType(semantic_search, pipeline_object)
 
-
         if custom_pipeline.module_chain[-1] == "keyword-db":
             pipeline_object.keyword_search = types.MethodType(keyword_search, pipeline_object)
         
         return pipeline_object
 
     @classmethod
-    def module_details(cls, module_name: str) -> dict:
+    def module_details(cls, *, module_name: str) -> dict:
         """convenience method for examinng module details
 
         Parameters
