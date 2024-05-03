@@ -1,105 +1,75 @@
-# Krixik python cli
+# Welcome to Krixik!
 
-Easily consume modular AI pipelines from a secure API, in python.
+Sequentially assembling multiple AI models into a single pipeline can be a painful and expensive. Consuming even a single model can often be draining.
 
-## Contents
- 
-- [Introduction to krixik](#introduction-to-krixik)
-- [Two popular modular AI pipelines](#two-popular-ai-pipelines)
-    - [Vector search pipeline](#vector-search-pipeline)
-    - [Transcription pipeline](#transcription-pipeline)
-- [Introduction to the krixik cli](#introduction-to-the-krixik-cli)
-- [Register an account](#register-an-account)
-- [Installation](#installation)
-- [Initialize your `krixik` cli](#initialize-your-krixik-cli)
-- [Quick start example](#quick-start-example)
-    - [Setting up a search pipeline](#setting-up-a-search-pipeline)
-    - [Process a file but do not wait for the results](#process-a-file-but-do-not-wait-for-the-results)
-    - [Using modules manually](#using-modules-manually)
-    - [Setting the expire time](#setting-the-expire-time)
-- [Pipeline index](#pipeline-index)
-    - [Examples](#examples)
+That's why we're here. **Welcome to Krixik**, where you can easily assemble and serverlessly consume modular AI pipelines through secure Python APIs.
 
+## Table of Contents
 
+- [What can you do with Krixik?](#what-can-you-do-with-krixik)
+- [Core concepts](#core-concepts)
+- [Quickstart guide](#quickstart-guide)
+- [Further detail](#further-detail)
 
-## Introduction to krixik
+## What can you do with Krixik?
 
-Sometimes you want to consume an AI model convinently as an API.  
+With Krixik, you can...
 
-But typically you need more than just a model to make AI useful: often a single AI model is only one (important) step of a larger pipeline.
+- ...run semantic search on 540 focus group transcripts and perform sentiment analysis on each result.
+  - Pipeline: [Parse → Embed → Vector Search → Sentiment Analysis]
+- ...transcribe a year's worth of Peruvian political speeches, translate them to English, and summarize each one.
+  - Pipeline: [Transcribe → Translate → Summarize]
+- ...easily and serverlessly consume your open-source OCR model of choice.
+  - Pipeline: [OCR]
 
-An AI pipeline consists of self-contained, modular components - from the AI model(s) themselves, to pre/post processing steps, data augmentation, encoding/decoding,  data storage and retrieval, etc.,  
+## Core concepts
 
-Building, testing, deploying, and maintaining these components -  as well as wiring them together to function as a single secure API - can be a complex, expensive, and time-consuming process.
- 
-Thats why we built krixik.  
+### Components of a krixik pipeline
 
-With krixik we make it easy build, test, deploy, and maintain modular AI pipelines that you can serve and consume convinently as a secure API endpoint.
+Krixik **pipelines** are comprised of one or more sequentially connected **modules**. These modules are containers for a range of (possibly) **parameterized** AI **models** or support functions.
 
+Let's examine each of the above-highlighted terms.
 
-## Two popular modular AI pipelines
+A **pipeline** is a self-contained sequence of one or more modules that is consumed via a serverless API.  
 
-Sometimes an AI pipeline can consist of a single AI model.  More often than not, they consist of several self contained processing steps or modules
+A **module** is a processing step with a unique input/output data footprint. Each model contains a parameterizable AI model or support function.
 
-**Vector search** and **transcription** and are two such popular AI pipelines, each consisting of a number of modular components.
+A **model** is a bespoke processing function contained within a module. Many of these are AI models, but some are simple "support functions" for inter-pipeline data preparation or transformation.
 
-### Vector search pipeline
+**Parameters** can be set for each module when a pipeline is run and allow for further customization. Each has a default value, so setting them is optional. For instance, one parameterizable item is which specific AI model you want active within a given module.
 
-Suppose you have a document that would like to make searchable.
+--
 
-A standard vector search pipeline consists of at least three modular components that need to performed on an input document in sequence to make it searchable.  These are
+New modules and models will constantly be added to the Krixik library. To see all available modules at any given time, run the following:
 
- - **Parser**: a parser transforms input text into "chunks" of text that are suitable for searching.  For example, a parser might split a document into sentences, or slice it into overlpipelineing windows of consecutive words / tokens.
-
- - **Embedder**: an embedder transforms the chunks of text into a suitable numerical representation - a vector - that make the chunk mathematically comparable to other chunks.  For example, an embedder might transform a chunk of text into a 512-dimensional vector.  This makes the chunk comparable to other chunks using standard vector similarity measures (e.g., cosine similarity).
-
- - **Vector database**: a vector database takes the vectors and stores and indexes them in a way that makes them easily searchable.  For example, a vector database might store the vectors in a way that makes them easily searchable using a nearest neighbor search algorithm.
-
- Each of these components are modular - there are many different parsers, embedders, and indexers to choose from.  
-
-
-### Transcription pipeline
-
-A standard transcription pipeline consists of at least two components to extract transcription from a raw audio file.  These are:
-
-- **Voice Activity Detection**: a voice activity detector (VAD) is an AI model trained to identify the parts of an audio file that contain speech.  These segments can then be passed on to a transcription model to perform transcription.  VAD is an important pre-processing step, as transcription models can hallucinate transcriptions in areas of an input audio file that contain no speech.
-
-- **Transcription model**: a transcription model takes in an audio file - or a segment of an audio file - and outputs a transcript.  
-
-These components are modular - there are many different VAD and transcription models to choose from.
-
-
-## Introduction to the krixik cli
-
-The krixik python client allows you to consume modular AI pipelines as a secuire API.   Processing is managed on a serverless infrastructure, meaning no local setup is required to use any api beyond the installation of the krixik cli.
-
-
-## Register an account
-
-krixik is currently in closed beta.  Access to the krixik cli is by request only.
-
-To request access please complete our short survey form (LINK TO GOOGLE INTAKE FORM GOES HERE).  
-
-
-## Introduction
-
-The krixik client consists of a set of a universal apis for a diverse range of AI models and general data pipelines. 
-
-
-## Installation
-
-To install the krixik python cli, run the following command:
-
-```pip
-pip install krixik-cli
+```python
+krixik.available_modules
 ```
 
-Note: python version 3.8 or higher is required.
+## Quickstart guide
+
+### Account registration
+
+Krixik is currently in beta, so access to the Krixik CLI is by request only.
+
+If you'd like to participate as a beta tester, please complete [this brief Google form](https://docs.google.com/forms/d/e/1FAIpQLSfieELvcpumTwzKZnDj9AVUpX8FgJzHEca80Css4WNSdlbKQA/viewform?usp=sf_link) and we'll get back to you soon.
+
+### Install Krixik
+
+Run the following command to install the Krixik Python CLI:
+
+```pip
+pip install krixik
+```
+
+Note: Python version 3.8 or higher is required.
 
 
-## Initialize your `krixik` cli
+### Initialize your session
 
-Initialize your `krixik` cli using your unique secrets `api_key` and `api_url` as shown below.
+To initialize your Krixik CLI session you will need your unique `api_key` and `api_url` secrets.  Beta testers will receive their secrets from Krixik admin.
+
+Once you have your secrets, initialize your session as follows:
 
 
 ```python
@@ -108,148 +78,110 @@ krixik.init(api_key=MY_API_KEY,
             api_url=MY_API_URL)
 ```
 
-where  `MY_API_KEY` and `MY_API_URL` are your account secrets.
+...where  `MY_API_KEY` and `MY_API_URL` are your account secrets.
+
+If you've misplaced your secrets, please reach out to us directly.
 
 
-## Quick start example
+### Building your first pipeline
 
-### setting up a search pipeline
+Let's build a simple transcription pipeline consisting of a single `transcribe` module.
 
-After initializing your `krixik` cli, you can get started using any pipeline.  For example, to use the `search` pipeline, first create an pipeline object using the `select_pipeline` method as shown below.
-
-```python
-from krixik import krixik
-search = krixik.select_pipeline(pipeline='search')
-```
-
-Now you can then use the search pipeline to make any `.txt`, `.pdf`, `.docx`, or `.pptx` searchable via both vector and keyword search.  You can upload a file as shown below for processing.
+Import the required Krixik module and pipeline tooling required to instantiate modules and create custom pipelines: the `Module` and `CreatePipeline` class objects. Then create your module and your pipeline.
 
 ```python
-# process a file and wait for the results
-output_data = search.process(/local/path/to/text/file)
+# import custom pipeline builder tools
+from krixik.pipeline_builder.module import Module
+from krixik.pipeline_builder.pipeline import CreatePipeline
+
+# instantiate module
+module_1 = Module(name="transcribe")
+
+# create custom pipeline object with above module
+custom_pipeline_1 = CreatePipeline(name='my-transcribe-pipeline-1', 
+                                   module_chain=[module_1])
 ```
 
-By default you will wait for the process to complete and then download the confirmation that your input text has been successfully processed for vector/keyword search.
-
-### process a file but do not wait for the results
-
-By default execution of the `process` method will block until the process is complete.  You can set `wait_for_process` to `False` to return your current thread once your audio has completed uploading.  Set `verbose` to `False` to suppress all information printed to the console as well.
+With your custom pipeline defined you can load it for use with the `load_pipeline` method.
 
 ```python
-# process a file but do not wait for the results
-output_data = search.process(local_file_path=/local/path/to/text/file, 
-                             wait_for_process=False,
-                             verbose=False)
+my_pipeline_1 = krixik.load_pipeline(pipeline=custom_pipeline_1)
 ```
 
-Check the process status using the `process_status` method.  Feed in the `process_id` from the `output_data` received above.  This will return the status of the associated process.
-
+The pipeline is ready! Now you can process audio and video files through it to generate transcripts of them.
 
 ```python
-# check the status of the process
-search.process_status(process_id=output_data['process_id'])
+my_pipeline_1.process(local_file_path='./path/to/my/mp3/or/mp4')
 ```
 
-Once the process is complete, you can query your file using vector and keyword search.  To perform vector search use the `.vector_search` method as shown below.
- 
-```python
-# vector search
-search.vector_search(file_ids=[output_data['file_id']], 
-                     query='my search query goes here')
-```
+The outputs of this pipeline will be a timestamped transcript of your input audio/video file, a `file_id` for the processed file, and a `process_id` for the process itself.
 
-To perform keyword search use the `.keyword_search` method as shown below.
 
-```python
-# keyword search
-search.keyword_search(file_ids=[output_data['file_id']], 
-                      query='my search query goes here')
-```
+### Extending your pipeline
 
-You can perform either search over multiple files by passing a list of file_ids to the `file_ids` parameter.  
+Suppose you wanted to make the output of the `transcribe` module immediately vector searchable.
 
-If you would like additional manual metadata associated with your file, you can assign a custom `file_name`, `symbolic_directory_path`, and `file_tags` to the file as described in the [krixik file system](#krixik-file-system) documentation.
+You would need to do the following after transcription:
 
-Doing so allows you to perform both keyword and vector search over the metadata you have assigned to your file.  For example, provided a file tag `{"deadline": "urgent"}`when processing your file, you can use the `.keyword_search` method as shown below.
+1.  *Transform* the transcript into a text file
+2.  *Parse* the text using a sliding window, chunking it into (possibly overlapping) snippets
+3.  *Embed* each snippet using an appropriate text embedder
+4.  *Store* the resulting vectors in a vector database
+5.  *Index* said database
+
+Locally creating and testing this sequence of steps would be time consuming—orchestrating them in a secure production service even more so. And that's without trying to make it all serverless.
+
+With **Krixik**, however, you can rapidly add this functionality to your original pipeline by just adding a few modules. Syntax remains as above:
 
 ```python
-# keyword search
-search.keyword_search(file_tags={"deadline": "urgent"}, 
-                      query='my search query goes here')
+from krixik.pipeline_builder.module import Module
+from krixik.pipeline_builder.pipeline import CreatePipeline
+
+# instantiate modules
+module_a = Module(name="transcribe")
+module_b = Module(name="json-to-txt")
+module_c = Module(name="parser")
+module_d = Module(name="text-embedder")
+module_e = Module(name="vector-search")
+
+# create custom pipeline object with the above modules in sequence
+custom_pipeline_2 = CreatePipeline(name='my-transcribe-pipeline-2', 
+                        module_chain=[module_a, module_b, module_c, module_d, module_e])
+
+# pass the custom object to the krixik operator
+my_pipeline_2 = krixik.load_pipeline(pipeline=custom_pipeline_2)
 ```
 
-to perform keyword search on this file as well as any other file with the tag `{"deadline": "urgent"}` you have previously processed.
-
-
-### Using modules manually
-
-To see the current list of modules available for search, use the `.available_modules` method as shown below.
+Let's process a file through your new pipeline.
 
 ```python
-# see the available modules for search
-search.available_modules()
+my_pipeline_2.process(local_file_path='./path/to/my/mp3/or/mp4')
 ```
 
-To use a specific module for search, set the `modules` parameter to a dictionary particular  modules you would like to use.  The first module listed in each sub-dictionary is the default module used for search.
-
-For search your `modules` dictionary should have the following format:
+Now that there is at least one file in the pipeline, you can use the file's `file_id`—which was returned at the end of the above process—to perform semantic search on the associated transcript with `.vector_search`:
 
 ```python
-modules = {
-    'parser': 'parser_module_option',
-    'embedder': 'embedder_module_option',
-    'vector_db': 'vector_db_module_option',
-}
+my_pipeline_2.vector_search(query="The text you wish to semantically search for goes here",
+                            file_ids=['file_id_from_above'])
 ```
 
-For example, to use the `search` module `search_module_option` you would set `modules` as shown below.
+That's it! You have now transcribed a file, processed the transcript, performed vector search on it, and can reuse the pipeline for as many files and queries as you like... all of it in a couple of minutes and with a few lines of code.
 
-```python
-# process a file with manually selected modules
-output_data = search.process(local_file_path=/local/path/to/text/file, 
-                             modules={'parser': 'parser_module_option',
-                                      'embedder': 'embedder_module_option',
-                                      'vector_db': 'vector_db_module_option'})
-```
+## Further detail
 
-### Setting the expire time
+The above is just a peek at the power of Krixik. In addition to all possible parameterization (which we didn't even touch on), the Krixik toolbox is an ever-growing collection of modules and models for you to build with.
 
-By default we keep output associated with a successfully run `search` process for 30 minutes.  
+If you'd like to learn more, please visit: [[FOUR BULLETS BELOW ARE LINKS]]
 
-You can change this by setting `expire_time` to the number of seconds you would like to keep the output alive on our servers for.  The minimum time you can set is 60 seconds, and maximum is 7 days (604800 seconds).  
+- An in-depth look at pipeline assembly and parameterization
+- Using the Krixik file system
+- The Krixik module library
+- Krixik pipeline examples
 
-Below we illustrate setting the `expire_time` to 7 days hour (604800 seconds).
+## Krixik launch date and newsletter
 
-```python
-# process a file but do not wait for the results - set expire time to 7 days
-output_data = search.process(local_file_path=/local/path/to/text/file,
-                             wait_for_process=False,
-                             verbose=False,
-                             expire_time=604800)
-```
+Excited about Krixik graduating from beta? So are we! We're confident that this product is going to kick a monumental amount of ass, and we'd love to have you on board when it does.
 
-If you would like to keep the output of this process organized you can use the `.list`, `.update`, and `.delete` methods as described in the [krixik file system](#krixik-file-system) documentation.
+If you wish to be in the loop about launch and other matters (we promise not to spam), please subscribe to occasional correspondence from us [[HERE]].
 
-
-## pipeline index
-
-The following modular AI pipelines are available for immediate use with the krixik python cli:
-
-- `search`: make your text both vector and keyword searchable using top embedding models from hugging face and the faiss vector database
-
-- `transcribe`: transcribe audio to text using a variety of whisper models
-
-- `sentiment`: analyze the sentiment of text using popular sentiment analysis models from huggingface
-
-- `translate`: translate text between languages (e.g., English to French) using popular translation models from huggingface
-
-- `caption`: generate captions for images using high quality image caption models from huggingface
-
-- `ocr`: extract text from images using popular OCR models pytessearct and easyocr
-
-- `summarize`: summarize text using popular summarization models from huggingface
-
-
-### Examples
-
-Examples of each pipeline are provided in the [docs](#docs) directory of this repository.
+Thanks for reading, and welcome to Krixik!

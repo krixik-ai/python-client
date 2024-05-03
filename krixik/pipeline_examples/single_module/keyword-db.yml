@@ -1,0 +1,17 @@
+pipeline:
+  name: keyword-db-pipeline
+  modules:
+  - name: keyword-db
+    models:
+    - name: sqlite
+    defaults:
+      model: sqlite
+    input:
+      type: text
+      permitted_extensions:
+      - .txt
+      - .pdf
+      - .docx
+      - .pptx
+    output:
+      type: db

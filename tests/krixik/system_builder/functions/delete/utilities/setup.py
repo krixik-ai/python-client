@@ -70,12 +70,12 @@ def load_pipeline():
     # process all input files
     for ind, test_file in enumerate(test_files):
         output = pipeline.process(local_file_path=test_file,
-                                expire_time=60*5,
-                                modules={},
-                                local_save_directory=output_files_path,
-                                verbose=False,
-                                symbolic_directory_path="/home",
-                                file_tags=[
+                                  expire_time=60*5,
+                                  modules={},
+                                  local_save_directory=output_files_path,
+                                  verbose=False,
+                                  symbolic_directory_path="/home",
+                                  file_tags=[
                                     {"book_category": "nonfiction"},
                                     {"book_author": "ford"},
                                     {"book_title": "my_life_and_work"}])

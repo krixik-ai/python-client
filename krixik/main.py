@@ -2,17 +2,16 @@ from typing import Optional
 from krixik.__version__ import __version__
 import tempfile
 import types
-
 from krixik.utilities.utilities import classproperty
-
 from krixik.modules import available_modules, get_module_details
-
 from krixik.system_builder.functions.checkin import checkin
-
 from krixik.pipeline_builder.pipeline import CreatePipeline
 from krixik.system_builder.base import KrixikBasePipeline
-from krixik.system_builder.functions.vector_search import vector_search
+from krixik.system_builder.functions.semantic_search import semantic_search
 from krixik.system_builder.functions.keyword_search import keyword_search
+from krixik.pipeline_builder.utilities.config_checker import config_check
+from krixik.pipeline_builder.module import Module
+from krixik.pipeline_builder.pipeline import CreatePipeline
 
 
 class krixik:
@@ -55,6 +54,27 @@ class krixik:
         }
 
     @classmethod
+    def create_pipeline(cls,
+                        name: str,
+                        module_chain: list):
+        if not isinstance(name, str):
+            raise TypeError("pipeline name must be a string")
+        if not (len(name) > 0 and len(name) < 128):
+            raise ValueError("pipeline name must have length greater than 0 and less than 128")
+        if not isinstance(module_chain, list):
+            raise TypeError("module_chain must be a list of strings")
+        for item in module_chain:
+            if not isinstance(item, str):
+                raise TypeError(f"module_chain must be a list of strings - the following item in it is not a string - {item}")
+            if item not in available_modules:
+                raise ValueError(f"module_chain item - {item} - is not a currently one of the currently available modules -{available_modules}")
+        module_chain_ = [Module(m_name) for m_name in module_chain]
+        custom = CreatePipeline(name=name,
+                                module_chain=module_chain_)
+        return cls.load_pipeline(pipeline=custom)
+
+
+    @classmethod
     def load_pipeline(cls,
                       config_path: Optional[str] = None,
                       pipeline: Optional[CreatePipeline] = None
@@ -73,12 +93,14 @@ class krixik:
             raise ValueError("config_path or pipeline must be passed")
         
         if config_path is not None and pipeline is not None:
-            raise ValueError("only one of config_path or pipeline can be passed")
+            raise ValueError("only one of config_path or pipeline can be passed, not both")
         
         if config_path is not None:
-            # instantiate custom pipeline object
+            config_check(config_path)
             custom_pipeline = CreatePipeline(config_path=config_path)
         else:
+            if not isinstance(pipeline, CreatePipeline):
+                raise TypeError(f"pipeline - {pipeline} not proper CreatePipeline object")
             custom_pipeline = pipeline        
 
         # pass init
@@ -93,13 +115,18 @@ class krixik:
             api_url=init_data["api_url"],
             api_check_val=init_data["api_check_val"]
         )
-                
-        pipeline_object.test_input = custom_pipeline.test_input
         
-        if custom_pipeline.module_chain[-1] == "vector-search":
-            pipeline_object.vector_search = types.MethodType(vector_search, pipeline_object)
+        pipeline_object.save_pipeline = custom_pipeline.save
+        pipeline_object.test_input = custom_pipeline.test_input
+        pipeline_object.config = custom_pipeline.config
+        
+        if custom_pipeline.module_chain[-1] == "vector-db":
+            if len(custom_pipeline.module_chain) > 1:
+                if custom_pipeline.module_chain[-2] == "text-embedder":
+                    pipeline_object.semantic_search = types.MethodType(semantic_search, pipeline_object)
 
-        if custom_pipeline.module_chain[-1] == "keyword-search":
+
+        if custom_pipeline.module_chain[-1] == "keyword-db":
             pipeline_object.keyword_search = types.MethodType(keyword_search, pipeline_object)
         
         return pipeline_object

@@ -36,7 +36,7 @@ pipeline:
           default: 10
         overlap_size:
           type: int
-          default: 2
+          default: 4
     defaults:
       model: sentence
     input:

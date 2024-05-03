@@ -15,4 +15,4 @@ pipeline:
       - .docx
       - .pptx
     output:
-      type: json
+      type: text

@@ -1,13 +1,15 @@
 from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline, MAX_MODULES
+from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.utilities.chain_checker import MAX_MODULES
 from tests.krixik import text_files_path, audio_files_path
 import os
+import yaml
 import pytest
 
 
 test_failure_data = [
-    ["vector-search", "text-embedder"],
-    ["parser", "vector-search"],
+    ["vector-db", "text-embedder"],
+    ["parser", "vector-db"],
 ]
 
 
@@ -20,7 +22,7 @@ def test_1(module_names):
 
 
 test_success_data = [
-    ["parser", "text-embedder", "vector-search"],
+    ["parser", "text-embedder", "vector-db"],
     ["transcribe", "translate"],
 ]
 
@@ -34,14 +36,17 @@ def test_2(module_names):
 
 test_failure_local_paths = [
     (
-        ["parser", "text-embedder", "vector-search"],
+        ["parser", "text-embedder", "vector-db"],
         text_files_path + "not a real file.txt",
     ),
     (
-        ["parser", "text-embedder", "vector-search"],
+        ["parser", "text-embedder", "vector-db"],
         audio_files_path + "Is AI Actually Useful short.mp3",
     ),
     (["transcribe", "translate"], text_files_path + "1984_short.txt"),
+    (["transcribe", "translate"], []),
+    (["transcribe", "translate"], 1),
+
 ]
 
 
@@ -56,7 +61,7 @@ def test_3(module_names, local_file_path):
 
 test_success_local_paths = [
     (
-        ["parser", "text-embedder", "vector-search"],
+        ["parser", "text-embedder", "vector-db"],
         text_files_path + "1984_short.txt",
     ),
     (
@@ -76,8 +81,8 @@ def test_4(module_names, local_file_path):
 
 test_success_local_paths = [
     (
-        ["parser", "text-embedder", "vector-search"],
-        "vector-search-pipeline.yml",
+        ["parser", "text-embedder", "vector-db"],
+        "vector-db-pipeline.yml",
     ),
 ]
 
@@ -112,4 +117,77 @@ def test_6():
     module_names = ['parser'] * (MAX_MODULES + 1)
     module_chain = [Module(module_name) for module_name in module_names]
     with pytest.raises(ValueError):
-        CreatePipeline(module_chain=module_chain)
+        CreatePipeline(name="my_pipeline", module_chain=module_chain)
+        
+
+test_fail_data = [
+    [],
+    "",
+    "a"*65,
+    1
+]
+
+@pytest.mark.parametrize("name", test_fail_data)
+def test_7(name):
+    """fail test that pipeline input name obeys basic type checking"""
+    with pytest.raises((TypeError, ValueError)):
+        CreatePipeline(name=name)
+
+
+test_fail_data = [
+    {},
+    [],
+    [1],
+    [True],
+    1
+]
+
+@pytest.mark.parametrize("chain", test_fail_data)
+def test_8(chain):
+    """fail test that pipeline module_chain obeys basic type checking"""
+    with pytest.raises((TypeError, ValueError)):
+        CreatePipeline(module_chain=chain)
+
+
+test_fail_data = [
+    {},
+    [],
+    1,
+    audio_files_path + "valid_1.mp3",
+    text_files_path + "1984_short.txt"
+]
+
+@pytest.mark.parametrize("config", test_fail_data)
+def test_9(config):
+    """fail test that pipeline config obeys basic type checking"""
+    with pytest.raises((TypeError, ValueError, yaml.YAMLError)):
+        CreatePipeline(config_path=config)
+
+
+test_fail_data = [
+    {},
+    [],
+    1,
+]
+
+@pytest.mark.parametrize("fake_module", test_fail_data)
+def test_10(fake_module):
+    """try to add module that is not proper Module object"""
+    with pytest.raises((TypeError)):
+        pipeline = CreatePipeline()
+        pipeline.add(fake_module)
+        
+        
+test_fail_data = [
+    None,
+    1,
+    '/this/path/has/no/extension',
+    '/this/path/has/invalid/extension.txt'
+]
+
+@pytest.mark.parametrize("fake_module", test_fail_data)
+def test_11(fake_module):
+    """try to add module that is not proper Module object"""
+    with pytest.raises((TypeError)):
+        pipeline = CreatePipeline()
+        pipeline.add(fake_module)
