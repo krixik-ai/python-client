@@ -132,7 +132,7 @@ class krixik:
         return pipeline_object
 
     @classmethod
-    def module_details(cls, *, module_name: str) -> dict:
+    def view_module_config(cls, *, module_name: str) -> dict:
         """convenience method for examinng module details
 
         Parameters
@@ -146,6 +146,10 @@ class krixik:
             dictionary with module details
         """
         return get_module_details(module_name)
+
+    @classmethod
+    def view_module_click_data(cls, *, module_name: str) -> dict:
+        return Module(module_name).click_data
 
     @classproperty
     def local_conversion_directory(cls):

@@ -55,10 +55,10 @@ class CreatePipeline:
         if module_chain is not None:
             chain_check(module_chain)
             for module in module_chain:
-                self.add(module)
+                self._add(module)
             self.test_connections()
 
-    def add(self, module: Module, insert_index: int = -1) -> None:
+    def _add(self, module: Module, insert_index: int = -1) -> None:
         if len(self.__module_chain) + 1 > MAX_MODULES:
             raise ValueError(
                 f"cannot add additional module - pipelines cannot currently have more than {MAX_MODULES} modules"
@@ -84,7 +84,7 @@ class CreatePipeline:
 
         self.test_connections()
 
-    def remove(
+    def _remove(
         self,
         module_name: str | None = None,
         index: int | None = None,
