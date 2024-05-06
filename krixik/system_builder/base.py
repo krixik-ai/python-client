@@ -63,7 +63,7 @@ class KrixikBasePipeline:
         self.__local_conversion_directory = tempfile.gettempdir()
 
     @property
-    def pipeline_ordered_modules(self):
+    def module_chain(self):
         return self.__pipeline_ordered_modules
     
     @property
