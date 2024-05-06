@@ -11,7 +11,7 @@ parent_path = core_path.parent.absolute()
 
 class MySystemDataClass:
     def __init__(self, pipeline_ordered_modules):
-        self.pipeline_ordered_modules = pipeline_ordered_modules
+        self.module_chain = pipeline_ordered_modules
 
     @data_type_check_inputs
     def my_method(

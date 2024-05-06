@@ -97,7 +97,7 @@ def load_multi_pipeline(pipeline_name: str) -> dict:
         
     # reset the pipeline name so it is uniqe to this function
     pipeline.pipeline_name = f"{pipeline.pipeline}-process-status"
-    pipeline_ordered_modules = pipeline.pipeline_ordered_modules
+    pipeline_ordered_modules = pipeline.module_chain
         
     # delete all files for pipeline before running tests
     current_files = pipeline.list(symbolic_directory_paths=["/*"])

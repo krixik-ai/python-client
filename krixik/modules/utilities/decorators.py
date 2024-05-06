@@ -17,7 +17,7 @@ def type_check_inputs(func):
 
             # confirm and hydrate module chain
             pipeline_ordered_modules = (
-                self_arg.pipeline_ordered_modules
+                self_arg.module_chain
                 if self_arg
                 else kwargs["pipeline_ordered_modules"]
             )

@@ -175,7 +175,7 @@ def test_10(fake_module):
     """try to add module that is not proper Module object"""
     with pytest.raises((TypeError)):
         pipeline = CreatePipeline()
-        pipeline.add(fake_module)
+        pipeline._add(fake_module)
         
         
 test_fail_data = [
@@ -190,4 +190,4 @@ def test_11(fake_module):
     """try to add module that is not proper Module object"""
     with pytest.raises((TypeError)):
         pipeline = CreatePipeline()
-        pipeline.add(fake_module)
+        pipeline._add(fake_module)
