@@ -8,6 +8,8 @@ current_data_types = ["docx", "pdf", "text", "audio", "json", "video", "image", 
 
 
 def test_available_data_types():
+    print(f"available_data_types {available_data_types}")
+    
     assert available_data_types == current_data_types
 
 
