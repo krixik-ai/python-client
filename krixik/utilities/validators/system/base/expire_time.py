@@ -8,7 +8,7 @@ def expire_time_checker(expire_time: str) -> None:
         raise ValueError(
             f"input expire_time must be an int - INFO: input expire_time type: {type(expire_time)}"
         )
-    
+
     if not isinstance(expire_time, int):
         raise ValueError(
             f"input expire_time must be an int - INFO: input expire_time type: {type(expire_time)}"

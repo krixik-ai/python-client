@@ -170,7 +170,7 @@ class CreatePipeline:
         for ind, mm in enumerate(self.__module_chain_configs):
             module_dict = OrderedDict()
             module = mm["module"]
-            module_dict["name"] = module["name"]    
+            module_dict["name"] = module["name"]
             module_dict["models"] = []
             for m in module["models"]:
                 entry = {}
@@ -178,7 +178,7 @@ class CreatePipeline:
                 if 'params' in list(m.keys()):
                     entry["params"] = OrderedDict(m["params"])
                 module_dict["models"].append(OrderedDict(entry))
-            
+
             if "params" in list(module["defaults"].keys()):
                 module_dict["defaults"] = OrderedDict(
                     {"model": module["defaults"]["model"], "params": OrderedDict(module["defaults"]["params"])}
@@ -187,7 +187,7 @@ class CreatePipeline:
                 module_dict["defaults"] = OrderedDict(
                     {"model": module["defaults"]["model"]}
                 )
-                
+
             module_dict["input"] = OrderedDict(
                 {
                     "type": module["input"]["type"],

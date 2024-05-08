@@ -9,4 +9,3 @@ def savepath_check(save_path: str) -> None:
 
     if file_path_ext != "yml" and file_path_ext != "yaml":
         raise ValueError(f"config_path -{save_path} - must have a .yml or .yaml extension")
-        

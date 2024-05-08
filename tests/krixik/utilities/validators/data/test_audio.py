@@ -30,7 +30,7 @@ def test_2(local_file_path):
 # second - check is_size
 test_failure_data = [
     # audio_files_path + "Empty McFile.mp3",  # 0 bytes
-    audio_files_path + "too_long.mp3",  # > 3mb
+    audio_files_path + "valid_1.mp3",  # > 3mb
 ]
 
 
@@ -43,7 +43,7 @@ def test_3(local_file_path):
             minimum_seconds=3,
             maximum_seconds=180,
             minimum_file_size=0.000001,
-            maximum_file_size=3.0,
+            maximum_file_size=0.05,
         )
 
 

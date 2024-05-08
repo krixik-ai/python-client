@@ -5,7 +5,7 @@ import os
 def config_check(filename):
     if not os.path.exists(filename):
         raise FileExistsError(f"FAILURE: config file does not exist - {filename}")
-    
+
     _, extension = os.path.splitext(filename)
     if extension.lower() == '.yaml' or extension.lower() == '.yml':
         try:

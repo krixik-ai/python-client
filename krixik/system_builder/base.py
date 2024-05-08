@@ -65,7 +65,7 @@ class KrixikBasePipeline:
     @property
     def module_chain(self):
         return self.__pipeline_ordered_modules
-    
+
     @property
     def pipeline_output_process_keys(self):
         return self.__pipeline_output_process_keys
@@ -107,8 +107,8 @@ class KrixikBasePipeline:
         self.__pipeline = value
 
     @type_check_inputs
-    def init(self, *, 
-             api_key: str | None, 
+    def init(self, *,
+             api_key: str | None,
              api_url: str | None) -> None:
         """initialize pipeline with an api_key and api_url
 
@@ -314,7 +314,7 @@ class KrixikBasePipeline:
     def __upload_file_to_s3_via_presignedurl(self, verbose: bool = True) -> None:
         # process local file to s3 via presigned url
         upload_status_repeater_success, upload_response = process_local_file(self)
-        
+
         try:
             if upload_response.status_code == 204:
                 if not self.wait_for_process:
@@ -347,7 +347,7 @@ class KrixikBasePipeline:
                     file_id, process_status, failure_status, message = (
                         check_process_status(self, process_id=self.process_id)
                     )
-                    
+
                     if failure_status is not None:
                         self.__delete_server_files()
                         if "failure_module" in list(failure_status.keys()):
@@ -582,7 +582,7 @@ class KrixikBasePipeline:
 
         if not self.wait_for_process:
             return output_data
-        
+
         if output_data is not None:
             try:
                 file_id = output_data["file_id"]
@@ -622,7 +622,7 @@ class KrixikBasePipeline:
         """
 
         # make request
-        results = show_post(self, 
+        results = show_post(self,
                             symbolic_directory_path=symbolic_directory_path,
                             max_files=max_files,
                             verbose=verbose)
@@ -673,7 +673,7 @@ class KrixikBasePipeline:
         report["file_id"] = file_id
         report["message"] = message
         report["pipeline"] = self.__pipeline
-            
+
         if process_status is not None:
             report["process_status"] = process_status
             report["overall_status"] = "complete"

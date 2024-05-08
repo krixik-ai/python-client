@@ -92,17 +92,17 @@ class krixik:
         # only one of config_path or pipeline can be passed
         if config_path is None and pipeline is None:
             raise ValueError("config_path or pipeline must be passed")
-        
+
         if config_path is not None and pipeline is not None:
             raise ValueError("only one of config_path or pipeline can be passed, not both")
-        
+
         if config_path is not None:
             config_check(config_path)
             custom_pipeline = CreatePipeline(config_path=config_path)
         else:
             if not isinstance(pipeline, CreatePipeline):
                 raise TypeError(f"pipeline - {pipeline} not proper CreatePipeline object")
-            custom_pipeline = pipeline        
+            custom_pipeline = pipeline
 
         # pass init
         init_data = cls.check_init_data()
@@ -116,11 +116,11 @@ class krixik:
             api_url=init_data["api_url"],
             api_check_val=init_data["api_check_val"]
         )
-        
+
         pipeline_object.save_pipeline = custom_pipeline.save
         pipeline_object.test_input = custom_pipeline.test_input
         pipeline_object.config = custom_pipeline.config
-        
+
         if custom_pipeline.module_chain[-1] == "vector-db":
             if len(custom_pipeline.module_chain) > 1:
                 if custom_pipeline.module_chain[-2] == "text-embedder":
@@ -128,7 +128,7 @@ class krixik:
 
         if custom_pipeline.module_chain[-1] == "keyword-db":
             pipeline_object.keyword_search = types.MethodType(keyword_search, pipeline_object)
-        
+
         return pipeline_object
 
     @classmethod

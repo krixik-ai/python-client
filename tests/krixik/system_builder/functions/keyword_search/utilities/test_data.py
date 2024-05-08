@@ -11,6 +11,6 @@ test_data = {
 
 wait_for_test_data = {
     "keyword-db": [
-        {"local_file_path": f"{text_files_path}1984_full.txt"},
+        {"local_file_path": f"{text_files_path}1984_short.txt"},
     ]
 }

@@ -7,28 +7,14 @@ scratch_notebooks/
 demos/
 release_notes/
 site/
+tests/test_files/text/test_preprocessed/*
 
 tests/speed/test_results/*
-*.jpeg 
-*.jpg 
-*.png
 *.faiss
 *.zip
 *.csv
-*.json
-*.npy
-*.pdf
-*.pptx
-*.ppt
-*.docx
-*.doc 
-*.txt 
-*.mp4
-*.mp3 
 *.wav
 *.onnx
-*.mp4
-*.mp3
 *.db
 *.wav
 test_files/search/*
@@ -196,4 +182,4 @@ cython_debug/
 requirements.in
 requirements.txt
 push_pypi.sh
-tests/test_files/*
+tests/test_files/output_data/*

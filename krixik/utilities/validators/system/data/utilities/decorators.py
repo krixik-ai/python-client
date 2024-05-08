@@ -139,8 +139,8 @@ def type_check_inputs(func):
             ):
                 if "og_local_file_path" in list(kwargs.keys()):
                     local_file_path = kwargs["og_local_file_path"]
-                
-                if file_name is not None and local_file_path is not None:                    
+
+                if file_name is not None and local_file_path is not None:
                     pairwise_extension_checker(file_name, local_file_path)
 
                 if file_name is None and local_file_path is not None:
