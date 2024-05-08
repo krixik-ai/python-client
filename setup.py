@@ -11,7 +11,7 @@ setup(
     email="jeremy@krixik.com",
     url="https://github.com/krixik-ai/krixik-cli",
     packages=find_packages(include=["krixik*"]),
-    package_data={'': ["*.yml", "*.yaml"]},
+    package_data={"": ["*.yml", "*.yaml"]},
     include_package_data=True,
     python_requires=">=3.10",
     install_requires=[
