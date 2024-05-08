@@ -14,8 +14,3 @@ nltk
 pillow
 pytest-xdist
 pyaml
-mkdocs
-mkdocstrings
-mkdocstrings-python
-mkdocs-section-index
-mkdocs-material

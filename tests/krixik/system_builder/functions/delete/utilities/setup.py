@@ -5,14 +5,14 @@ from krixik.__base__ import library_base_dir
 from tests.krixik.system_builder.functions.update.utilities.test_data import test_data
 from tests.krixik.system_builder.functions.update.utilities.test_data import wait_for_test_data
 
-from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
+from tests import USER_API_KEY, USER_API_URL
 from krixik import krixik
 
 
 def load_but_no_process_pipeline():
     # initialize krixik
-    krixik.init(api_key=TEST_DUMMY_API_KEY,
-                api_url=TEST_DUMMY_API_URL)
+    krixik.init(api_key=USER_API_KEY,
+                api_url=USER_API_URL)
 
     pipeline_name = list(wait_for_test_data.keys())[0]
     test_files = [v["local_file_path"] for v in wait_for_test_data[pipeline_name]]
@@ -41,8 +41,8 @@ def load_but_no_process_pipeline():
 
 def load_pipeline():
     # initialize krixik
-    krixik.init(api_key=TEST_DUMMY_API_KEY,
-                api_url=TEST_DUMMY_API_URL)
+    krixik.init(api_key=USER_API_KEY,
+                api_url=USER_API_URL)
 
     # select single module pipeline and input data from test_data file
     pipeline_name = list(test_data.keys())[0]

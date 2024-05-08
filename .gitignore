@@ -192,4 +192,8 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-!**/requirements.txt
+!.ruff.toml
+requirements.in
+requirements.txt
+push_pypi.sh
+tests/test_files/*

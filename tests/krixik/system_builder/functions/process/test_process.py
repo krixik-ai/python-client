@@ -1,15 +1,15 @@
 from tests.krixik import text_files_path
 from tests.utilities.reset import reset_pipeline
 from krixik import krixik
-from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
+from tests import USER_API_KEY, USER_API_URL
 import pytest
 
 
 def test_1():
     """ test that pipeline with same name but different modules fails """
     # initialize krixik
-    krixik.init(api_key=TEST_DUMMY_API_KEY,
-                api_url=TEST_DUMMY_API_URL)
+    krixik.init(api_key=USER_API_KEY,
+                api_url=USER_API_URL)
 
     test_file = text_files_path + "1984_very_short.txt"
     config_1 = "krixik/pipeline_examples/single_module/parser.yml"

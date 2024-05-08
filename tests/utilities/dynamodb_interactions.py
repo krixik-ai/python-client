@@ -3,7 +3,7 @@ from botocore.exceptions import ClientError
 from datetime import datetime
 from functools import wraps
 import time
-from tests import TEST_DUMMY_USER_ID as user_id
+from tests import USER_ID as user_id
 from tests import user_stage
 
 # import dynamodb resource

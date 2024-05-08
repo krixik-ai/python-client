@@ -689,3 +689,4 @@ class KrixikBasePipeline:
             report["failure_status"] = failure_status
             report["overall_status"] = "failed"
             return report
+        return report
