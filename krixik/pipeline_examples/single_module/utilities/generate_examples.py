@@ -19,7 +19,7 @@ def generate():
             pipeline = CreatePipeline(
                 name=f"{module_name}-pipeline", module_chain=[module]
             )
-            pipeline.save(f"{save_directory}/{module_name}.yml")
+            pipeline.save(config_path=f"{save_directory}/{module_name}.yml")
 
     except Exception as e:
         raise e

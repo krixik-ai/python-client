@@ -4,7 +4,7 @@ import importlib
 from krixik.utilities.validators.data import available_data_types
 
 
-def format_checker(format_: str, 
+def format_checker(format_: str,
                    local_file_path: str) -> None:
     if format_ not in available_data_types:
         raise ValueError("FAILURE: format not supported")
@@ -18,7 +18,7 @@ def format_checker(format_: str,
             raise ValueError(f"FAILURE: loading json file: {e}")
 
 
-def process_key_checker(required_structure: dict, 
+def process_key_checker(required_structure: dict,
                         file_path: str) -> None:
     if "process_key" not in required_structure.keys():
         raise ValueError(f"FAILURE: process_key not found in required_structure")

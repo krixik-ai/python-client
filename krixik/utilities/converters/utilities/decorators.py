@@ -20,7 +20,7 @@ def datatype_converter_wrapper(func):
             local_file_path = get_input(
                 "local_file_path", signature, kwargs, default_value=True
             )
-            
+
             if local_file_path is not None:
                 extension = local_file_path.split(".")[-1]
                 conversion = convert_extension(extension)

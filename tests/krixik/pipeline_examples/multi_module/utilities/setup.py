@@ -3,10 +3,10 @@ import os
 from tests.krixik import output_files_path
 from krixik.__base__ import library_base_dir
 from tests.krixik.pipeline_examples.multi_module.utilities.test_data import test_data
-from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
+from tests import USER_API_KEY, USER_API_URL
 from krixik import krixik
-krixik.init(api_key=TEST_DUMMY_API_KEY,
-            api_url=TEST_DUMMY_API_URL)
+krixik.init(api_key=USER_API_KEY,
+            api_url=USER_API_URL)
 
 
 def prep_pipeline_and_data(pipeline_name):

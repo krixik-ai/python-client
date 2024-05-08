@@ -17,21 +17,21 @@ def type_check_inputs(func):
 
             # confirm and hydrate module chain
             pipeline_ordered_modules = (
-                self_arg.pipeline_ordered_modules
+                self_arg.module_chain
                 if self_arg
                 else kwargs["pipeline_ordered_modules"]
             )
             modules = get_input("modules", signature, kwargs)
-            verbose = get_input("verbose", signature, kwargs, default_value=True)            
+            verbose = get_input("verbose", signature, kwargs, default_value=True)
             hydrated_modules = pipeline_selection_setup(
                 pipeline_ordered_modules, modules
             )
             kwargs["modules"] = hydrated_modules
-            
+
             if "local_file_path" in list(kwargs.keys()):
                 local_file_path = get_input("local_file_path", signature, kwargs)
                 is_valid_json_input(pipeline_ordered_modules[0], local_file_path)
-            
+
             if modules != hydrated_modules:
                 vprint(
                     f"INFO: hydrated input modules: {hydrated_modules}",

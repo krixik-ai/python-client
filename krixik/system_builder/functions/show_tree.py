@@ -24,7 +24,7 @@ def show_post(self, *,
             api_url = self._KrixikBasePipeline__api_url
         else:
             raise ValueError("api_key and api_url not found in self")
-        
+
         if not hasattr(self, "_KrixikBasePipeline__pipeline"):
             raise ValueError("pipeline not found in input object")
 
@@ -33,7 +33,7 @@ def show_post(self, *,
 
         # prep headers
         headers = {"Content-Type": "text/plain", "krixikApiKey": api_key}
-        
+
         # prep payload data
         payload_data = {
             "pipeline": self._KrixikBasePipeline__pipeline,

@@ -1,4 +1,5 @@
 **/.env*
+
 bug_reports/
 .ruff_cache/
 .vscode
@@ -7,28 +8,19 @@ scratch_notebooks/
 demos/
 release_notes/
 site/
+tests/test_files/text/test_preprocessed/*
+!.ruff.toml
+push_pypi.sh
+tests/test_files/output_data/*
+requirements.*
+
 
 tests/speed/test_results/*
-*.jpeg 
-*.jpg 
-*.png
 *.faiss
 *.zip
 *.csv
-*.json
-*.npy
-*.pdf
-*.pptx
-*.ppt
-*.docx
-*.doc 
-*.txt 
-*.mp4
-*.mp3 
 *.wav
 *.onnx
-*.mp4
-*.mp3
 *.db
 *.wav
 test_files/search/*
@@ -192,4 +184,4 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-!**/requirements.txt
+

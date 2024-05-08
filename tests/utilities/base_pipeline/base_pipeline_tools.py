@@ -1,6 +1,6 @@
 from tabnanny import check
-from tests import TEST_DUMMY_API_KEY_DEV
-from tests import TEST_DUMMY_API_URL_DEV
+from tests import USER_API_KEY_DEV
+from tests import USER_API_URL_DEV
 from tests.utilities.decorators import capture_printed_output
 from tests.utilities.base_pipeline.base_pipeline_builder import (
     BasePipelineBuilder,
@@ -22,13 +22,13 @@ class BasePipelineTools(BasePipelineBuilder):
     @capture_printed_output
     def good_init(self):
         self.base_pipeline.init(
-            api_key=TEST_DUMMY_API_KEY_DEV, api_url=TEST_DUMMY_API_URL_DEV
+            api_key=USER_API_KEY_DEV, api_url=USER_API_URL_DEV
         )
 
     @capture_printed_output
     def good_search_init(self):
         self.search_pipeline.init(
-            api_key=TEST_DUMMY_API_KEY_DEV, api_url=TEST_DUMMY_API_URL_DEV
+            api_key=USER_API_KEY_DEV, api_url=USER_API_URL_DEV
         )
 
     def check_bad_init(self):

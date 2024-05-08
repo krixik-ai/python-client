@@ -27,8 +27,8 @@ def save_output(url: str,
     return save_path
 
 
-def fetch_output(self, 
-                 file_id: str, 
+def fetch_output(self,
+                 file_id: str,
                  local_save_directory: str) -> dict | None:
     if file_id is None:
         raise ValueError("please provide a file_id")
@@ -38,7 +38,7 @@ def fetch_output(self,
         raise ValueError(f"local_save_directory {local_save_directory} is not writeable")
     if not os.access(local_save_directory, os.R_OK):
         raise ValueError(f"local_save_directory {local_save_directory} is not readable")
-    
+
     if hasattr(self, "_KrixikBasePipeline__pipeline"):
         pipeline = self._KrixikBasePipeline__pipeline
     elif hasattr(self, "_KrixikSearchPipeline__pipeline"):

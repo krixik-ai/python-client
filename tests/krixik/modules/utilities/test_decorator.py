@@ -26,7 +26,7 @@ pipeline_ordered_modules = ["parser", "text-embedder"]
 
 class MyClass:
     def __init__(self, pipeline_ordered_modules):
-        self.pipeline_ordered_modules = pipeline_ordered_modules
+        self.module_chain = pipeline_ordered_modules
 
     @type_check_inputs
     def my_method(

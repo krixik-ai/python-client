@@ -55,10 +55,10 @@ class CreatePipeline:
         if module_chain is not None:
             chain_check(module_chain)
             for module in module_chain:
-                self.add(module)
+                self._add(module)
             self.test_connections()
 
-    def add(self, module: Module, insert_index: int = -1) -> None:
+    def _add(self, module: Module, insert_index: int = -1) -> None:
         if len(self.__module_chain) + 1 > MAX_MODULES:
             raise ValueError(
                 f"cannot add additional module - pipelines cannot currently have more than {MAX_MODULES} modules"
@@ -84,7 +84,7 @@ class CreatePipeline:
 
         self.test_connections()
 
-    def remove(
+    def _remove(
         self,
         module_name: str | None = None,
         index: int | None = None,
@@ -170,7 +170,7 @@ class CreatePipeline:
         for ind, mm in enumerate(self.__module_chain_configs):
             module_dict = OrderedDict()
             module = mm["module"]
-            module_dict["name"] = module["name"]    
+            module_dict["name"] = module["name"]
             module_dict["models"] = []
             for m in module["models"]:
                 entry = {}
@@ -178,7 +178,7 @@ class CreatePipeline:
                 if 'params' in list(m.keys()):
                     entry["params"] = OrderedDict(m["params"])
                 module_dict["models"].append(OrderedDict(entry))
-            
+
             if "params" in list(module["defaults"].keys()):
                 module_dict["defaults"] = OrderedDict(
                     {"model": module["defaults"]["model"], "params": OrderedDict(module["defaults"]["params"])}
@@ -187,7 +187,7 @@ class CreatePipeline:
                 module_dict["defaults"] = OrderedDict(
                     {"model": module["defaults"]["model"]}
                 )
-                
+
             module_dict["input"] = OrderedDict(
                 {
                     "type": module["input"]["type"],
@@ -206,7 +206,7 @@ class CreatePipeline:
         self._make_config()
         return convert_to_dict(self.__pipeline_config)
 
-    def save(self, config_path: str) -> None:
+    def save(self, *, config_path: str) -> None:
         savepath_check(config_path)
 
         if self.name is None:

@@ -70,7 +70,7 @@ def convert(
                 os.remove(audio_filepath)
 
             # check input file is mp4
-            is_video_size(local_file_path=local_file_path)
+            is_video_size(local_file_path=local_file_path, minimum_file_size=0.1)
 
             # extract audio from video
             extract_audio(
@@ -82,7 +82,7 @@ def convert(
                 "INFO: Checking that file size falls within acceptable parameters...",
                 verbose=verbose,
             )
-            is_audio_size(local_file_path=audio_filepath)
+            is_audio_size(local_file_path=audio_filepath, minimum_file_size=0.05)
             vprint("INFO:...success!", verbose=verbose)
 
             return audio_filepath

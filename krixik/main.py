@@ -23,7 +23,7 @@ class krixik:
     __local_conversion_directory = tempfile.gettempdir()
 
     @classmethod
-    def init(cls, api_key: str | None, api_url: str | None) -> None:
+    def init(cls, *, api_key: str | None, api_url: str | None) -> None:
         """krixik pipeline initialization method - initializes unique user session using api_key and api_url
 
         Parameters
@@ -55,6 +55,7 @@ class krixik:
 
     @classmethod
     def create_pipeline(cls,
+                        *,
                         name: str,
                         module_chain: list):
         if not isinstance(name, str):
@@ -73,9 +74,9 @@ class krixik:
                                 module_chain=module_chain_)
         return cls.load_pipeline(pipeline=custom)
 
-
     @classmethod
     def load_pipeline(cls,
+                      *,
                       config_path: Optional[str] = None,
                       pipeline: Optional[CreatePipeline] = None
                       ) -> object:
@@ -91,17 +92,17 @@ class krixik:
         # only one of config_path or pipeline can be passed
         if config_path is None and pipeline is None:
             raise ValueError("config_path or pipeline must be passed")
-        
+
         if config_path is not None and pipeline is not None:
             raise ValueError("only one of config_path or pipeline can be passed, not both")
-        
+
         if config_path is not None:
             config_check(config_path)
             custom_pipeline = CreatePipeline(config_path=config_path)
         else:
             if not isinstance(pipeline, CreatePipeline):
                 raise TypeError(f"pipeline - {pipeline} not proper CreatePipeline object")
-            custom_pipeline = pipeline        
+            custom_pipeline = pipeline
 
         # pass init
         init_data = cls.check_init_data()
@@ -115,24 +116,23 @@ class krixik:
             api_url=init_data["api_url"],
             api_check_val=init_data["api_check_val"]
         )
-        
+
         pipeline_object.save_pipeline = custom_pipeline.save
         pipeline_object.test_input = custom_pipeline.test_input
         pipeline_object.config = custom_pipeline.config
-        
+
         if custom_pipeline.module_chain[-1] == "vector-db":
             if len(custom_pipeline.module_chain) > 1:
                 if custom_pipeline.module_chain[-2] == "text-embedder":
                     pipeline_object.semantic_search = types.MethodType(semantic_search, pipeline_object)
 
-
         if custom_pipeline.module_chain[-1] == "keyword-db":
             pipeline_object.keyword_search = types.MethodType(keyword_search, pipeline_object)
-        
+
         return pipeline_object
 
     @classmethod
-    def module_details(cls, module_name: str) -> dict:
+    def view_module_config(cls, *, module_name: str) -> dict:
         """convenience method for examinng module details
 
         Parameters
@@ -146,6 +146,10 @@ class krixik:
             dictionary with module details
         """
         return get_module_details(module_name)
+
+    @classmethod
+    def view_module_click_data(cls, *, module_name: str) -> dict:
+        return Module(module_name).click_data
 
     @classproperty
     def local_conversion_directory(cls):
