@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 setup(
     name="krixik",
-    version="1.1.13",
+    version="1.1.14",
     description="Easily assemble and serverlessly consume modular AI pipelines through secure Python APIs.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -11,6 +11,8 @@ setup(
     email="jeremy@krixik.com",
     url="https://github.com/krixik-ai/krixik-cli",
     packages=find_packages(include=["krixik*"]),
+    package_data={'': ["*.yml", "*.yaml"]},
+    include_package_data=True,
     python_requires=">=3.10",
     install_requires=[
         "boto3",
