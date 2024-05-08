@@ -11,9 +11,7 @@ def max_files_checker(max_files: int) -> None:
             raise ValueError(f"invalid max_files: less than 1 - {max_files}")
 
         if max_files > MAX_FILES_COUNT:
-            raise ValueError(
-                f"invalid max_files: greater than {MAX_FILES_COUNT} - {max_files}"
-            )
+            raise ValueError(f"invalid max_files: greater than {MAX_FILES_COUNT} - {max_files}")
 
         if max_files < 1:
             raise ValueError(f"invalid max_files: less than 1 - {max_files}")

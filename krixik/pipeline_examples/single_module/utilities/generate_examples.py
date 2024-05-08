@@ -16,9 +16,7 @@ def generate():
         pipeline = CreatePipeline()
         for module_name in available_modules:
             module = Module(module_name)
-            pipeline = CreatePipeline(
-                name=f"{module_name}-pipeline", module_chain=[module]
-            )
+            pipeline = CreatePipeline(name=f"{module_name}-pipeline", module_chain=[module])
             pipeline.save(config_path=f"{save_directory}/{module_name}.yml")
 
     except Exception as e:

@@ -33,9 +33,7 @@ def fixed_params_validator(params: dict) -> None:
         # check that params values are all ints
         for value in params.values():
             if not isinstance(value, int) or isinstance(value, bool):
-                raise TypeError(
-                    f"params: all values must be integers - the params entered is not in this required form - {params}"
-                )
+                raise TypeError(f"params: all values must be integers - the params entered is not in this required form - {params}")
 
         # check that no key is repeated
         if len(params.keys()) != len(set(params.keys())):
@@ -45,12 +43,8 @@ def fixed_params_validator(params: dict) -> None:
 
         # check that chunk_size is an integer
         if "chunk_size" in params.keys():
-            if not isinstance(params["chunk_size"], int) or isinstance(
-                params["chunk_size"], bool
-            ):
-                raise TypeError(
-                    f"params: chunk_size must be an integer - the params entered is not in this required form - {params}"
-                )
+            if not isinstance(params["chunk_size"], int) or isinstance(params["chunk_size"], bool):
+                raise TypeError(f"params: chunk_size must be an integer - the params entered is not in this required form - {params}")
 
             # check that chunk_size is greater than CHUNK_SIZE_MIN
             if params["chunk_size"] <= CHUNK_SIZE_MIN:
@@ -65,18 +59,12 @@ def fixed_params_validator(params: dict) -> None:
                 )
 
         else:
-            raise ValueError(
-                f"params: chunk_size must be in params - the params entered is not in this required form - {params}"
-            )
+            raise ValueError(f"params: chunk_size must be in params - the params entered is not in this required form - {params}")
 
         # check that overlap_size is an integer
         if "overlap_size" in params.keys():
-            if not isinstance(params["overlap_size"], int) or isinstance(
-                params["overlap_size"], bool
-            ):
-                raise TypeError(
-                    f"params: overlap_size must be an integer - the params entered is not in this required form - {params}"
-                )
+            if not isinstance(params["overlap_size"], int) or isinstance(params["overlap_size"], bool):
+                raise TypeError(f"params: overlap_size must be an integer - the params entered is not in this required form - {params}")
 
             # check that overlap_size is greater than or equal to OVERLAP_SIZE_MIN
             if params["overlap_size"] < OVERLAP_SIZE_MIN:
@@ -90,9 +78,7 @@ def fixed_params_validator(params: dict) -> None:
                     f"params: overlap_size must be no greater than chunk_size - 1 - the params entered is not in this required form - {params}"
                 )
         else:
-            raise ValueError(
-                f"params: overlap_size must be in params - the params entered is not in this required form - {params}"
-            )
+            raise ValueError(f"params: overlap_size must be in params - the params entered is not in this required form - {params}")
 
         # check that if chunk_size or overlap_size is in params, then both are in params
         if "chunk_size" in params.keys() and "overlap_size" not in params.keys():

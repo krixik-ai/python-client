@@ -4,9 +4,7 @@ from pypdf import PdfReader
 
 def is_valid(local_file_path: str) -> None:
     if local_file_path.split(".")[-1] != "pdf":
-        raise ValueError(
-            f"invalid local_file_path: must be a pdf file - {local_file_path}"
-        )
+        raise ValueError(f"invalid local_file_path: must be a pdf file - {local_file_path}")
 
     try:
         # check that local_file_path represents pdf file
@@ -81,9 +79,7 @@ def is_size(
 
         # check that word count is greater than minimum_word_count
         if file_word_count < minimum_word_count:
-            raise ValueError(
-                f"it appears that the word count is less than the allowed minimum {minimum_word_count} words"
-            )
+            raise ValueError(f"it appears that the word count is less than the allowed minimum {minimum_word_count} words")
 
     except ValueError as ve:
         raise ve

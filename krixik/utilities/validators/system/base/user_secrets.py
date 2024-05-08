@@ -24,16 +24,12 @@ def api_key_checker(api_key: str) -> None:
 
     # type check api_key
     if not isinstance(api_key, str):
-        raise TypeError(
-            "you failed to authenticate - invalid API key type - API key must be a string"
-        )
+        raise TypeError("you failed to authenticate - invalid API key type - API key must be a string")
 
     # check that api_key matches pattern
     res = is_valid_uuid_string(api_key)
     if res is False:
-        raise ValueError(
-            "invalid api_key: please check that this is a valid and correct api_key"
-        )
+        raise ValueError("invalid api_key: please check that this is a valid and correct api_key")
 
 
 def api_url_checker(api_url: str) -> None:
@@ -43,13 +39,9 @@ def api_url_checker(api_url: str) -> None:
 
     # type check api_url
     if not isinstance(api_url, str):
-        raise ValueError(
-            "you failed to authenticate - invalid API url type - API url must be a string"
-        )
+        raise ValueError("you failed to authenticate - invalid API url type - API url must be a string")
 
     # check that api_url matches pattern
     res = is_valid_api_url(api_url)
     if res is False:
-        raise ValueError(
-            "invalid api_url: please check that this is a valid and correct api_url"
-        )
+        raise ValueError("invalid api_url: please check that this is a valid and correct api_url")

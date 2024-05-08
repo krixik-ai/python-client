@@ -113,9 +113,7 @@ def keyword_search(
         created_at_end_int,
         last_updated_start_int,
         last_updated_end_int,
-    ) = convert_timestamps(
-        created_at_start, created_at_end, last_updated_start, last_updated_end
-    )
+    ) = convert_timestamps(created_at_start, created_at_end, last_updated_start, last_updated_end)
 
     # prep payload data
     payload_data = {
@@ -155,9 +153,7 @@ def keyword_search(
                 # sort user_items based on created_at
                 results["items"] = sorted(
                     results["items"],
-                    key=lambda x: datetime.strptime(
-                        x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S"
-                    ).timestamp(),
+                    key=lambda x: datetime.strptime(x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S").timestamp(),
                     reverse=True,
                 )
 
@@ -165,9 +161,7 @@ def keyword_search(
                 # sort user_items based on created_at
                 results["items"] = sorted(
                     results["items"],
-                    key=lambda x: datetime.strptime(
-                        x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S"
-                    ).timestamp(),
+                    key=lambda x: datetime.strptime(x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S").timestamp(),
                     reverse=False,
                 )
 

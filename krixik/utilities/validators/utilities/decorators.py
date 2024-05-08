@@ -13,15 +13,9 @@ def type_check_inputs(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
         try:
-            result = system_base_type_check_inputs(
-                system_data_type_check_inputs(
-                    datatype_validator(
-                        lower_case_decorator(
-                            func
-                        )
-                    )
-                )
-            )(self, *args, **kwargs)
+            result = system_base_type_check_inputs(system_data_type_check_inputs(datatype_validator(lower_case_decorator(func))))(
+                self, *args, **kwargs
+            )
 
             return result
 

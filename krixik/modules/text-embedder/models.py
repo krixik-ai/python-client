@@ -13,9 +13,7 @@ quantize_validator = module.quantize_validator
 
 def params_validator(model: str, params: dict) -> None:
     if len(params) != 1:
-        raise ValueError(
-            f"params: must have only one key-value pair - the params entered are not in this required form - {params}"
-        )
+        raise ValueError(f"params: must have only one key-value pair - the params entered are not in this required form - {params}")
     quantize_validator(params)
 
 

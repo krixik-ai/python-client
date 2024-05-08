@@ -5,11 +5,11 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "dev"]
     paths-ignore:
       - '**/README.md'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
     paths-ignore:
       - '**/README.md'
 
@@ -33,11 +33,16 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.10'
     - name: Install dependencies
       run: |
+        sudo add-apt-repository ppa:savoury1/ffmpeg4
+        sudo apt-get update
+        sudo apt-get install ffmpeg
         python -m pip install --upgrade pip
-        pip install pytest 
+        pip install .[test]
     - name: Run pytest
       run: |
-        PYTHONPATH=. python3 pytest tests/krixik/modules 
+        PYTHONPATH=. python3.10 -m pytest tests/krixik/modules && 
+        PYTHONPATH=. python3.10 -m pytest tests/krixik/pipeline_builder &&
+        PYTHONPATH=. python3.10 -m pytest tests/krixik/utilities

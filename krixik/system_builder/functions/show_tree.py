@@ -5,10 +5,7 @@ from krixik.system_builder.functions import show_tree_endpoint
 from krixik.utilities.utilities import vprint
 
 
-def show_post(self, *,
-              symbolic_directory_path: str,
-              max_files: int = 1000,
-              verbose: bool = True):
+def show_post(self, *, symbolic_directory_path: str, max_files: int = 1000, verbose: bool = True):
     if hasattr(self, "_KrixikBasePipeline__version"):
         version = self._KrixikBasePipeline__version
     elif hasattr(self, "_KrixikSearchPipeline__version"):
@@ -17,9 +14,7 @@ def show_post(self, *,
         raise ValueError("version not found in self")
 
     try:
-        if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(
-            self, "_KrixikBasePipeline__api_url"
-        ):
+        if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(self, "_KrixikBasePipeline__api_url"):
             api_key = self._KrixikBasePipeline__api_key
             api_url = self._KrixikBasePipeline__api_url
         else:
@@ -58,21 +53,15 @@ def show_post(self, *,
             status_code_dict.update(results)
             return status_code_dict
         else:
-            raise ValueError(
-                f"show_tree failed with status code {response.status_code}"
-            )
+            raise ValueError(f"show_tree failed with status code {response.status_code}")
     except requests.exceptions.HTTPError as e:
         raise requests.exceptions.HTTPError(f"show_tree failed with HTTPError {e}")
     except requests.exceptions.ConnectionError as e:
-        raise requests.exceptions.ConnectionError(
-            f"show_tree failed with ConnectionError {e}"
-        )
+        raise requests.exceptions.ConnectionError(f"show_tree failed with ConnectionError {e}")
     except requests.exceptions.Timeout as e:
         raise requests.exceptions.Timeout(f"show_tree failed with Timeout {e}")
     except requests.exceptions.RequestException as e:
-        raise requests.exceptions.RequestException(
-            f"show_tree failed with request exception {e}"
-        )
+        raise requests.exceptions.RequestException(f"show_tree failed with request exception {e}")
     except Exception as e:
         raise ValueError(f"show_tree failed with request exception {e}")
     finally:

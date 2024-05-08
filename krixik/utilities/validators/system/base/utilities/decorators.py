@@ -79,13 +79,9 @@ def type_check_inputs(func: Callable) -> Callable:
                 symbolic_directory_paths_checker(kwargs["symbolic_directory_paths"])
 
             if "symbolic_directory_path" in list(kwargs.keys()):
-                individual_symbolic_directory_path_checker(
-                    kwargs["symbolic_directory_path"]
-                )
+                individual_symbolic_directory_path_checker(kwargs["symbolic_directory_path"])
 
-            sort_order = get_input(
-                "sort_order", signature, kwargs, default_value="descending"
-            )
+            sort_order = get_input("sort_order", signature, kwargs, default_value="descending")
             if sort_order is not None:
                 sort_order_checker(sort_order)
 
@@ -105,9 +101,7 @@ def type_check_inputs(func: Callable) -> Callable:
             if max_files is not None:
                 max_files_checker(max_files)
 
-            wait_for_process = get_input(
-                "wait_for_process", signature, kwargs, default_value=False
-            )
+            wait_for_process = get_input("wait_for_process", signature, kwargs, default_value=False)
             wait_for_process_checker(wait_for_process)
 
             query = get_input("query", signature, kwargs)
@@ -123,12 +117,7 @@ def type_check_inputs(func: Callable) -> Callable:
             last_updated_start = get_input("last_updated_start", signature, kwargs)
             last_updated_end = get_input("last_updated_end", signature, kwargs)
 
-            if (
-                created_at_start is not None
-                or created_at_end is not None
-                or last_updated_start is not None
-                or last_updated_end is not None
-            ):
+            if created_at_start is not None or created_at_end is not None or last_updated_start is not None or last_updated_end is not None:
                 timestamp_bookends_checker(
                     created_at_start,
                     created_at_end,
@@ -160,17 +149,13 @@ def file_converters_input_check(func):
         if "local_file_path" in kwargs:
             if kwargs["local_file_path"] is not None:
                 if os.path.exists(kwargs["local_file_path"]) is False:
-                    raise FileNotFoundError(
-                        f"the file '{kwargs['local_file_path']}' does not exist."
-                    )
+                    raise FileNotFoundError(f"the file '{kwargs['local_file_path']}' does not exist.")
             else:
                 raise ValueError("local_file_path cannot be None")
         if "local_save_directory" in kwargs:
             if kwargs["local_save_directory"] is not None:
                 if os.path.exists(kwargs["local_save_directory"]) is False:
-                    raise FileNotFoundError(
-                        f"the directory '{kwargs['local_save_directory']}' does not exist."
-                    )
+                    raise FileNotFoundError(f"the directory '{kwargs['local_save_directory']}' does not exist.")
 
         if "verbose" in kwargs:
             if kwargs["verbose"] is not None:

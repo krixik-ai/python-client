@@ -89,9 +89,7 @@ def is_size(
                                     minimum_token_count_key_value = {key: value}
                             counter += 1
                         except Exception as e:
-                            raise ValueError(
-                                f"snippet token and count calculation failed on key-value pair {key}-{value} with exception {e}"
-                            )
+                            raise ValueError(f"snippet token and count calculation failed on key-value pair {key}-{value} with exception {e}")
 
                 return (
                     maximum_key_length,
@@ -103,9 +101,7 @@ def is_size(
                     maximum_token_count_key_value,
                 )
         except Exception as e:
-            raise ValueError(
-                f"snippet token and count calculation failed with exception {e}"
-            )
+            raise ValueError(f"snippet token and count calculation failed with exception {e}")
 
     try:
         # check that local_file_path represents a valid json file

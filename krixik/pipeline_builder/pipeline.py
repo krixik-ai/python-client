@@ -15,12 +15,13 @@ from krixik.pipeline_builder import MAX_MODULES
 def represent_ordereddict(dumper, data):
     return dumper.represent_dict(data.items())
 
+
 def construct_ordereddict(loader, node):
     return OrderedDict(loader.construct_pairs(node))
+
+
 yaml.add_representer(OrderedDict, represent_ordereddict)
-yaml.add_constructor(
-    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, construct_ordereddict
-)
+yaml.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, construct_ordereddict)
 
 
 def convert_to_dict(obj):
@@ -60,9 +61,7 @@ class CreatePipeline:
 
     def _add(self, module: Module, insert_index: int = -1) -> None:
         if len(self.__module_chain) + 1 > MAX_MODULES:
-            raise ValueError(
-                f"cannot add additional module - pipelines cannot currently have more than {MAX_MODULES} modules"
-            )
+            raise ValueError(f"cannot add additional module - pipelines cannot currently have more than {MAX_MODULES} modules")
         if not isinstance(module, Module):
             raise TypeError(f"FAILURE: module - {module} - is not a proper Module object")
 
@@ -73,9 +72,7 @@ class CreatePipeline:
             self.__module_chain.insert(insert_index, module)
             self.__module_chain_names.insert(insert_index, module.name)
             self.__module_chain_configs.insert(insert_index, module.config)
-            self.__module_chain_output_process_keys.insert(
-                insert_index, module.output_process_key
-            )
+            self.__module_chain_output_process_keys.insert(insert_index, module.output_process_key)
 
         self.__module_chain.append(module)
         self.__module_chain_names.append(module.name)
@@ -120,9 +117,7 @@ class CreatePipeline:
     @datatype_validator
     def test_input(self, *, local_file_path: str) -> None:
         input_check(local_file_path, self.__module_chain)
-        print(
-            f"SUCCESS: local file {local_file_path} passed pipeline input test passed"
-        )
+        print(f"SUCCESS: local file {local_file_path} passed pipeline input test passed")
 
     @property
     def module_chain(self) -> list:
@@ -156,10 +151,7 @@ class CreatePipeline:
                 )
 
             # check process key type compatibility
-            if (
-                prev_module_output_process_key_type
-                != curr_module_input_process_key_type
-            ):
+            if prev_module_output_process_key_type != curr_module_input_process_key_type:
                 raise TypeError(
                     f"process key type mismatch between {prev_module.name} - whose output process key is {prev_module_output_process_key} and whose type is {prev_module_output_process_key_type} - and {curr_module.name} - whose input process key {curr_module_input_process_key} whose type is {curr_module_input_process_key_type}"
                 )
@@ -175,18 +167,14 @@ class CreatePipeline:
             for m in module["models"]:
                 entry = {}
                 entry["name"] = m["name"]
-                if 'params' in list(m.keys()):
+                if "params" in list(m.keys()):
                     entry["params"] = OrderedDict(m["params"])
                 module_dict["models"].append(OrderedDict(entry))
 
             if "params" in list(module["defaults"].keys()):
-                module_dict["defaults"] = OrderedDict(
-                    {"model": module["defaults"]["model"], "params": OrderedDict(module["defaults"]["params"])}
-                )
+                module_dict["defaults"] = OrderedDict({"model": module["defaults"]["model"], "params": OrderedDict(module["defaults"]["params"])})
             else:
-                module_dict["defaults"] = OrderedDict(
-                    {"model": module["defaults"]["model"]}
-                )
+                module_dict["defaults"] = OrderedDict({"model": module["defaults"]["model"]})
 
             module_dict["input"] = OrderedDict(
                 {
@@ -197,9 +185,7 @@ class CreatePipeline:
             module_dict["output"] = OrderedDict({"type": module["output"]["type"]})
             modules.append(module_dict)
 
-        self.__pipeline_config["pipeline"] = OrderedDict(
-            {"name": self.name, "modules": modules}
-        )
+        self.__pipeline_config["pipeline"] = OrderedDict({"name": self.name, "modules": modules})
 
     @property
     def config(self):
@@ -210,9 +196,7 @@ class CreatePipeline:
         savepath_check(config_path)
 
         if self.name is None:
-            raise ValueError(
-                "please give your pipeline a name before saving using the .name property"
-            )
+            raise ValueError("please give your pipeline a name before saving using the .name property")
 
         self._make_config()
         with open(config_path, "w") as file:
@@ -229,9 +213,7 @@ class CreatePipeline:
         modules = pipeline["modules"]
 
         if len(modules) > MAX_MODULES:
-            raise ValueError(
-                f"pipelines cannot currently have more than {MAX_MODULES} modules"
-            )
+            raise ValueError(f"pipelines cannot currently have more than {MAX_MODULES} modules")
 
         module_chain = []
         for m in modules:

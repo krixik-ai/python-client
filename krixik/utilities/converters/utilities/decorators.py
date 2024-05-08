@@ -17,9 +17,7 @@ def datatype_converter_wrapper(func):
         try:
             signature = inspect.signature(func)
             verbose = get_input("verbose", signature, kwargs, default_value=True)
-            local_file_path = get_input(
-                "local_file_path", signature, kwargs, default_value=True
-            )
+            local_file_path = get_input("local_file_path", signature, kwargs, default_value=True)
 
             if local_file_path is not None:
                 extension = local_file_path.split(".")[-1]
@@ -53,9 +51,7 @@ def datatype_converter_wrapper(func):
                             )
                         if local_file_path is not None:
                             if local_file_path.split(".")[-1] != conversion:
-                                raise ValueError(
-                                    f"conversion failed, expected {conversion} got {local_file_path.split('.')[-1]}"
-                                )
+                                raise ValueError(f"conversion failed, expected {conversion} got {local_file_path.split('.')[-1]}")
 
                             vprint(
                                 f"converted {og_local_file_path} to: {local_file_path}",
@@ -93,4 +89,5 @@ def datatype_converter_wrapper(func):
             raise PermissionError(e)
         except Exception as e:
             raise Exception(e)
+
     return converter_wrapper

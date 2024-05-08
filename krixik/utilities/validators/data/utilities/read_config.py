@@ -35,9 +35,7 @@ def check_inverse_config(ext: str) -> dict:
     try:
         return inverse_data_config[ext]
     except KeyError:
-        raise ValueError(
-            f"extension '{ext}' does not map to any currently available data types: {available_data_types} "
-        )
+        raise ValueError(f"extension '{ext}' does not map to any currently available data types: {available_data_types} ")
 
 
 def get_allowable_data_types(data_type: str) -> dict:
@@ -45,9 +43,7 @@ def get_allowable_data_types(data_type: str) -> dict:
         data_config = yaml.safe_load(file)["data_types"]
 
     if data_type not in data_config:
-        raise ValueError(
-            f"data_type: must be one of {data_config} - the data_type entered is not in this required form - {data_type}"
-        )
+        raise ValueError(f"data_type: must be one of {data_config} - the data_type entered is not in this required form - {data_type}")
     return data_config[data_type]
 
 

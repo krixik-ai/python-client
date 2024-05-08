@@ -22,15 +22,11 @@ def individual_file_id_checker(file_id: str) -> None:
         # check that file_id matches pattern
         res = is_valid_uuid_string(file_id)
         if res is False:
-            raise TypeError(
-                f"invalid file_id: a valid file_id is a string of length 36 with the following pattern: {file_id_pattern}"
-            )
+            raise TypeError(f"invalid file_id: a valid file_id is a string of length 36 with the following pattern: {file_id_pattern}")
 
         # check that file_id length is 36
         if len(file_id) != 36:
-            raise TypeError(
-                f"invalid file_id: length of this file_id is not 36 (it must be exactly 36 characters) - {file_id}"
-            )
+            raise TypeError(f"invalid file_id: length of this file_id is not 36 (it must be exactly 36 characters) - {file_id}")
 
 
 def file_ids_checker(file_ids: list, verbose: bool = True) -> None:
@@ -47,9 +43,7 @@ def file_ids_checker(file_ids: list, verbose: bool = True) -> None:
 
             # check if length greater than MAX_FILE_ID_COUNT
             if len(file_ids) > MAX_FILE_ID_COUNT:
-                raise ValueError(
-                    f"file_ids contains more than {MAX_FILE_ID_COUNT} file_ids"
-                )
+                raise ValueError(f"file_ids contains more than {MAX_FILE_ID_COUNT} file_ids")
 
             # check each file_id for validity
             for file_id in file_ids:

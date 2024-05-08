@@ -157,7 +157,7 @@ def test_6(local_file_path):
 
 
 # check line count failure
-test_data = [text_files_path + "All Ones.txt"]
+test_data = [text_files_path + "All ones.txt"]
 
 
 @pytest.mark.parametrize("local_file_path", test_data)

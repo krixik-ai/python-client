@@ -8,4 +8,3 @@ fetch_output_endpoint = "/krixik-core-fetch-output"
 cli_checkin_endpoint = "/cli-checkin"
 keyword_search_endpoint = "/keyword-search"
 semantic_search_endpoint = "/semantic-search"
-

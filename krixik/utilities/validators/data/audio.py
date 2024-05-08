@@ -13,9 +13,7 @@ def is_valid(local_file_path: str | None) -> None:
         duration = 100
         AudioSegment.from_file(local_file_path, format="mp3", duration=duration)
     except PydubException as e:
-        raise ValueError(
-            f"input file is not a valid audio file - {local_file_path} - see exception {e}"
-        )
+        raise ValueError(f"input file is not a valid audio file - {local_file_path} - see exception {e}")
     except FileNotFoundError:
         raise FileNotFoundError(f"The file '{local_file_path}' does not exist.")
     except Exception as e:

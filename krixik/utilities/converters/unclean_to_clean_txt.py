@@ -15,9 +15,7 @@ def delete_file(*, file_path: str, exception: str) -> None:
         # remove file_path file if it exists
         if os.path.exists(file_path):
             os.remove(file_path)
-        raise ValueError(
-            f"there seems to be a problem with your cleaned file - file cleaning failed with exception {str(exception)}"
-        )
+        raise ValueError(f"there seems to be a problem with your cleaned file - file cleaning failed with exception {str(exception)}")
 
 
 @file_converters_input_check
@@ -60,10 +58,7 @@ def convert(
     new_file_path = ""
     try:
         # new file to write to
-        file_name = (
-            "krixik_cleaned_version_"
-            + os.path.splitext(os.path.basename(local_file_path))[0]
-        )
+        file_name = "krixik_cleaned_version_" + os.path.splitext(os.path.basename(local_file_path))[0]
         extension = ".txt"
         new_file_path = os.path.join(local_save_directory, file_name + extension)
 
@@ -79,9 +74,7 @@ def convert(
             values = set(list(clean_options.values()))
             intersection = keys.intersection(values)
             if len(intersection) > 0:
-                raise ValueError(
-                    f"clean_options contains the same key and value: {intersection}"
-                )
+                raise ValueError(f"clean_options contains the same key and value: {intersection}")
 
         # if clean_options length greater than 0 convert to one dict
         clean_keys = []

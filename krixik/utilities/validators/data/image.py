@@ -17,9 +17,7 @@ def is_valid(local_file_path: str) -> bool | None:
             if image_type in ["jpg", "jpeg", "png"]:
                 return True
             else:
-                raise ValueError(
-                    f"The file '{local_file_path}' does not represent a valid image."
-                )
+                raise ValueError(f"The file '{local_file_path}' does not represent a valid image.")
     except FileNotFoundError:
         raise FileNotFoundError(f"The file '{local_file_path}' does not exist.")
     except Exception as e:
@@ -38,9 +36,7 @@ def is_proportionally_acceptable(local_file_path: str) -> None:
                 raise ValueError("image width or height is 0")
 
             if width / height < 0.05 or height / width < 0.05:
-                raise ValueError(
-                    "image proportion is less than 0.2: width/height or height/width"
-                )
+                raise ValueError("image proportion is less than 0.2: width/height or height/width")
     except ValueError as ve:
         raise ve
     except Exception as e:
