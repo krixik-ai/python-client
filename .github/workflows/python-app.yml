@@ -40,4 +40,6 @@ jobs:
         pip install .[test]
     - name: Run pytest
       run: |
-        PYTHONPATH=. python3.10 -m pytest tests/krixik/modules 
+        PYTHONPATH=. python3.10 -m pytest tests/krixik/modules && 
+        PYTHONPATH=. python3.10 -m pytest tests/krixik/pipeline_builder &&
+        PYTHONPATH=. python3.10 -m pytest tests/krixik/utilities
