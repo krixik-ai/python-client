@@ -1,8 +1,8 @@
 line-length = 150
 target-version = "py38"
 lint.select = ["E", "W"]
+lint.fixable = ["ALL"]
 ignore = ["E501"]
-fixable = ["ALL"]
 exclude = [
     ".bzr",
     ".direnv",
