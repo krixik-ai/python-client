@@ -5,39 +5,39 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "dev"]
     paths-ignore:
       - '**/README.md'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
     paths-ignore:
       - '**/README.md'
 
-jobs:
-  ruff:
-    name: lint with ruff
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v2
-      - uses: chartboost/ruff-action@v1
+  jobs:
+    ruff:
+      name: lint with ruff
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-python@v2
+        - uses: chartboost/ruff-action@v1
+          with:
+            args: 'format --check'
+            config: .ruff.toml
+    test:
+      name: run pytest
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          args: 'format --check'
-          config: .ruff.toml
-  test:
-    name: run pytest
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest 
-    - name: Run pytest
-      run: |
-        PYTHONPATH=. python3 pytest tests/krixik/modules 
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest 
+      - name: Run pytest
+        run: |
+          PYTHONPATH=. python3 -m pytest tests/krixik/modules 
