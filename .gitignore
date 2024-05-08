@@ -15,7 +15,6 @@ tests/test_files/output_data/*
 requirements.*
 
 
-
 tests/speed/test_results/*
 *.faiss
 *.zip
