@@ -1,4 +1,5 @@
 **/.env*
+
 bug_reports/
 .ruff_cache/
 .vscode
@@ -8,6 +9,12 @@ demos/
 release_notes/
 site/
 tests/test_files/text/test_preprocessed/*
+!.ruff.toml
+push_pypi.sh
+tests/test_files/output_data/*
+requirements.*
+
+
 
 tests/speed/test_results/*
 *.faiss
@@ -178,8 +185,4 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-!.ruff.toml
-requirements.in
-requirements.txt
-push_pypi.sh
-tests/test_files/output_data/*
+
