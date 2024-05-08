@@ -40,4 +40,4 @@ jobs:
         pip install pytest 
     - name: Run pytest
       run: |
-        pytest tests/krixik/modules 
+        PYTHONPATH=. python3 pytest tests/krixik/modules 
