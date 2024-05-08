@@ -8,9 +8,7 @@ def is_valid(local_file_path: str) -> None:
         raise ValueError(f"input file does not exist - {local_file_path}")
 
     if not local_file_path.endswith(".mp4"):
-        raise ValueError(
-            f"input file must end with .mp4 extension, not a valid video file - {local_file_path}"
-        )
+        raise ValueError(f"input file must end with .mp4 extension, not a valid video file - {local_file_path}")
 
     try:
         start_time = 0
@@ -70,13 +68,9 @@ def is_size(
 
         # check that audio file is  greater than minimum_seconds and less than maximum_seconds
         if audio_duration < minimum_seconds:
-            raise ValueError(
-                f"audio file is {audio_duration} seconds - this is less than {minimum_seconds} seconds (current minimum size allowable)"
-            )
+            raise ValueError(f"audio file is {audio_duration} seconds - this is less than {minimum_seconds} seconds (current minimum size allowable)")
         if audio_duration > maximum_seconds:
-            raise ValueError(
-                f"audio file or greater than {maximum_seconds} seconds (current maximum size allowable)"
-            )
+            raise ValueError(f"audio file or greater than {maximum_seconds} seconds (current maximum size allowable)")
 
     except ValueError as ve:
         raise ve

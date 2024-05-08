@@ -9,18 +9,14 @@ def is_valid(local_file_path: str) -> None:
         # check that local_file_path is a text file
         _, file_extension = os.path.splitext(local_file_path)
         if file_extension not in [".txt"]:
-            raise ValueError(
-                f"invalid local_file_path: please check that it is a text file - {local_file_path}"
-            )
+            raise ValueError(f"invalid local_file_path: please check that it is a text file - {local_file_path}")
 
         # try to read a portion of the file content to check that it is a text file
         with open(local_file_path, "r", encoding="utf-8") as file:
             file.read(4096)
 
     except UnicodeDecodeError:
-        raise ValueError(
-            f"invalid local_file_path: please check that it is a text file - {local_file_path}"
-        )
+        raise ValueError(f"invalid local_file_path: please check that it is a text file - {local_file_path}")
     except FileNotFoundError:
         raise FileNotFoundError(f"the file '{local_file_path}' does not exist.")
     except Exception as e:
@@ -59,9 +55,7 @@ def is_size(
                     line_count += 1
             return word_count, line_count
         except Exception as e:
-            raise ValueError(
-                f"text word and line count calculation failed with exception {e}"
-            )
+            raise ValueError(f"text word and line count calculation failed with exception {e}")
 
     # check size of input text file
     if local_file_path is None:
@@ -84,15 +78,11 @@ def is_size(
 
         # check that word count is greater than minimum_word_count
         if file_word_count < minimum_word_count:
-            raise ValueError(
-                f"it appears that the word count is less than the allowed minimum {minimum_word_count} words"
-            )
+            raise ValueError(f"it appears that the word count is less than the allowed minimum {minimum_word_count} words")
 
         # check that line count is less than maximum_line_count
         if file_line_count > maximum_line_count:
-            raise ValueError(
-                f"it appears that the line count is greater than the allowed maximum {maximum_line_count} lines"
-            )
+            raise ValueError(f"it appears that the line count is greater than the allowed maximum {maximum_line_count} lines")
 
     except ValueError as ve:
         raise ve
@@ -122,13 +112,8 @@ def is_clean(
 
         invalid_char_list = list(invalid_char)
         invalid_char_ord = [ord(char) for char in invalid_char]
-        invalid_char = sorted(
-            invalid_char, key=lambda x: invalid_char_ord[invalid_char_list.index(x)]
-        )
-        clean_options = {
-            char: str("your alphanumeric vprintable replacement for " + "'" + char[0])
-            for char in invalid_char
-        }
+        invalid_char = sorted(invalid_char, key=lambda x: invalid_char_ord[invalid_char_list.index(x)])
+        clean_options = {char: str("your alphanumeric vprintable replacement for " + "'" + char[0]) for char in invalid_char}
         if len(invalid_char) > 0:
             vprint(
                 f"The following non-alpha-numeric characters --> {invalid_char} <-- were found in the file: {file_path}",

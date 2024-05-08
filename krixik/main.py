@@ -54,10 +54,7 @@ class krixik:
         }
 
     @classmethod
-    def create_pipeline(cls,
-                        *,
-                        name: str,
-                        module_chain: list):
+    def create_pipeline(cls, *, name: str, module_chain: list):
         if not isinstance(name, str):
             raise TypeError("pipeline name must be a string")
         if not (len(name) > 0 and len(name) < 128):
@@ -70,16 +67,11 @@ class krixik:
             if item not in available_modules:
                 raise ValueError(f"module_chain item - {item} - is not a currently one of the currently available modules -{available_modules}")
         module_chain_ = [Module(m_name) for m_name in module_chain]
-        custom = CreatePipeline(name=name,
-                                module_chain=module_chain_)
+        custom = CreatePipeline(name=name, module_chain=module_chain_)
         return cls.load_pipeline(pipeline=custom)
 
     @classmethod
-    def load_pipeline(cls,
-                      *,
-                      config_path: Optional[str] = None,
-                      pipeline: Optional[CreatePipeline] = None
-                      ) -> object:
+    def load_pipeline(cls, *, config_path: Optional[str] = None, pipeline: Optional[CreatePipeline] = None) -> object:
         """load pipeline: from object or configuration file
 
         Parameters
@@ -114,7 +106,7 @@ class krixik:
             output_process_keys=custom_pipeline.module_chain_output_process_keys,
             api_key=init_data["api_key"],
             api_url=init_data["api_url"],
-            api_check_val=init_data["api_check_val"]
+            api_check_val=init_data["api_check_val"],
         )
 
         pipeline_object.save_pipeline = custom_pipeline.save
@@ -164,6 +156,4 @@ class krixik:
         return cls.__version
 
     def __getattr__(self, attr):
-        raise AttributeError(
-            f"'{self.__class__.__name__}' object instance has no attribute '{attr}'"
-        )
+        raise AttributeError(f"'{self.__class__.__name__}' object instance has no attribute '{attr}'")

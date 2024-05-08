@@ -1,4 +1,3 @@
-
 def name_check(name: str) -> None:
     if not isinstance(name, str):
         raise ValueError(f"FAILURE: your custom pipeline name - {name} - is not a string")

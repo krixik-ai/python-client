@@ -28,14 +28,9 @@ def extract(
     convert_save_path = ""
     if local_file_path is not None and local_save_directory is not None:
         try:
-            file_name = (
-                "krixik_converted_version_"
-                + os.path.splitext(os.path.basename(local_file_path))[0]
-            )
+            file_name = "krixik_converted_version_" + os.path.splitext(os.path.basename(local_file_path))[0]
             extension = ".txt"
-            convert_save_path: str = os.path.join(
-                local_save_directory, file_name + extension
-            )
+            convert_save_path: str = os.path.join(local_save_directory, file_name + extension)
 
             # remove file if it already exists
             if os.path.exists(convert_save_path):
@@ -59,9 +54,7 @@ def extract(
                         with open(convert_save_path, "a", encoding="utf-8") as new_file:
                             new_file.write(line)
                     else:
-                        raise FileNotFoundError(
-                            f"file {convert_save_path} does not exist"
-                        )
+                        raise FileNotFoundError(f"file {convert_save_path} does not exist")
                 num += 1
 
             # write to file
@@ -88,9 +81,7 @@ def extract(
         except Exception as e:
             delete_file(file_path=convert_save_path, exception=str(e))
     else:
-        raise ValueError(
-            "the input local_file_path and/or local_save_directory is null"
-        )
+        raise ValueError("the input local_file_path and/or local_save_directory is null")
 
 
 @file_converters_input_check
@@ -123,9 +114,7 @@ def convert(
     # check if local_file_path is a docx and convert to text if so
     if "." + local_file_path.split(".")[-1] == ".docx":
         if local_save_directory is None:
-            raise ValueError(
-                "invalid local_save_directory - local_save_directory cannot be None"
-            )
+            raise ValueError("invalid local_save_directory - local_save_directory cannot be None")
 
         vprint("INFO: Converting docx to text...", verbose=verbose)
 

@@ -4,25 +4,23 @@ import importlib
 from krixik.utilities.validators.data import available_data_types
 
 
-def format_checker(format_: str,
-                   local_file_path: str) -> None:
+def format_checker(format_: str, local_file_path: str) -> None:
     if format_ not in available_data_types:
         raise ValueError("FAILURE: format not supported")
 
     if format_ == "json":
         try:
-            with open(local_file_path, 'r') as file:
+            with open(local_file_path, "r") as file:
                 data = json.load(file)
                 first_dict = data[0]
         except Exception as e:
             raise ValueError(f"FAILURE: loading json file: {e}")
 
 
-def process_key_checker(required_structure: dict,
-                        file_path: str) -> None:
+def process_key_checker(required_structure: dict, file_path: str) -> None:
     if "process_key" not in required_structure.keys():
         raise ValueError(f"FAILURE: process_key not found in required_structure")
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         data = json.load(file)
     data_copy = copy.deepcopy(data)
     if isinstance(data, list):
@@ -36,22 +34,20 @@ def process_key_checker(required_structure: dict,
         raise ValueError(f"FAILURE: required process_key {process_key} not found in data")
 
 
-def validate_json_file_structure(required_structure: dict,
-                                 file_path: str) -> None:
+def validate_json_file_structure(required_structure: dict, file_path: str) -> None:
     try:
         # test that format is correct
-        format_checker(required_structure['format'], file_path)
+        format_checker(required_structure["format"], file_path)
 
         # check that input file_path contains process_key
-        if required_structure['format'] == "json":
+        if required_structure["format"] == "json":
             process_key_checker(required_structure, file_path)
 
     except Exception as e:
         raise e
 
 
-def is_valid(module_name: str,
-             file_path: str) -> None:
+def is_valid(module_name: str, file_path: str) -> None:
     try:
         module_io_path = f"krixik.modules.{module_name}.io"
         module = importlib.import_module(module_io_path)

@@ -83,9 +83,7 @@ def is_size(
 
         # check that word count is greater than minimum_word_count
         if file_word_count < minimum_word_count:
-            raise ValueError(
-                f"file word count is less than {minimum_word_count} words (current minimum word count allowable) - {local_file_path}"
-            )
+            raise ValueError(f"file word count is less than {minimum_word_count} words (current minimum word count allowable) - {local_file_path}")
 
     except ValueError as ve:
         raise ve

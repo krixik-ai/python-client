@@ -39,11 +39,7 @@ def get_input(
     default_value: Any = None,
 ) -> Any:
     inspect._empty
-    input_value = (
-        signature.parameters.get(input_name).default
-        if input_name in signature.parameters
-        else None
-    )
+    input_value = signature.parameters.get(input_name).default if input_name in signature.parameters else None
     if input_value is inspect._empty:
         input_value = None
     if input_name in list(kwargs.keys()):

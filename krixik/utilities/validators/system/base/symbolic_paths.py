@@ -16,9 +16,7 @@ def lower_case_symbolic_paths(symbolic_paths: list) -> list:
 
 # symbolic directory paths
 # define pattern for valid directory path
-symbolic_directory_path_valid_pattern = (
-    r"^/[a-zA-Z0-9 _-]+(?:/[a-zA-Z0-9 _-]+)*(?:/$)?$"
-)
+symbolic_directory_path_valid_pattern = r"^/[a-zA-Z0-9 _-]+(?:/[a-zA-Z0-9 _-]+)*(?:/$)?$"
 
 
 def is_valid_directory_path(path: str) -> bool:
@@ -38,21 +36,15 @@ def individual_symbolic_directory_path_checker(path: str, phase: str = "other") 
 
         # check that path length is less than SYMBOLIC_DIRECTORY_PATH_MAX_LENGTH
         if len(path) > SYMBOLIC_DIRECTORY_PATH_MAX_LENGTH:
-            raise ValueError(
-                f"invalid symbolic_directory_path: length is greater than 128 (current maximum length allowable) - {path}"
-            )
+            raise ValueError(f"invalid symbolic_directory_path: length is greater than 128 (current maximum length allowable) - {path}")
 
         # check if path ends with /
         if len(path) > 1 and path[-1] == "/":
-            raise ValueError(
-                f"invalid symbolic_directory_path: cannot end with / - {path}"
-            )
+            raise ValueError(f"invalid symbolic_directory_path: cannot end with / - {path}")
 
         # check if path starts with /
         if path[0] != "/":
-            raise ValueError(
-                f"invalid symbolic_directory_path: must start with / - {path}"
-            )
+            raise ValueError(f"invalid symbolic_directory_path: must start with / - {path}")
 
         # type check that path - minus possible * at the end - is a valid directory path
         test_path = copy.deepcopy(path)
@@ -79,15 +71,11 @@ def individual_symbolic_directory_path_checker(path: str, phase: str = "other") 
 
         # check if path contains /etc and more than two instances of '/'
         if "/etc" in path and path != "/etc/*" and path.count("/") >= 2:
-            raise ValueError(
-                f"Invalid symbolic_directory_path: cannot contain /etc - {path}"
-            )
+            raise ValueError(f"Invalid symbolic_directory_path: cannot contain /etc - {path}")
 
 
 # check symbolic directory paths
-def symbolic_directory_paths_checker(
-    symbolic_directory_paths: list, phase="other", verbose: bool = True
-) -> None:
+def symbolic_directory_paths_checker(symbolic_directory_paths: list, phase="other", verbose: bool = True) -> None:
     if symbolic_directory_paths is not None:
         # check that symbolic_directory_paths is a list
         if not isinstance(symbolic_directory_paths, list):
@@ -97,9 +85,7 @@ def symbolic_directory_paths_checker(
             raise ValueError("symbolic_directory_paths is empty")
 
         if len(symbolic_directory_paths) > MAX_SYMBOLIC_PATH_COUNT:
-            raise ValueError(
-                f"symbolic_directory_paths contains more than {MAX_SYMBOLIC_PATH_COUNT} paths - {symbolic_directory_paths}"
-            )
+            raise ValueError(f"symbolic_directory_paths contains more than {MAX_SYMBOLIC_PATH_COUNT} paths - {symbolic_directory_paths}")
 
         # check that symbolic_directory_paths is not empty
         if symbolic_directory_paths is not None:
@@ -130,9 +116,7 @@ def symbolic_directory_paths_checker(
 
 
 # symbolic file paths
-def individual_symbolic_file_path_checker(
-    file_path: str, valid_extensions: list
-) -> None:
+def individual_symbolic_file_path_checker(file_path: str, valid_extensions: list) -> None:
     if file_path is not None:
         # check that file_path is a string
         if not isinstance(file_path, str):
@@ -140,15 +124,11 @@ def individual_symbolic_file_path_checker(
 
         # check that file_path has length greater than 0
         if len(file_path) == 0:
-            raise ValueError(
-                "Input symbolic_file_path has length 0 - a valid file path must at least be forward slash '/' indicating root directory"
-            )
+            raise ValueError("Input symbolic_file_path has length 0 - a valid file path must at least be forward slash '/' indicating root directory")
 
         # check that file_path starts with '/'
         if file_path[0] != "/":
-            raise ValueError(
-                f"Input symbolic_file_path did not begin with a forward slash ('/') - {file_path}"
-            )
+            raise ValueError(f"Input symbolic_file_path did not begin with a forward slash ('/') - {file_path}")
 
         # split file_path into directory_path and file_name
         try:
@@ -156,9 +136,7 @@ def individual_symbolic_file_path_checker(
             directory_path = "/".join(split[:-1]) if split[:-1] != [""] else "/"
             file_name = split[-1]
         except Exception as e:
-            raise ValueError(
-                f"invalid symbolic_file_path: unable to split into directory_path and file_name - {file_path} - {e}"
-            )
+            raise ValueError(f"invalid symbolic_file_path: unable to split into directory_path and file_name - {file_path} - {e}")
 
         try:
             # check that file_name is a valid file name
@@ -177,14 +155,10 @@ def individual_symbolic_file_path_checker(
                         f"the file_name portion of your symbolic_file_path - {file_path} is an asterisk '*' which is not allowed - you can only use an asterisk at the end of a symbolic_directory_path"
                     )
                 else:
-                    raise ValueError(
-                        f"the file_name portion - {file_name} - of your symbolic_file_path - {file_path} - failed with exception: {e} "
-                    )
+                    raise ValueError(f"the file_name portion - {file_name} - of your symbolic_file_path - {file_path} - failed with exception: {e} ")
 
 
-def symbolic_file_paths_checker(
-    symbolic_file_paths: list, valid_extensions: list, verbose: bool = True
-) -> None:
+def symbolic_file_paths_checker(symbolic_file_paths: list, valid_extensions: list, verbose: bool = True) -> None:
     if symbolic_file_paths is not None:
         # check that symbolic_directory_paths is a list
         if not isinstance(symbolic_file_paths, list):
@@ -195,9 +169,7 @@ def symbolic_file_paths_checker(
             raise ValueError("symbolic_file_paths is empty")
 
         if len(symbolic_file_paths) > MAX_SYMBOLIC_PATH_COUNT:
-            raise ValueError(
-                f"symbolic_file_paths contains more than {MAX_SYMBOLIC_PATH_COUNT} paths - {symbolic_file_paths}"
-            )
+            raise ValueError(f"symbolic_file_paths contains more than {MAX_SYMBOLIC_PATH_COUNT} paths - {symbolic_file_paths}")
 
         # check that symbolic_directory_paths is not empty
         if symbolic_file_paths is not None:

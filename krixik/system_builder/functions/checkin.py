@@ -25,9 +25,7 @@ def checkin(api_key: str | None, api_url: str | None) -> int:
             print("SUCCESS: You are now authenticated.")
             return 0
         else:
-            print(
-                f"FAILURE: You failed to authenticate - status code {response.status_code}"
-            )
+            print(f"FAILURE: You failed to authenticate - status code {response.status_code}")
             return 1
     except requests.exceptions.HTTPError as e:
         print(f"FAILURE: You failed to authenticate - HTTPError {e}")
@@ -47,32 +45,19 @@ def checkin(api_key: str | None, api_url: str | None) -> int:
 
 
 def check_init(self):
-    if not (
-        hasattr(self, "_KrixikBasePipeline__api_check_val")
-        or hasattr(self, "_KrixikSearchPipeline__api_check_val")
-    ):
-        raise ValueError(
-            "you are not authenticated - call init() to authenticate using your API key and url"
-        )
+    if not (hasattr(self, "_KrixikBasePipeline__api_check_val") or hasattr(self, "_KrixikSearchPipeline__api_check_val")):
+        raise ValueError("you are not authenticated - call init() to authenticate using your API key and url")
     else:
         if hasattr(self, "_KrixikBasePipeline__api_check_val"):
             if self._KrixikBasePipeline__api_check_val == 1:
-                raise ValueError(
-                    "you are not authenticated - all init() to authenticate using your API key and url"
-                )
+                raise ValueError("you are not authenticated - all init() to authenticate using your API key and url")
             if self._KrixikBasePipeline__api_check_val is None:
-                raise ValueError(
-                    "you are not authenticated - call init() to authenticate using your API key and url"
-                )
+                raise ValueError("you are not authenticated - call init() to authenticate using your API key and url")
         if hasattr(self, "_KrixikSearchPipeline__api_check_val"):
             if self._KrixikSearchPipeline__api_check_val == 1:
-                raise ValueError(
-                    "you are not authenticated - all init() to authenticate using your API key and url"
-                )
+                raise ValueError("you are not authenticated - all init() to authenticate using your API key and url")
             if self._KrixikSearchPipeline__api_check_val is None:
-                raise ValueError(
-                    "you are not authenticated - call init() to authenticate using your API key and url"
-                )
+                raise ValueError("you are not authenticated - call init() to authenticate using your API key and url")
 
 
 def check_init_decorator(func: Callable) -> Callable:

@@ -20,12 +20,8 @@ def request_id_checker(request_id: str) -> None:
         # check that request_id matches pattern
         res = is_valid_uuid_string(request_id)
         if res is False:
-            raise ValueError(
-                f"Invalid _id: a valid _id is a string of length 36 with the following pattern: {id_pattern}"
-            )
+            raise ValueError(f"Invalid _id: a valid _id is a string of length 36 with the following pattern: {id_pattern}")
 
         # check that request_id length is 36
         if len(request_id) != 36:
-            raise ValueError(
-                f"Invalid _id: length of this _id is not 36 (it must be exactly 36 characters) - {request_id}"
-            )
+            raise ValueError(f"Invalid _id: length of this _id is not 36 (it must be exactly 36 characters) - {request_id}")

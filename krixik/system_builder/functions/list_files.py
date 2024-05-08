@@ -62,9 +62,7 @@ def list_files(
         created_at_end_int,
         last_updated_start_int,
         last_updated_end_int,
-    ) = convert_timestamps(
-        created_at_start, created_at_end, last_updated_start, last_updated_end
-    )
+    ) = convert_timestamps(created_at_start, created_at_end, last_updated_start, last_updated_end)
 
     if hasattr(self, "_KrixikBasePipeline__pipeline"):
         pipeline = self._KrixikBasePipeline__pipeline
@@ -96,14 +94,10 @@ def list_files(
         "last_updated_end": last_updated_end_int,
     }
 
-    if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(
-        self, "_KrixikBasePipeline__api_url"
-    ):
+    if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(self, "_KrixikBasePipeline__api_url"):
         api_key = self._KrixikBasePipeline__api_key
         api_url = self._KrixikBasePipeline__api_url
-    elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(
-        self, "_KrixikSearchPipeline__api_url"
-    ):
+    elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(self, "_KrixikSearchPipeline__api_url"):
         api_key = self._KrixikSearchPipeline__api_key
         api_url = self._KrixikSearchPipeline__api_url
     else:
@@ -114,9 +108,7 @@ def list_files(
 
     try:
         # make request
-        response = requests.post(
-            api_url + list_endpoint, headers=headers, json=payload_data, timeout=60
-        )
+        response = requests.post(api_url + list_endpoint, headers=headers, json=payload_data, timeout=60)
 
         # return response
         results = json.loads(response.text)
@@ -128,18 +120,14 @@ def list_files(
                 # sort user_items based on created_at
                 results["items"] = sorted(
                     results["items"],
-                    key=lambda x: datetime.datetime.strptime(
-                        x["created_at"], "%Y-%m-%d %H:%M:%S"
-                    ).timestamp(),
+                    key=lambda x: datetime.datetime.strptime(x["created_at"], "%Y-%m-%d %H:%M:%S").timestamp(),
                     reverse=True,
                 )
             elif sort_order == "ascending":
                 # sort user_items based on created_at
                 results["items"] = sorted(
                     results["items"],
-                    key=lambda x: datetime.datetime.strptime(
-                        x["created_at"], "%Y-%m-%d %H:%M:%S"
-                    ).timestamp(),
+                    key=lambda x: datetime.datetime.strptime(x["created_at"], "%Y-%m-%d %H:%M:%S").timestamp(),
                     reverse=False,
                 )
         status_code_dict.update(results)

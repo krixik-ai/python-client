@@ -13,9 +13,7 @@ def process_status_reporter(
     verbose: bool,
 ) -> bool:
     if process_status is None or (isinstance(process_status, str)):
-        raise ValueError(
-            f"file process failed - the request_id of this failed process is {self.process_id}"
-        )
+        raise ValueError(f"file process failed - the request_id of this failed process is {self.process_id}")
 
     # loop through og_process_status and check if any processing_complete is True
     module_count = 1
@@ -43,9 +41,7 @@ def check_process_status(self, *, process_id: str) -> tuple:
     while start_count < max_count:
         try:
             if process_id is None:
-                raise ValueError(
-                    "process_id cannot be none when checking process_status"
-                )
+                raise ValueError("process_id cannot be none when checking process_status")
 
             if hasattr(self, "_KrixikBasePipeline__pipeline"):
                 pipeline = self._KrixikBasePipeline__pipeline
@@ -68,14 +64,10 @@ def check_process_status(self, *, process_id: str) -> tuple:
                 "process_id": process_id,
             }
 
-            if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(
-                self, "_KrixikBasePipeline__api_url"
-            ):
+            if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(self, "_KrixikBasePipeline__api_url"):
                 api_key = self._KrixikBasePipeline__api_key
                 api_url = self._KrixikBasePipeline__api_url
-            elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(
-                self, "_KrixikSearchPipeline__api_url"
-            ):
+            elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(self, "_KrixikSearchPipeline__api_url"):
                 api_key = self._KrixikSearchPipeline__api_key
                 api_url = self._KrixikSearchPipeline__api_url
             else:
@@ -102,9 +94,7 @@ def check_process_status(self, *, process_id: str) -> tuple:
             # Check the response
             if response.status_code == 200:
                 file_id = response_text["file_id"]
-                process_status: Dict[str, Any] = json.loads(response.text)[
-                    "process_status"
-                ]
+                process_status: Dict[str, Any] = json.loads(response.text)["process_status"]
 
                 failure_status: Any = response_text["failure_status"]
                 message = response_text["message"]
@@ -129,9 +119,7 @@ def check_process_status(self, *, process_id: str) -> tuple:
                 time.sleep(backoff_schedule[start_count])
                 start_count += 1
                 continue
-            raise requests.exceptions.Timeout(
-                f"request failed with Timeout {e} - the request_id of this failed status check is {self.request_id}"
-            )
+            raise requests.exceptions.Timeout(f"request failed with Timeout {e} - the request_id of this failed status check is {self.request_id}")
         except requests.exceptions.RequestException as e:
             raise requests.exceptions.RequestException(
                 f"request failed with request exception {e} - the request_id of this failed status check is {self.request_id}"

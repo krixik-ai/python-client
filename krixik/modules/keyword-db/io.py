@@ -15,11 +15,7 @@ class InputStructure:
 
     @property
     def process_type(self):
-        return (
-            str(self.__annotations__[self.process_key])
-            if self.process_key is not None
-            else None
-        )
+        return str(self.__annotations__[self.process_key]) if self.process_key is not None else None
 
 
 @dataclass
@@ -30,11 +26,7 @@ class OutputStructure:
 
     @property
     def process_type(self):
-        return (
-            str(self.__annotations__[self.process_key])
-            if self.process_key is not None
-            else None
-        )
+        return str(self.__annotations__[self.process_key]) if self.process_key is not None else None
 
     @property
     def data_example(self):

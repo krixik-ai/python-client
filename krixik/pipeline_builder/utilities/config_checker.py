@@ -7,9 +7,9 @@ def config_check(filename):
         raise FileExistsError(f"FAILURE: config file does not exist - {filename}")
 
     _, extension = os.path.splitext(filename)
-    if extension.lower() == '.yaml' or extension.lower() == '.yml':
+    if extension.lower() == ".yaml" or extension.lower() == ".yml":
         try:
-            with open(filename, 'r') as file:
+            with open(filename, "r") as file:
                 yaml.safe_load(file)
         except yaml.YAMLError:
             raise yaml.YAMLError(f"FAILURE: config is not a valid yaml - {filename}")

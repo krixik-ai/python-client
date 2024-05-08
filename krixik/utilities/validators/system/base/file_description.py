@@ -13,9 +13,7 @@ def file_description_checker(file_description: str) -> None:
     if file_description is not None:
         # check that file_description is a string
         if not isinstance(file_description, str):
-            raise TypeError(
-                f"invalid file description: not a string - {file_description}"
-            )
+            raise TypeError(f"invalid file description: not a string - {file_description}")
 
         # check that file_description length is less than FILE_DESCRIPTION_MAX_LENGTH
         if len(file_description) > FILE_DESCRIPTION_MAX_LENGTH:
@@ -25,6 +23,4 @@ def file_description_checker(file_description: str) -> None:
 
         # check that file_description contains only alphanumeric and alphanumeric characters
         if not contains_only_alphanumeric_and_alphanumeric(file_description):
-            raise TypeError(
-                f"invalid file description: contains non-alphanumeric/punctuation characters - {file_description}"
-            )
+            raise TypeError(f"invalid file description: contains non-alphanumeric/punctuation characters - {file_description}")

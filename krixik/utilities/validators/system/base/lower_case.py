@@ -23,9 +23,7 @@ def lower_case_file_name(*, file_name: str, verbose: bool) -> str:
 def lower_case_file_names(*, file_names: list, verbose: bool) -> list:
     if file_names is not None:
         # lower case
-        lower_case_names = [
-            lower_case_file_name(file_name=v, verbose=verbose) for v in file_names
-        ]
+        lower_case_names = [lower_case_file_name(file_name=v, verbose=verbose) for v in file_names]
 
         # replace
         file_names = lower_case_names
@@ -33,9 +31,7 @@ def lower_case_file_names(*, file_names: list, verbose: bool) -> list:
 
 
 # lower-case symbolic_directory_path
-def lower_case_symbolic_directory_path(
-    *, symbolic_directory_path: str, verbose: bool
-) -> str:
+def lower_case_symbolic_directory_path(*, symbolic_directory_path: str, verbose: bool) -> str:
     if symbolic_directory_path is not None:
         lower_case_name = symbolic_directory_path.lower()
         if lower_case_name != symbolic_directory_path:
@@ -48,17 +44,10 @@ def lower_case_symbolic_directory_path(
 
 
 # lower-case symbolic_directory_paths
-def lower_case_symbolic_directory_paths(
-    *, symbolic_directory_paths: list, verbose: bool
-) -> list:
+def lower_case_symbolic_directory_paths(*, symbolic_directory_paths: list, verbose: bool) -> list:
     if symbolic_directory_paths is not None:
         # lower case
-        lower_case_names = [
-            lower_case_symbolic_directory_path(
-                symbolic_directory_path=v, verbose=verbose
-            )
-            for v in symbolic_directory_paths
-        ]
+        lower_case_names = [lower_case_symbolic_directory_path(symbolic_directory_path=v, verbose=verbose) for v in symbolic_directory_paths]
 
         # replace
         symbolic_directory_paths = lower_case_names
@@ -82,10 +71,7 @@ def lower_case_symbolic_file_path(*, symbolic_file_path: str, verbose: bool) -> 
 def lower_case_symbolic_file_paths(*, symbolic_file_paths: list, verbose: bool) -> list:
     if symbolic_file_paths is not None:
         # lower case
-        lower_case_names = [
-            lower_case_symbolic_file_path(symbolic_file_path=v, verbose=verbose)
-            for v in symbolic_file_paths
-        ]
+        lower_case_names = [lower_case_symbolic_file_path(symbolic_file_path=v, verbose=verbose) for v in symbolic_file_paths]
 
         # replace
         symbolic_file_paths = lower_case_names
@@ -142,39 +128,25 @@ def lower_case_decorator(func: Callable) -> Callable:
                 if arg_name.startswith("_"):
                     continue  # Skip special parameters (e.g., '_self', '_cls')
                 if arg_name == "file_names":
-                    file_names = lower_case_file_names(
-                        file_names=arg_value, verbose=verbose
-                    )
+                    file_names = lower_case_file_names(file_names=arg_value, verbose=verbose)
                     kwargs["file_names"] = file_names
                 if arg_name == "file_name":
-                    file_name = lower_case_file_name(
-                        file_name=arg_value, verbose=verbose
-                    )
+                    file_name = lower_case_file_name(file_name=arg_value, verbose=verbose)
                     kwargs["file_name"] = file_name
                 if arg_name == "symbolic_directory_paths":
-                    symbolic_directory_paths = lower_case_symbolic_directory_paths(
-                        symbolic_directory_paths=arg_value, verbose=verbose
-                    )
+                    symbolic_directory_paths = lower_case_symbolic_directory_paths(symbolic_directory_paths=arg_value, verbose=verbose)
                     kwargs["symbolic_directory_paths"] = symbolic_directory_paths
                 if arg_name == "symbolic_directory_path":
-                    symbolic_directory_path = lower_case_symbolic_directory_path(
-                        symbolic_directory_path=arg_value, verbose=verbose
-                    )
+                    symbolic_directory_path = lower_case_symbolic_directory_path(symbolic_directory_path=arg_value, verbose=verbose)
                     kwargs["symbolic_directory_path"] = symbolic_directory_path
                 if arg_name == "symbolic_file_paths":
-                    symbolic_file_paths = lower_case_symbolic_file_paths(
-                        symbolic_file_paths=arg_value, verbose=verbose
-                    )
+                    symbolic_file_paths = lower_case_symbolic_file_paths(symbolic_file_paths=arg_value, verbose=verbose)
                     kwargs["symbolic_file_paths"] = symbolic_file_paths
                 if arg_name == "symbolic_file_path":
-                    symbolic_file_path = lower_case_symbolic_file_path(
-                        symbolic_file_path=arg_value, verbose=verbose
-                    )
+                    symbolic_file_path = lower_case_symbolic_file_path(symbolic_file_path=arg_value, verbose=verbose)
                     kwargs["symbolic_file_path"] = symbolic_file_path
                 if arg_name == "file_tags":
-                    file_tags = lower_case_file_tags(
-                        file_tags=arg_value, verbose=verbose
-                    )
+                    file_tags = lower_case_file_tags(file_tags=arg_value, verbose=verbose)
                     kwargs["file_tags"] = file_tags
 
         except ValueError as e:

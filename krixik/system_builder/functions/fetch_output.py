@@ -6,30 +6,22 @@ from krixik.system_builder.functions import fetch_output_endpoint
 
 def download_file(url, save_path):
     try:
-        with requests.get(url,
-                          timeout=60) as r:
+        with requests.get(url, timeout=60) as r:
             r.raise_for_status()
-            with open(save_path, 'wb') as f:
+            with open(save_path, "wb") as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
     except requests.exceptions.HTTPError as e:
-        raise requests.exceptions.HTTPError(
-            f"download_file failed with HTTPError exception: {e}"
-        )
+        raise requests.exceptions.HTTPError(f"download_file failed with HTTPError exception: {e}")
 
 
-def save_output(url: str,
-                file_id: str,
-                extension: str,
-                output_save_directory: str) -> str:
+def save_output(url: str, file_id: str, extension: str, output_save_directory: str) -> str:
     save_path = f"{output_save_directory}/{file_id}{extension}"
     download_file(url, save_path)
     return save_path
 
 
-def fetch_output(self,
-                 file_id: str,
-                 local_save_directory: str) -> dict | None:
+def fetch_output(self, file_id: str, local_save_directory: str) -> dict | None:
     if file_id is None:
         raise ValueError("please provide a file_id")
     if not os.path.exists(local_save_directory):
@@ -60,14 +52,10 @@ def fetch_output(self,
         "file_id": file_id,
     }
 
-    if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(
-        self, "_KrixikBasePipeline__api_url"
-    ):
+    if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(self, "_KrixikBasePipeline__api_url"):
         api_key = self._KrixikBasePipeline__api_key
         api_url = self._KrixikBasePipeline__api_url
-    elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(
-        self, "_KrixikSearchPipeline__api_url"
-    ):
+    elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(self, "_KrixikSearchPipeline__api_url"):
         api_key = self._KrixikSearchPipeline__api_key
         api_url = self._KrixikSearchPipeline__api_url
     else:
@@ -113,21 +101,13 @@ def fetch_output(self,
         status_code_dict.update(results)
         return status_code_dict
     except requests.exceptions.HTTPError as e:
-        raise requests.exceptions.HTTPError(
-            f"FAILURE: fetch_output failed with HTTPError exception: {e}"
-        )
+        raise requests.exceptions.HTTPError(f"FAILURE: fetch_output failed with HTTPError exception: {e}")
     except requests.exceptions.ConnectionError as e:
-        raise requests.exceptions.ConnectionError(
-            f"FAILURE: fetch_output failed with ConnectionError exception: {e}"
-        )
+        raise requests.exceptions.ConnectionError(f"FAILURE: fetch_output failed with ConnectionError exception: {e}")
     except requests.exceptions.Timeout as e:
-        raise requests.exceptions.Timeout(
-            f"FAILURE: fetch_output failed with Timeout exception: {e}"
-        )
+        raise requests.exceptions.Timeout(f"FAILURE: fetch_output failed with Timeout exception: {e}")
     except requests.exceptions.RequestException as e:
-        raise requests.exceptions.RequestException(
-            f"FAILURE: fetch_output failed with RequestException exception: {e}"
-        )
+        raise requests.exceptions.RequestException(f"FAILURE: fetch_output failed with RequestException exception: {e}")
     except Exception as e:
         ValueError(f"FAILURE: fetch_output failed with general exception: {e}")
     finally:

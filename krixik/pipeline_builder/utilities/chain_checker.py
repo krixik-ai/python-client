@@ -12,6 +12,4 @@ def chain_check(module_chain: list) -> None:
             raise TypeError(f"FAILURE: item in module_chain - {item} - is not a proper Module object")
 
     if len(module_chain) > MAX_MODULES:
-        raise ValueError(
-            f"pipelines cannot currently have more than {MAX_MODULES} modules"
-        )
+        raise ValueError(f"pipelines cannot currently have more than {MAX_MODULES} modules")
