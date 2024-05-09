@@ -41,7 +41,7 @@ def check_process_status(self, *, process_id: str) -> tuple:
     while start_count < max_count:
         try:
             if process_id is None:
-                raise ValueError("process_id cannot be none when checking process_status")
+                raise ValueError("request_id cannot be none when checking process_status")
 
             if hasattr(self, "_KrixikBasePipeline__pipeline"):
                 pipeline = self._KrixikBasePipeline__pipeline

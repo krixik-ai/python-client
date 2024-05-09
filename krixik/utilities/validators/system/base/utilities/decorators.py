@@ -48,7 +48,6 @@ def type_check_inputs(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
-            func_name = func.__name__
             signature = inspect.signature(func)
 
             verbose = get_input("verbose", signature, kwargs, default_value=True)

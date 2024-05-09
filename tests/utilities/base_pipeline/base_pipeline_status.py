@@ -47,7 +47,7 @@ class BasePipelineStatus(BasePipelineTools):
         assert "PROCESSING COMPLETE" in results["processing_status"]
 
     def test_3(self):
-        """failure to status due to pre-made failure process_id"""
+        """failure to status due to pre-made failure request_id"""
         self.check_good_init()
         with pytest.raises(ValueError):
             results = self.base_pipeline.process_status(

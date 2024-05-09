@@ -1,3 +1,5 @@
+from functools import wraps
+
 from krixik.utilities.validators.data.audio import is_size as is_audio_size
 from krixik.utilities.validators.data.video import is_size as is_video_size
 from krixik.utilities.validators.data.text import is_size as is_text_size
@@ -12,6 +14,7 @@ from krixik.utilities.validators.data.utilities.read_config import get_all_allow
 
 
 def datatype_validator(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         try:
             if "local_file_path" in list(kwargs.keys()):
