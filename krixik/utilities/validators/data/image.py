@@ -17,7 +17,7 @@ def is_valid(local_file_path: str) -> bool | None:
             if image_type in ["jpg", "jpeg", "png"]:
                 return True
             else:
-                raise ValueError(f"The file '{local_file_path}' does not represent a valid image.")
+                raise ValueError(f"The file '{local_file_path}' does not represent a valid image - its type is being read as {image_type}.")
     except FileNotFoundError:
         raise FileNotFoundError(f"The file '{local_file_path}' does not exist.")
     except Exception as e:
