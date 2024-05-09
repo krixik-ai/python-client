@@ -85,14 +85,20 @@ def fetch_output(self, file_id: str, local_save_directory: str) -> dict | None:
                     output["extension"],
                     local_save_directory,
                 )
-                save_paths.append(save_path)
-
+                save_paths.append(save_path)            
             results["process_output_files"] = save_paths
             results["message"] += "Output saved to location(s) listed in process_output_files."
+            
             if len(process_output) == 1:
                 if process_output[0]["extension"] == ".json":
-                    with open(save_paths[0], "r") as file:
-                        results["process_output"] = json.load(file)
+                    file_size_bytes = os.path.getsize(save_paths[0])
+                    file_size_mb = file_size_bytes / (1024 * 1024)
+                    if file_size_mb >= 0.5:
+                        print("INFO: output json downloaded but larger than 0.5MB and will not be returned with .process output")
+                        results["process_output"] = None
+                    else:
+                        with open(save_paths[0], "r") as file:                    
+                            results["process_output"] = json.load(file)
                 else:
                     results["process_output"] = None
             else:
