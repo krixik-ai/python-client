@@ -651,3 +651,10 @@ class KrixikBasePipeline:
             report["overall_status"] = "failed"
             return report
         return report
+
+    def __getattr__(self, attr):
+        if attr == "keyword_search":
+            raise AttributeError(f"your pipeline has no attribute '{attr}' because its module_chain does not end with keyword-db: - {self.module_chain}")
+        if attr == "semantic_search":
+            raise AttributeError(f"your pipeline has no attribute '{attr}' because its module_chain does not end with vector-db: - {self.module_chain}")
+        raise AttributeError(f"pipelines do not have the attribute '{attr}'")
