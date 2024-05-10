@@ -87,18 +87,18 @@ If you've misplaced your secrets, please reach out to us directly.
 
 Let's build a simple transcription pipeline consisting of a single `transcribe` module.
 
-Import the required Krixik module and pipeline tooling required to instantiate modules and create custom pipelines: the `Module` and `CreatePipeline` class objects. Then create your module and your pipeline.
+Import the required Krixik module and pipeline tooling required to instantiate modules and create custom pipelines: the `Module` and `BuildPipeline` class objects. Then create your module and your pipeline.
 
 ```python
 # import custom pipeline builder tools
 from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.pipeline import BuildPipeline
 
 # instantiate module
 module_1 = Module(name="transcribe")
 
 # create custom pipeline object with above module
-custom_pipeline_1 = CreatePipeline(name='my-transcribe-pipeline-1', 
+custom_pipeline_1 = BuildPipeline(name='my-transcribe-pipeline-1', 
                                    module_chain=[module_1])
 ```
 
@@ -135,7 +135,7 @@ With **Krixik**, however, you can rapidly add this functionality to your origina
 
 ```python
 from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.pipeline import BuildPipeline
 
 # instantiate modules
 module_a = Module(name="transcribe")
@@ -145,7 +145,7 @@ module_d = Module(name="text-embedder")
 module_e = Module(name="vector-search")
 
 # create custom pipeline object with the above modules in sequence
-custom_pipeline_2 = CreatePipeline(name='my-transcribe-pipeline-2', 
+custom_pipeline_2 = BuildPipeline(name='my-transcribe-pipeline-2', 
                         module_chain=[module_a, module_b, module_c, module_d, module_e])
 
 # pass the custom object to the krixik operator

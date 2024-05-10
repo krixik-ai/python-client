@@ -34,7 +34,7 @@ def convert_to_dict(obj):
         return obj
 
 
-class CreatePipeline:
+class BuildPipeline:
     def __init__(
         self,
         name: Optional[str] = None,

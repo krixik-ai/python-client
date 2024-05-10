@@ -3,6 +3,9 @@ import os
 
 
 def config_check(filename):
+    if not isinstance(filename, str):
+        raise TypeError(f" input config_path must be a string: {filename}")
+    
     if not os.path.exists(filename):
         raise FileExistsError(f"FAILURE: config file does not exist - {filename}")
     file_size_bytes = os.path.getsize(filename)

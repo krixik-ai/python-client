@@ -5,13 +5,13 @@ import types
 from krixik.utilities.utilities import classproperty
 from krixik.modules import available_modules, get_module_details
 from krixik.system_builder.functions.checkin import checkin
-from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.pipeline import BuildPipeline
 from krixik.system_builder.base import KrixikBasePipeline
 from krixik.system_builder.functions.semantic_search import semantic_search
 from krixik.system_builder.functions.keyword_search import keyword_search
 from krixik.pipeline_builder.utilities.config_checker import config_check
 from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.pipeline import BuildPipeline
 
 
 class krixik:
@@ -67,18 +67,18 @@ class krixik:
             if item not in available_modules:
                 raise ValueError(f"module_chain item - {item} - is not a currently one of the currently available modules -{available_modules}")
         module_chain_ = [Module(m_name) for m_name in module_chain]
-        custom = CreatePipeline(name=name, module_chain=module_chain_)
+        custom = BuildPipeline(name=name, module_chain=module_chain_)
         return cls.load_pipeline(pipeline=custom)
 
     @classmethod
-    def load_pipeline(cls, *, config_path: Optional[str] = None, pipeline: Optional[CreatePipeline] = None) -> object:
+    def load_pipeline(cls, *, config_path: Optional[str] = None, pipeline: Optional[BuildPipeline] = None) -> object:
         """load pipeline: from object or configuration file
 
         Parameters
         ----------
         config_path : str
             path to pipeline configuration file
-        pipeline: CreatePipeline
+        pipeline: BuildPipeline
             pipeline object
         """
         # only one of config_path or pipeline can be passed
@@ -90,10 +90,10 @@ class krixik:
 
         if config_path is not None:
             config_check(config_path)
-            custom_pipeline = CreatePipeline(config_path=config_path)
+            custom_pipeline = BuildPipeline(config_path=config_path)
         else:
-            if not isinstance(pipeline, CreatePipeline):
-                raise TypeError(f"input pipeline not proper CreatePipeline object")
+            if not isinstance(pipeline, BuildPipeline):
+                raise TypeError(f"input pipeline not proper BuildPipeline object")
             custom_pipeline = pipeline
 
         # pass init
