@@ -47,9 +47,12 @@ class CreatePipeline:
         self.__pipeline_config = None
         self.__module_chain_configs = []
 
+        if module_chain is not None and config_path is not None:
+            raise ValueError("you cannot enter in both a module_chain and a config_path - please enter in one or the other")
+            
         if self.name is not None:
             name_check(self.name)
-
+            
         if config_path is not None:
             self.load(config_path)
 
