@@ -22,7 +22,7 @@ def datatype_validator(func):
                 extension = local_file_path.split(".")[-1]
                 allowable_extensions = get_all_allowable_extensions()
                 if "." + extension not in allowable_extensions:
-                    raise ValueError(f"invalid file extension: {extension} - currently only {get_all_allowable_extensions} are allowed.")
+                    raise ValueError(f"invalid file extension: {extension} - currently only {allowable_extensions} are allowed.")
 
                 if extension == "txt":
                     is_text_size(local_file_path=local_file_path)
