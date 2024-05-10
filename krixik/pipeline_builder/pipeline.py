@@ -128,7 +128,7 @@ class BuildPipeline:
             path to local file to test for pipeline threadthrough
         """
         input_check(local_file_path, self.__module_chain)
-        print(f"SUCCESS: local file {local_file_path} passed pipeline input test passed")
+        print(f"SUCCESS: local file '{local_file_path}' passed pipeline input test passed")
 
     @property
     def module_chain(self) -> list:

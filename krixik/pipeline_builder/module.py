@@ -15,7 +15,7 @@ class Module:
 
         # check validity of input module
         if self.name not in available_modules:
-            raise Exception(f"user defined module {self.name} does not exist")
+            raise Exception(f"user defined module '{self.name}' does not exist")
 
         # define config and io paths
         self.__module_config_path = library_base_dir + f"/modules/{self.name}/module.yml"
