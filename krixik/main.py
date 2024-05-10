@@ -93,7 +93,7 @@ class krixik:
             custom_pipeline = CreatePipeline(config_path=config_path)
         else:
             if not isinstance(pipeline, CreatePipeline):
-                raise TypeError(f"pipeline - {pipeline} not proper CreatePipeline object")
+                raise TypeError(f"input pipeline not proper CreatePipeline object")
             custom_pipeline = pipeline
 
         # pass init
