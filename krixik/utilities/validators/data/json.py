@@ -15,10 +15,10 @@ def is_valid(local_file_path: str) -> bool | None:
                 raise ValueError("JSON file does not represent a dictionary.")
             for v in json_object:
                 if not isinstance(v, dict):
-                    raise ValueError("JSON file does not represent a dictionary.")
+                    raise ValueError(f"object in JSON file does not represent a valid dictionary: {v}")
             return True
         else:
-            raise ValueError("JSON file does not represent a dictionary.")
+            raise ValueError("JSON file must consist of a list of dictionaries.")
     except json.JSONDecodeError as e:
         raise ValueError(f"Invalid JSON file - your file is not a valid JSON file: {e}")
     except FileNotFoundError:
