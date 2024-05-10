@@ -1,3 +1,4 @@
+import os
 import yaml
 from typing import Optional, List
 from collections import OrderedDict
@@ -207,7 +208,7 @@ class CreatePipeline:
 
     def load(self, pipeline_config_path: str) -> None:
         config_check(pipeline_config_path)
-
+        
         with open(pipeline_config_path, "r") as file:
             pipeline_config = yaml.safe_load(file)
 
