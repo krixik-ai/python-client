@@ -211,7 +211,7 @@ class CreatePipeline:
         
         with open(pipeline_config_path, "r") as file:
             pipeline_config = yaml.safe_load(file)
-
+        
         pipeline = pipeline_config["pipeline"]
         pipeline_name = pipeline["name"]
         modules = pipeline["modules"]
