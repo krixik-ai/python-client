@@ -135,11 +135,11 @@ def is_size(
             )
         if minimum_token_count < snippet_min_token_count:
             raise ValueError(
-                f"too few tokens - the value in the following key-value pair {minimum_token_count_key_value} has too few tokens (at present the minimum is {snippet_min_token_count} - please check this key-value pair in your input local_file_path {local_file_path}"
+                f"too few tokens - the value in the following key-value pair has too few tokens (at present the minimum is {snippet_min_token_count} - please check this key-value pair in your input local_file_path {local_file_path} - {minimum_token_count_key_value}"
             )
         if maximum_token_count > snippet_max_token_count:
             raise ValueError(
-                f"too many tokens - the value in the following key-value pair {maximum_token_count_key_value} has too many tokens (at present the minimum is {snippet_max_token_count} - please check this key-value pair in your input local_file_path {local_file_path}"
+                f"too many tokens - the value in the following key-value pair has too many tokens (at present the maximum is {snippet_max_token_count} - please check this key-value pair in your input local_file_path {local_file_path} - {maximum_token_count_key_value} "
             )
 
     except ValueError as ve:
