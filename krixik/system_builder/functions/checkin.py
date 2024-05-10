@@ -50,12 +50,12 @@ def check_init(self):
     else:
         if hasattr(self, "_KrixikBasePipeline__api_check_val"):
             if self._KrixikBasePipeline__api_check_val == 1:
-                raise ValueError("you are not authenticated - all init() to authenticate using your API key and url")
+                raise ValueError("you are not authenticated - call init() to authenticate using your API key and url")
             if self._KrixikBasePipeline__api_check_val is None:
                 raise ValueError("you are not authenticated - call init() to authenticate using your API key and url")
         if hasattr(self, "_KrixikSearchPipeline__api_check_val"):
             if self._KrixikSearchPipeline__api_check_val == 1:
-                raise ValueError("you are not authenticated - all init() to authenticate using your API key and url")
+                raise ValueError("you are not authenticated - call init() to authenticate using your API key and url")
             if self._KrixikSearchPipeline__api_check_val is None:
                 raise ValueError("you are not authenticated - call init() to authenticate using your API key and url")
 
