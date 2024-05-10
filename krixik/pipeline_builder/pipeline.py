@@ -120,6 +120,13 @@ class CreatePipeline:
 
     @datatype_validator
     def test_input(self, *, local_file_path: str) -> None:
+        """test input file will flow through pipeline correctly via simulation (currently in beta)
+
+        Parameters
+        ----------
+        local_file_path : str
+            path to local file to test for pipeline threadthrough
+        """
         input_check(local_file_path, self.__module_chain)
         print(f"SUCCESS: local file {local_file_path} passed pipeline input test passed")
 
@@ -211,7 +218,7 @@ class CreatePipeline:
         
         with open(pipeline_config_path, "r") as file:
             pipeline_config = yaml.safe_load(file)
-        
+
         pipeline = pipeline_config["pipeline"]
         pipeline_name = pipeline["name"]
         modules = pipeline["modules"]
