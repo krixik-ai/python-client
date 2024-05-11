@@ -1,5 +1,6 @@
 from tests.krixik.system_builder.functions.semantic_search.utilities.setup import load_but_no_process_pipeline
 from tests.krixik.system_builder.functions.semantic_search.utilities.setup import output_files_path
+from tests.utilities.reset import reset_pipeline
 import time
 
 

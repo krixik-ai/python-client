@@ -408,7 +408,7 @@ class KrixikBasePipeline:
         expire_time: Optional[int] = None,
         verbose: bool = True,
         wait_for_process: bool = True,
-        local_save_directory: str = os.getcwd(),
+        local_save_directory: str = os.path.abspath(''),
         download_output: bool = True,
         og_local_file_path: Optional[str] = None,
     ) -> dict | None:
@@ -552,6 +552,9 @@ class KrixikBasePipeline:
 
         if not self.wait_for_process:
             return output_data
+
+        if not download_output:
+            vprint("INFO: downlaod_output set to False, not fetching output", verbose=verbose)
 
         if download_output and output_data is not None:
             try:
