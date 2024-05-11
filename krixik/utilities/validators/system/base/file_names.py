@@ -15,9 +15,7 @@ def is_valid_file_name(file_name: str) -> bool:
 
 
 # individual file_name checker
-def individual_file_name_checker(
-    file_name: str, valid_extensions: list = [], phase: str = "other"
-) -> None:
+def individual_file_name_checker(file_name: str, valid_extensions: list = [], phase: str = "other") -> None:
     if file_name is not None:
         # check that file_name is a string
         if not isinstance(file_name, str):
@@ -47,9 +45,7 @@ def individual_file_name_checker(
 
             # check if * is in file_name
             if "*" in file_name:
-                raise ValueError(
-                    f"invalid file_name for process: please check that it does not contain any '*' characters - {file_name}"
-                )
+                raise ValueError(f"invalid file_name for process: please check that it does not contain any '*' characters - {file_name}")
 
             # check that file_name ends with an valid_extensions
             if "." + file_name.split(".")[-1] not in valid_extensions:
@@ -63,15 +59,11 @@ def individual_file_name_checker(
 
             # check for **
             if "**" in test_file_name:
-                raise ValueError(
-                    f"invalid file_name: please check that it does not contain any '**' characters - {file_name}"
-                )
+                raise ValueError(f"invalid file_name: please check that it does not contain any '**' characters - {file_name}")
 
             # check for ***
             if "***" in test_file_name:
-                raise ValueError(
-                    f"invalid file_name: please check that it does not contain any '***' characters - {file_name}"
-                )
+                raise ValueError(f"invalid file_name: please check that it does not contain any '***' characters - {file_name}")
 
             # check if input file_name begins or ends with '*'
             test_file_name = copy.deepcopy(file_name)
@@ -118,9 +110,7 @@ def file_names_checker(
 
         # check that file_names is not too long
         if len(file_names) > MAX_FILE_NAME_COUNT:
-            raise ValueError(
-                f"file_names contains more than {MAX_FILE_NAME_COUNT} file_names"
-            )
+            raise ValueError(f"file_names contains more than {MAX_FILE_NAME_COUNT} file_names")
 
         # check that file_names is not empty
         if file_names is not None:

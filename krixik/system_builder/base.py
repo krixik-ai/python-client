@@ -63,9 +63,9 @@ class KrixikBasePipeline:
         self.__local_conversion_directory = tempfile.gettempdir()
 
     @property
-    def pipeline_ordered_modules(self):
+    def module_chain(self):
         return self.__pipeline_ordered_modules
-    
+
     @property
     def pipeline_output_process_keys(self):
         return self.__pipeline_output_process_keys
@@ -107,9 +107,7 @@ class KrixikBasePipeline:
         self.__pipeline = value
 
     @type_check_inputs
-    def init(self, *, 
-             api_key: str | None, 
-             api_url: str | None) -> None:
+    def init(self, *, api_key: str | None, api_url: str | None) -> None:
         """initialize pipeline with an api_key and api_url
 
         Parameters
@@ -222,10 +220,7 @@ class KrixikBasePipeline:
     @kwargs_checker
     @check_init_decorator
     @type_check_inputs
-    def fetch_output(self,
-                     *,
-                     file_id: str,
-                     local_save_directory: str = os.getcwd()) -> dict | None:
+    def fetch_output(self, *, file_id: str, local_save_directory: str = os.getcwd()) -> dict | None:
         """fetch the output of a file from the server via its file_id for a given pipeline
 
         Parameters
@@ -314,7 +309,7 @@ class KrixikBasePipeline:
     def __upload_file_to_s3_via_presignedurl(self, verbose: bool = True) -> None:
         # process local file to s3 via presigned url
         upload_status_repeater_success, upload_response = process_local_file(self)
-        
+
         try:
             if upload_response.status_code == 204:
                 if not self.wait_for_process:
@@ -344,10 +339,8 @@ class KrixikBasePipeline:
                     max_count = 200
 
                     # check process status for the first time
-                    file_id, process_status, failure_status, message = (
-                        check_process_status(self, process_id=self.process_id)
-                    )
-                    
+                    file_id, process_status, failure_status, message = check_process_status(self, process_id=self.process_id)
+
                     if failure_status is not None:
                         self.__delete_server_files()
                         if "failure_module" in list(failure_status.keys()):
@@ -355,14 +348,10 @@ class KrixikBasePipeline:
                                 f"processes associated with file_id {file_id} and request_id {self.process_id} failed at module {failure_status['failure_module']}"
                             )
                         else:
-                            raise ValueError(
-                                f"processes associated with file_id {file_id} and request_id {self.process_id} failed"
-                            )
+                            raise ValueError(f"processes associated with file_id {file_id} and request_id {self.process_id} failed")
 
                     prev_process_status = None
-                    process_status_reporter(
-                        self, prev_process_status, process_status, verbose=verbose
-                    )
+                    process_status_reporter(self, prev_process_status, process_status, verbose=verbose)
                     process_complete = False
                     process_count = 0
                     while not process_complete and process_count < max_count - 1:
@@ -370,9 +359,7 @@ class KrixikBasePipeline:
                         prev_process_status = copy.deepcopy(process_status)
 
                         # check status
-                        file_id, process_status, failure_status, message = (
-                            check_process_status(self, process_id=self.process_id)
-                        )
+                        file_id, process_status, failure_status, message = check_process_status(self, process_id=self.process_id)
 
                         if failure_status is not None:
                             self.__delete_server_files()
@@ -381,14 +368,10 @@ class KrixikBasePipeline:
                                     f"processes associated with request_id '{failure_status['process_id']}' failed at module '{failure_status['failure_module']}'"
                                 )
                             else:
-                                raise ValueError(
-                                    f"processes associated with request_id '{failure_status['process_id']}' failed"
-                                )
+                                raise ValueError(f"processes associated with request_id '{failure_status['process_id']}' failed")
 
                         # report status
-                        process_complete = process_status_reporter(
-                            self, prev_process_status, process_status, verbose=verbose
-                        )
+                        process_complete = process_status_reporter(self, prev_process_status, process_status, verbose=verbose)
 
                         process_count += 1
                         time.sleep(timestep)
@@ -425,8 +408,9 @@ class KrixikBasePipeline:
         expire_time: Optional[int] = None,
         verbose: bool = True,
         wait_for_process: bool = True,
-        local_save_directory: str = os.getcwd(),
-        og_local_file_path: Optional[str] = None
+        local_save_directory: str = os.path.abspath(''),
+        download_output: bool = True,
+        og_local_file_path: Optional[str] = None,
     ) -> dict | None:
         """process a file to the server for a given pipeline
 
@@ -456,6 +440,8 @@ class KrixikBasePipeline:
             whether to process the file asynchronously, by default False
         local_save_directory: str
             local directory for process output, by default os.getcwd()
+        download_output: bool
+            boolean switch, download process output (set True) or not (set False)
         og_local_file_path: str, optional
             local file path used for any file conversion (e.g., mp4 to mp3, controlled internally
         Returns
@@ -467,12 +453,8 @@ class KrixikBasePipeline:
         if local_file_path is None:
             raise ValueError("local_file_path cannot be empty")
 
-        if (
-            file_name is not None or symbolic_directory_path is not None
-        ) and symbolic_file_path is not None:
-            raise ValueError(
-                "file_name and symbolic_directory_path cannot both be given if symbolic_file_path is given"
-            )
+        if (file_name is not None or symbolic_directory_path is not None) and symbolic_file_path is not None:
+            raise ValueError("file_name and symbolic_directory_path cannot both be given if symbolic_file_path is given")
 
         if symbolic_directory_path is None:
             symbolic_directory_path = "/etc"
@@ -520,22 +502,14 @@ class KrixikBasePipeline:
             "modules": self.modules,
             "version": self.__version,
             "file_name": self.file_name,
-            "symbolic_directory_path": (
-                self.symbolic_directory_path
-                if self.symbolic_directory_path is not None
-                else "/etc"
-            ),
+            "symbolic_directory_path": (self.symbolic_directory_path if self.symbolic_directory_path is not None else "/etc"),
             "file_tags": self.file_tags if self.file_tags is not None else [],
-            "file_description": (
-                self.file_description if self.file_description is not None else ""
-            ),
+            "file_description": (self.file_description if self.file_description is not None else ""),
             "expire_time": expire_time,
         }
 
         # get presigned url and file_id
-        upload_check, self.upload_results = self._get_presigned_url(
-            payload_data=payload_data
-        )
+        upload_check, self.upload_results = self._get_presigned_url(payload_data=payload_data)
 
         if not upload_check:
             # return failure signal
@@ -548,14 +522,10 @@ class KrixikBasePipeline:
         if "warnings" in self.upload_results:
             for warning in self.upload_results["warnings"]:
                 vprint(warning, verbose=verbose)
-            vprint(
-                "INFO: metadata can be updated using the .update api.", verbose=verbose
-            )
+            vprint("INFO: metadata can be updated using the .update api.", verbose=verbose)
 
         # unpack upload_results
-        self.__presigned_post_url_results = self.upload_results[
-            "presigned_post_url_results"
-        ]
+        self.__presigned_post_url_results = self.upload_results["presigned_post_url_results"]
 
         self.file_id = self.upload_results["file_id"]
         self.process_id = self.upload_results["request_id"]
@@ -582,8 +552,11 @@ class KrixikBasePipeline:
 
         if not self.wait_for_process:
             return output_data
-        
-        if output_data is not None:
+
+        if not download_output:
+            vprint("INFO: downlaod_output set to False, not fetching output", verbose=verbose)
+
+        if download_output and output_data is not None:
             try:
                 file_id = output_data["file_id"]
                 file_output = self.fetch_output(file_id=file_id, local_save_directory=local_save_directory)
@@ -622,10 +595,7 @@ class KrixikBasePipeline:
         """
 
         # make request
-        results = show_post(self, 
-                            symbolic_directory_path=symbolic_directory_path,
-                            max_files=max_files,
-                            verbose=verbose)
+        results = show_post(self, symbolic_directory_path=symbolic_directory_path, max_files=max_files, verbose=verbose)
 
         # show illustration
         show_illustration(self, results=results)
@@ -644,8 +614,7 @@ class KrixikBasePipeline:
     @kwargs_checker
     @check_init_decorator
     @type_check_inputs
-    def process_status(self,
-                       request_id: str = None) -> dict:
+    def process_status(self, request_id: str = None) -> dict:
         """check the status of a file processing for a given pipeline
 
         Parameters
@@ -663,9 +632,7 @@ class KrixikBasePipeline:
             raise TypeError("process request_id cannot be empty")
 
         # check status
-        file_id, process_status, failure_status, message = check_process_status(
-            self, process_id=request_id
-        )
+        file_id, process_status, failure_status, message = check_process_status(self, process_id=request_id)
 
         report = {}
         report["status_code"] = 200
@@ -673,14 +640,14 @@ class KrixikBasePipeline:
         report["file_id"] = file_id
         report["message"] = message
         report["pipeline"] = self.__pipeline
-            
+
         if process_status is not None:
             report["process_status"] = process_status
             report["overall_status"] = "complete"
             cleaned_process_status = {}
             keys = list(process_status.keys())
             for key in keys:
-                cleaned_process_status[key.split('.')[0]] = process_status[key]
+                cleaned_process_status[key.split(".")[0]] = process_status[key]
                 if process_status[key] is not True:
                     report["overall_status"] = "ongoing"
             report["process_status"] = cleaned_process_status
@@ -689,3 +656,11 @@ class KrixikBasePipeline:
             report["failure_status"] = failure_status
             report["overall_status"] = "failed"
             return report
+        return report
+
+    def __getattr__(self, attr):
+        if attr == "keyword_search":
+            raise AttributeError(f"your pipeline has no attribute '{attr}' because its module_chain does not end with keyword-db: - {self.module_chain}")
+        if attr == "semantic_search":
+            raise AttributeError(f"your pipeline has no attribute '{attr}' because its module_chain does not end with vector-db: - {self.module_chain}")
+        raise AttributeError(f"pipelines do not have the attribute '{attr}'")

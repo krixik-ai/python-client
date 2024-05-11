@@ -120,9 +120,7 @@ def semantic_search(
         created_at_end_int,
         last_updated_start_int,
         last_updated_end_int,
-    ) = convert_timestamps(
-        created_at_start, created_at_end, last_updated_start, last_updated_end
-    )
+    ) = convert_timestamps(created_at_start, created_at_end, last_updated_start, last_updated_end)
 
     # prep payload data
     payload_data = {
@@ -171,9 +169,7 @@ def semantic_search(
                     vector_file_name = item["file_metadata"]["file_name"]
 
                     # get symbolic_directory_path
-                    vector_symbolic_directory_path = item["file_metadata"][
-                        "symbolic_directory_path"
-                    ]
+                    vector_symbolic_directory_path = item["file_metadata"]["symbolic_directory_path"]
 
                     # get file_tags
                     vector_file_tags = item["file_metadata"]["file_tags"]
@@ -206,9 +202,7 @@ def semantic_search(
                         file_metadata = {}
                         file_metadata["file_id"] = vector_file_id
                         file_metadata["file_name"] = vector_file_name
-                        file_metadata["symbolic_directory_path"] = (
-                            vector_symbolic_directory_path
-                        )
+                        file_metadata["symbolic_directory_path"] = vector_symbolic_directory_path
                         file_metadata["file_tags"] = vector_file_tags
                         file_metadata["num_lines"] = vector_num_lines
                         file_metadata["created_at"] = vector_created_at
@@ -226,9 +220,7 @@ def semantic_search(
                 # sort user_items based on created_at
                 results["items"] = sorted(
                     results["items"],
-                    key=lambda x: datetime.strptime(
-                        x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S"
-                    ).timestamp(),
+                    key=lambda x: datetime.strptime(x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S").timestamp(),
                     reverse=True,
                 )
 
@@ -236,9 +228,7 @@ def semantic_search(
                 # sort user_items based on created_at
                 results["items"] = sorted(
                     results["items"],
-                    key=lambda x: datetime.strptime(
-                        x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S"
-                    ).timestamp(),
+                    key=lambda x: datetime.strptime(x["file_metadata"]["created_at"], "%Y-%m-%d %H:%M:%S").timestamp(),
                     reverse=False,
                 )
 

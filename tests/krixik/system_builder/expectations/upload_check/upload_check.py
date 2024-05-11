@@ -7,7 +7,7 @@ from krixik.tests.test_files import json_files_path
 from tests.utilities.dynamodb_interactions import check_expire
 from tests.utilities.scheduler_interactions import check_schedule
 from tests.utilities.dynamodb_interactions import check_file_record
-from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
+from tests import USER_API_KEY, USER_API_URL
 from tests.krixik.system_builder.functions.delete.utilities.setup import load_pipeline
 import pytest
 
@@ -35,7 +35,7 @@ def test_1(pipeline):
         "symbolic_directory_path": "/etc",
         "file_tags": [],
         "file_description": "",
-        "expire_time": 1800,
+        "expire_time": 60*30,
     }
 
     # create simple object to attach api_key to
@@ -46,7 +46,7 @@ def test_1(pipeline):
 
     # attach api_key to object
     api_object = KrixikBasePipeline(
-        api_key=TEST_DUMMY_API_KEY, api_url=TEST_DUMMY_API_URL
+        api_key=USER_API_KEY, api_url=USER_API_URL
     )
 
     # correctly get presigned url
@@ -101,7 +101,7 @@ def test_2(pipeline):
         "symbolic_directory_path": "/etc",
         "file_tags": [],
         "file_description": "",
-        "expire_time": 90,
+        "expire_time": 60*30,
     }
 
     # create simple object to attach api_key to
@@ -115,7 +115,7 @@ def test_2(pipeline):
 
     # attach api_key to object
     api_object = KrixikBasePipeline(
-        api_key=TEST_DUMMY_API_KEY, api_url=TEST_DUMMY_API_URL
+        api_key=USER_API_KEY, api_url=USER_API_URL
     )
 
     # correctly get presigned url

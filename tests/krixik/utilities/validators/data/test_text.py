@@ -46,7 +46,7 @@ def test_3(local_file_path):
 
 # second - check is_size
 test_failure_data = [
-    text_files_path + "Little Women begend.txt",
+    text_files_path + "random_chars.txt",
 ]
 
 
@@ -54,7 +54,8 @@ test_failure_data = [
 def test_3_2(local_file_path):
     """file too large"""
     with pytest.raises(ValueError, match=r".*current maximum size allowable\.*"):
-        is_size(local_file_path=local_file_path)
+        is_size(local_file_path=local_file_path,
+                maximum_file_size=0.5)
 
 
 test_success_data = [
@@ -156,7 +157,7 @@ def test_6(local_file_path):
 
 
 # check line count failure
-test_data = [text_files_path + "All Ones.txt"]
+test_data = [text_files_path + "All ones.txt"]
 
 
 @pytest.mark.parametrize("local_file_path", test_data)

@@ -4,10 +4,10 @@ import yaml
 from tests.krixik import output_files_path
 from krixik.__base__ import library_base_dir
 from tests.krixik.pipeline_examples.single_module.utilities.test_data import module_test_data
-from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
+from tests import USER_API_KEY, USER_API_URL
 from krixik import krixik
-krixik.init(api_key=TEST_DUMMY_API_KEY,
-            api_url=TEST_DUMMY_API_URL)
+krixik.init(api_key=USER_API_KEY,
+            api_url=USER_API_URL)
 
 
 def get_available_models(module_name):
@@ -49,7 +49,7 @@ def run_test(module_name, module_selection, pipeline, test_file):
 
     # run pipeline
     output = pipeline.process(local_file_path=test_file,
-                              expire_time=60*5,
+                              expire_time=60*30,
                               modules={module_name: module_selection},
                               local_save_directory=output_files_path,
                               verbose=False) 

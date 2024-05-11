@@ -1,8 +1,7 @@
-
 def symbolic_path_splitter(symbolic_file_path: str) -> tuple:
     if not isinstance(symbolic_file_path, str):
         raise ValueError("symbolic_file_path must be a string")
-        
+
     split = symbolic_file_path.split("/")
     file_name = split[-1]
 

@@ -9,6 +9,4 @@ def local_file_path_checker(local_file_path: str) -> None:
         raise TypeError(f"invalid local file path: not a string - {local_file_path}")
 
     if os.path.exists(local_file_path) is False:
-        raise FileNotFoundError(
-            f"invalid local file path: does not exist - {local_file_path}"
-        )
+        raise FileNotFoundError(f"invalid local file path: does not exist - {local_file_path}")

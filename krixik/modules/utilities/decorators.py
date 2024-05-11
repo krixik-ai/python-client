@@ -1,3 +1,4 @@
+import os
 import inspect
 from functools import wraps
 from krixik.modules.utilities.module_selections import (
@@ -16,22 +17,21 @@ def type_check_inputs(func):
             self_arg = args[0] if args and hasattr(args[0], "__dict__") else None
 
             # confirm and hydrate module chain
-            pipeline_ordered_modules = (
-                self_arg.pipeline_ordered_modules
-                if self_arg
-                else kwargs["pipeline_ordered_modules"]
-            )
+            pipeline_ordered_modules = self_arg.module_chain if self_arg else kwargs["pipeline_ordered_modules"]
             modules = get_input("modules", signature, kwargs)
-            verbose = get_input("verbose", signature, kwargs, default_value=True)            
-            hydrated_modules = pipeline_selection_setup(
-                pipeline_ordered_modules, modules
-            )
+            verbose = get_input("verbose", signature, kwargs, default_value=True)
+            hydrated_modules = pipeline_selection_setup(pipeline_ordered_modules, modules)
             kwargs["modules"] = hydrated_modules
-            
+
             if "local_file_path" in list(kwargs.keys()):
                 local_file_path = get_input("local_file_path", signature, kwargs)
                 is_valid_json_input(pipeline_ordered_modules[0], local_file_path)
-            
+                if pipeline_ordered_modules[0] == "summarize":
+                    file_size = os.path.getsize(local_file_path) / (1024 * 1024)
+                    summarizer_limit = 0.25
+                    if file_size > summarizer_limit:
+                        raise ValueError(f"summarize models can only intake files with a maximum size of {summarizer_limit}MB at present, the size of your input is {round(file_size,2)}MB")
+                    
             if modules != hydrated_modules:
                 vprint(
                     f"INFO: hydrated input modules: {hydrated_modules}",

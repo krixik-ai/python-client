@@ -27,7 +27,7 @@ symbolic_directory_path = "/home/UsEr"
 local_file_path = f"{parent_path}/tests/test_files/text/1984_short.txt"
 pipeline_ordered_modules = ["parser", "text-embedder"]
 modules = {}
-expire_time = 900
+expire_time = 60*30
 file_tags = [{"valid": "tag"}]
 
 

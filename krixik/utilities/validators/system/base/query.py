@@ -13,15 +13,11 @@ def query_checker(query: str) -> None:
 
         # check that query length is greater than Q_MIN
         if len(query) <= Q_MIN:
-            raise ValueError(
-                f"invalid query: length is less than {Q_MIN} characters (current minimum length allowable): {query}"
-            )
+            raise ValueError(f"invalid query: length is less than {Q_MIN} characters (current minimum length allowable): {query}")
 
         # check that query length is less than Q_MAX
         if len(query) > Q_MAX:
-            raise ValueError(
-                f"invalid query: length is greater than {Q_MAX} characters (current maximum length allowable) - {query}"
-            )
+            raise ValueError(f"invalid query: length is greater than {Q_MAX} characters (current maximum length allowable) - {query}")
 
         # # check that query contains only acceptable characters
         # invalid_char = invalid_char_check(query)

@@ -43,6 +43,7 @@ allowed_args_dict = {
         "wait_for_process",
         "local_save_directory",
         "og_local_file_path",
+        "download_output",
     },
     "show_tree": {"symbolic_directory_path", "max_files", "verbose"},
     "process_status": {"request_id"},
@@ -59,7 +60,7 @@ allowed_args_dict = {
         "created_at_end",
         "last_updated_start",
         "last_updated_end",
-        "verbose"
+        "verbose",
     },
     "semantic_search": {
         "query",
@@ -75,10 +76,9 @@ allowed_args_dict = {
         "last_updated_start",
         "last_updated_end",
         "verbose",
-        "k"
-    }
+        "k",
+    },
 }
-
 
 
 def kwargs_checker(func):
@@ -93,9 +93,7 @@ def kwargs_checker(func):
 
         unexpected_args = set(kwargs.keys()) - allowed_args
         if unexpected_args:
-            raise TypeError(
-                f"unexpected keyword argument(s) for '{func_name}': {', '.join(unexpected_args)}"
-            )
+            raise TypeError(f"unexpected keyword argument(s) for '{func_name}': {', '.join(unexpected_args)}")
         return func(*args, **kwargs)
 
     return wrapper

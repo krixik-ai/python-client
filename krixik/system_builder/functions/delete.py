@@ -28,14 +28,10 @@ def delete_server_files(self) -> dict:
             "file_id": self.file_id,
         }
 
-        if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(
-            self, "_KrixikBasePipeline__api_url"
-        ):
+        if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(self, "_KrixikBasePipeline__api_url"):
             api_key = self._KrixikBasePipeline__api_key
             api_url = self._KrixikBasePipeline__api_url
-        elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(
-            self, "_KrixikSearchPipeline__api_url"
-        ):
+        elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(self, "_KrixikSearchPipeline__api_url"):
             api_key = self._KrixikSearchPipeline__api_key
             api_url = self._KrixikSearchPipeline__api_url
         else:
@@ -60,15 +56,11 @@ def delete_server_files(self) -> dict:
     except requests.exceptions.HTTPError as e:
         raise requests.exceptions.HTTPError(f"delete failed with HTTPError {e}")
     except requests.exceptions.ConnectionError as e:
-        raise requests.exceptions.ConnectionError(
-            f"delete failed with ConnectionError {e}"
-        )
+        raise requests.exceptions.ConnectionError(f"delete failed with ConnectionError {e}")
     except requests.exceptions.Timeout as e:
         raise requests.exceptions.Timeout(f"delete failed with Timeout {e}")
     except requests.exceptions.RequestException as e:
-        raise requests.exceptions.RequestException(
-            f"delete failed with request exception {e}"
-        )
+        raise requests.exceptions.RequestException(f"delete failed with request exception {e}")
     except Exception as e:
         raise ValueError(f"delete failed with request exception {e}")
     finally:

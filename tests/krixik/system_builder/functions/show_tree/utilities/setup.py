@@ -3,14 +3,14 @@ import os
 from tests.krixik import output_files_path
 from krixik.__base__ import library_base_dir
 from tests.krixik.system_builder.functions.show_tree.utilities.test_data import test_data
-from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
+from tests import USER_API_KEY, USER_API_URL
 from krixik import krixik
 
 
 def load_pipeline():
     # initialize krixik
-    krixik.init(api_key=TEST_DUMMY_API_KEY,
-                api_url=TEST_DUMMY_API_URL)    
+    krixik.init(api_key=USER_API_KEY,
+                api_url=USER_API_URL)    
 
     # select single module pipeline and input data from test_data file
     pipeline_name = list(test_data.keys())[0]
@@ -38,7 +38,7 @@ def load_pipeline():
     # process all input files
     for ind, test_file in enumerate(test_files):
         output = pipeline.process(local_file_path=test_file,
-                                expire_time=60*5,
+                                expire_time=60*30,
                                 modules={},
                                 local_save_directory=output_files_path,
                                 verbose=False,

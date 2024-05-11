@@ -1,7 +1,7 @@
 from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.pipeline import BuildPipeline
 from krixik.pipeline_builder.utilities.chain_checker import MAX_MODULES
-from tests.krixik import text_files_path, audio_files_path
+from tests.krixik import text_files_path, audio_files_path, pipeline_configs_path
 import os
 import yaml
 import pytest
@@ -15,10 +15,10 @@ test_failure_data = [
 
 @pytest.mark.parametrize("module_names", test_failure_data)
 def test_1(module_names):
-    """failure test for CreatePipeline class - invalid module chain"""
+    """failure test for BuildPipeline class - invalid module chain"""
     module_chain = [Module(module_name) for module_name in module_names]
     with pytest.raises((Exception, ValueError)):
-        CreatePipeline(module_chain=module_chain)
+        BuildPipeline(module_chain=module_chain)
 
 
 test_success_data = [
@@ -29,9 +29,9 @@ test_success_data = [
 
 @pytest.mark.parametrize("module_names", test_success_data)
 def test_2(module_names):
-    """success test for CreatePipeline class - valid module chain"""
+    """success test for BuildPipeline class - valid module chain"""
     module_chain = [Module(module_name) for module_name in module_names]
-    CreatePipeline(module_chain=module_chain)
+    BuildPipeline(module_chain=module_chain)
 
 
 test_failure_local_paths = [
@@ -52,9 +52,9 @@ test_failure_local_paths = [
 
 @pytest.mark.parametrize("module_names, local_file_path", test_failure_local_paths)
 def test_3(module_names, local_file_path):
-    """failure test for CreatePipeline class - invalid test_input"""
+    """failure test for BuildPipeline class - invalid test_input"""
     module_chain = [Module(module_name) for module_name in module_names]
-    pipeline = CreatePipeline(module_chain=module_chain)
+    pipeline = BuildPipeline(module_chain=module_chain)
     with pytest.raises((TypeError, ValueError, FileNotFoundError, Exception)):
         pipeline.test_input(local_file_path=local_file_path)
 
@@ -73,25 +73,25 @@ test_success_local_paths = [
 
 @pytest.mark.parametrize("module_names, local_file_path", test_success_local_paths)
 def test_4(module_names, local_file_path):
-    """success test for CreatePipeline class - test_input"""
+    """success test for BuildPipeline class - test_input"""
     module_chain = [Module(module_name) for module_name in module_names]
-    pipeline = CreatePipeline(module_chain=module_chain)
+    pipeline = BuildPipeline(module_chain=module_chain)
     pipeline.test_input(local_file_path=local_file_path)
 
 
 test_success_local_paths = [
     (
         ["parser", "text-embedder", "vector-db"],
-        "vector-db-pipeline.yml",
+        pipeline_configs_path + "vector-db-pipeline.yml",
     ),
 ]
 
 
 @pytest.mark.parametrize("module_names, config_path", test_success_local_paths)
 def test_5(module_names, config_path):
-    """success test for CreatePipeline class - save, load pipeline and ensure data properties are same"""
+    """success test for BuildPipeline class - save, load pipeline and ensure data properties are same"""
     module_chain = [Module(module_name) for module_name in module_names]
-    pipeline_v1 = CreatePipeline(module_chain=module_chain)
+    pipeline_v1 = BuildPipeline(module_chain=module_chain)
 
     with pytest.raises((ValueError)):  # no pipeline name given
         pipeline_v1.save(config_path=config_path)
@@ -99,7 +99,7 @@ def test_5(module_names, config_path):
     pipeline_v1.name = "test_pipeline"
     pipeline_v1.save(config_path=config_path)
 
-    pipeline_v2 = CreatePipeline(config_path=config_path)
+    pipeline_v2 = BuildPipeline(config_path=config_path)
 
     assert pipeline_v1.module_chain == pipeline_v2.module_chain
     assert (
@@ -117,7 +117,7 @@ def test_6():
     module_names = ['parser'] * (MAX_MODULES + 1)
     module_chain = [Module(module_name) for module_name in module_names]
     with pytest.raises(ValueError):
-        CreatePipeline(name="my_pipeline", module_chain=module_chain)
+        BuildPipeline(name="my_pipeline", module_chain=module_chain)
         
 
 test_fail_data = [
@@ -131,7 +131,7 @@ test_fail_data = [
 def test_7(name):
     """fail test that pipeline input name obeys basic type checking"""
     with pytest.raises((TypeError, ValueError)):
-        CreatePipeline(name=name)
+        BuildPipeline(name=name)
 
 
 test_fail_data = [
@@ -146,7 +146,7 @@ test_fail_data = [
 def test_8(chain):
     """fail test that pipeline module_chain obeys basic type checking"""
     with pytest.raises((TypeError, ValueError)):
-        CreatePipeline(module_chain=chain)
+        BuildPipeline(module_chain=chain)
 
 
 test_fail_data = [
@@ -161,7 +161,7 @@ test_fail_data = [
 def test_9(config):
     """fail test that pipeline config obeys basic type checking"""
     with pytest.raises((TypeError, ValueError, yaml.YAMLError)):
-        CreatePipeline(config_path=config)
+        BuildPipeline(config_path=config)
 
 
 test_fail_data = [
@@ -174,8 +174,8 @@ test_fail_data = [
 def test_10(fake_module):
     """try to add module that is not proper Module object"""
     with pytest.raises((TypeError)):
-        pipeline = CreatePipeline()
-        pipeline.add(fake_module)
+        pipeline = BuildPipeline()
+        pipeline._add(fake_module)
         
         
 test_fail_data = [
@@ -189,5 +189,5 @@ test_fail_data = [
 def test_11(fake_module):
     """try to add module that is not proper Module object"""
     with pytest.raises((TypeError)):
-        pipeline = CreatePipeline()
-        pipeline.add(fake_module)
+        pipeline = BuildPipeline()
+        pipeline._add(fake_module)

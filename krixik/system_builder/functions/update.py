@@ -36,12 +36,8 @@ def update(
         )
 
     # check that either file_name and symbolic_directory_path are not empty or that symbolic_file_path is not empty
-    if (
-        file_name is not None or symbolic_directory_path is not None
-    ) and symbolic_file_path is not None:
-        raise ValueError(
-            "file_name and symbolic_directory_path cannot both be given if symbolic_file_path is given"
-        )
+    if (file_name is not None or symbolic_directory_path is not None) and symbolic_file_path is not None:
+        raise ValueError("file_name and symbolic_directory_path cannot both be given if symbolic_file_path is given")
 
     # if symbolic_file_path is not empty, split symbolic_file_path into symbolic_directory_path and file_name
     if symbolic_file_path is not None:
@@ -74,14 +70,10 @@ def update(
         "expire_time": expire_time,
     }
 
-    if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(
-        self, "_KrixikBasePipeline__api_url"
-    ):
+    if hasattr(self, "_KrixikBasePipeline__api_key") and hasattr(self, "_KrixikBasePipeline__api_url"):
         api_key = self._KrixikBasePipeline__api_key
         api_url = self._KrixikBasePipeline__api_url
-    elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(
-        self, "_KrixikSearchPipeline__api_url"
-    ):
+    elif hasattr(self, "_KrixikSearchPipeline__api_key") and hasattr(self, "_KrixikSearchPipeline__api_url"):
         api_key = self._KrixikSearchPipeline__api_key
         api_url = self._KrixikSearchPipeline__api_url
     else:

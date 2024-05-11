@@ -31,18 +31,13 @@ def extract(
     if local_save_directory is None:
         raise NameError("local_save_directory is not defined")
     if os.path.exists(local_save_directory) is False:
-        raise FileNotFoundError(
-            f"the directory '{local_save_directory}' does not exist."
-        )
+        raise FileNotFoundError(f"the directory '{local_save_directory}' does not exist.")
     if not isinstance(verbose, bool):
         raise ValueError("verbose is not a boolean")
 
     convert_save_path = ""
     try:
-        file_name = (
-            "krixik_converted_version_"
-            + os.path.splitext(os.path.basename(local_file_path))[0]
-        )
+        file_name = "krixik_converted_version_" + os.path.splitext(os.path.basename(local_file_path))[0]
         extension = ".txt"
         convert_save_path = os.path.join(local_save_directory, file_name + extension)
 
@@ -63,20 +58,14 @@ def extract(
                     for run in paragraph.runs:
                         line = run.text
                         if num == 0:
-                            with open(
-                                convert_save_path, "a", encoding="utf-8"
-                            ) as new_file:
+                            with open(convert_save_path, "a", encoding="utf-8") as new_file:
                                 new_file.write(line)
                         if num > 0:
                             if os.path.exists(convert_save_path):
-                                with open(
-                                    convert_save_path, "a", encoding="utf-8"
-                                ) as new_file:
+                                with open(convert_save_path, "a", encoding="utf-8") as new_file:
                                     new_file.write(line)
                             else:
-                                raise FileNotFoundError(
-                                    f"file {convert_save_path} does not exist"
-                                )
+                                raise FileNotFoundError(f"file {convert_save_path} does not exist")
 
                         num += 1
         # report success

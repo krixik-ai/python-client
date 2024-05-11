@@ -11,7 +11,7 @@ parent_path = core_path.parent.absolute()
 
 class MySystemDataClass:
     def __init__(self, pipeline_ordered_modules):
-        self.pipeline_ordered_modules = pipeline_ordered_modules
+        self.module_chain = pipeline_ordered_modules
 
     @data_type_check_inputs
     def my_method(
@@ -32,7 +32,7 @@ symbolic_directory_path = "/home/UsEr"
 local_file_path = f"{parent_path}/tests/test_files/text/1984_short.txt"
 pipeline_ordered_modules = ["parser", "text-embedder"]
 modules = {}
-expire_time = 900
+expire_time = 60*30
 file_tags = [{"valid": "tag"}]
 
 

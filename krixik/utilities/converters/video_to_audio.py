@@ -23,9 +23,7 @@ def extract_audio(*, local_file_path: str, audio_filepath: str) -> None:
         if audio is not None:
             audio.write_audiofile(audio_filepath, verbose=False, logger=None)
     except Exception as e:
-        raise ValueError(
-            f"error extracting audio from video {local_file_path}, exception: {e}"
-        )
+        raise ValueError(f"error extracting audio from video {local_file_path}, exception: {e}")
 
 
 @file_converters_input_check
@@ -56,10 +54,7 @@ def convert(
         audio_filepath = None
         try:
             # get file_name video_file_path
-            file_name = (
-                "krixik_converted_version_"
-                + os.path.splitext(os.path.basename(local_file_path))[0]
-            )
+            file_name = "krixik_converted_version_" + os.path.splitext(os.path.basename(local_file_path))[0]
 
             # format audio file path
             extension = ".mp3"
@@ -70,19 +65,17 @@ def convert(
                 os.remove(audio_filepath)
 
             # check input file is mp4
-            is_video_size(local_file_path=local_file_path)
+            is_video_size(local_file_path=local_file_path, minimum_file_size=0.1)
 
             # extract audio from video
-            extract_audio(
-                local_file_path=local_file_path, audio_filepath=audio_filepath
-            )
+            extract_audio(local_file_path=local_file_path, audio_filepath=audio_filepath)
 
             # report size check
             vprint(
                 "INFO: Checking that file size falls within acceptable parameters...",
                 verbose=verbose,
             )
-            is_audio_size(local_file_path=audio_filepath)
+            is_audio_size(local_file_path=audio_filepath, minimum_file_size=0.05)
             vprint("INFO:...success!", verbose=verbose)
 
             return audio_filepath
@@ -97,14 +90,10 @@ def convert(
         except AttributeError as ae:
             if audio_filepath is not None:
                 delete_file(file_path=audio_filepath, exception=str(ae))
-            raise ValueError(
-                f"video contains no visual content, cannot convert to audio - {local_file_path}"
-            )
+            raise ValueError(f"video contains no visual content, cannot convert to audio - {local_file_path}")
         except Exception as e:
             if audio_filepath is not None:
                 delete_file(file_path=audio_filepath, exception=str(e))
             raise
     else:
-        raise ValueError(
-            "the input local_file_path and/or local_save_directory is null"
-        )
+        raise ValueError("the input local_file_path and/or local_save_directory is null")

@@ -7,8 +7,8 @@ from krixik.utilities.validators.data.utilities.read_config import get_allowable
 current_data_types = ["docx", "pdf", "text", "audio", "json", "video", "image", "pptx", "npy"]
 
 
-def test_available_data_types():
-    assert available_data_types == current_data_types
+def test_available_data_types():    
+    assert set(available_data_types) == set(current_data_types)
 
 
 test_data = [

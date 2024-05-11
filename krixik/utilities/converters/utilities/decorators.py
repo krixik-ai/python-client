@@ -1,6 +1,7 @@
 import copy
 import inspect
 import tempfile
+from functools import wraps
 from krixik.utilities.converters.read_config import convert_extension
 from krixik.utilities.converters.unclean_to_clean_txt import (
     convert as convert_unclean_text,
@@ -13,14 +14,13 @@ from krixik.utilities.utilities import vprint, get_input
 
 
 def datatype_converter_wrapper(func):
+    @wraps(func)
     def converter_wrapper(*args, **kwargs):
         try:
             signature = inspect.signature(func)
             verbose = get_input("verbose", signature, kwargs, default_value=True)
-            local_file_path = get_input(
-                "local_file_path", signature, kwargs, default_value=True
-            )
-            
+            local_file_path = get_input("local_file_path", signature, kwargs, default_value=True)
+
             if local_file_path is not None:
                 extension = local_file_path.split(".")[-1]
                 conversion = convert_extension(extension)
@@ -53,9 +53,7 @@ def datatype_converter_wrapper(func):
                             )
                         if local_file_path is not None:
                             if local_file_path.split(".")[-1] != conversion:
-                                raise ValueError(
-                                    f"conversion failed, expected {conversion} got {local_file_path.split('.')[-1]}"
-                                )
+                                raise ValueError(f"conversion failed, expected {conversion} got {local_file_path.split('.')[-1]}")
 
                             vprint(
                                 f"converted {og_local_file_path} to: {local_file_path}",
@@ -93,4 +91,5 @@ def datatype_converter_wrapper(func):
             raise PermissionError(e)
         except Exception as e:
             raise Exception(e)
+
     return converter_wrapper

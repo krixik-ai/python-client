@@ -15,12 +15,10 @@ class Module:
 
         # check validity of input module
         if self.name not in available_modules:
-            raise Exception(f"user defined module {self.name} does not exist")
+            raise Exception(f"user defined module '{self.name}' does not exist")
 
         # define config and io paths
-        self.__module_config_path = (
-            library_base_dir + f"/modules/{self.name}/module.yml"
-        )
+        self.__module_config_path = library_base_dir + f"/modules/{self.name}/module.yml"
         self.__io_module_path = f"krixik.modules.{self.name}.io"
 
         # load in module config
@@ -29,25 +27,15 @@ class Module:
             with open(self.__module_config_path, "r") as file:
                 self.__module_config = yaml.safe_load(file)
         else:
-            raise Exception(
-                f"please select a valid module from the available options: {available_modules}"
-            )
+            raise Exception(f"please select a valid module from the available options: {available_modules}")
         # attach permitted extensions to module config
-        self.__module_config["module"]["input"]["permitted_extensions"] = (
-            get_allowable_data_types(self.__module_config["module"]["input"]["type"])
-        )
-        self.__module_config["module"]["output"]["permitted_extensions"] = (
-            get_allowable_data_types(self.__module_config["module"]["output"]["type"])
-        )
+        self.__module_config["module"]["input"]["permitted_extensions"] = get_allowable_data_types(self.__module_config["module"]["input"]["type"])
+        self.__module_config["module"]["output"]["permitted_extensions"] = get_allowable_data_types(self.__module_config["module"]["output"]["type"])
 
         io_module = importlib.import_module(self.__io_module_path)
-        self.__input_dataclass = (
-            io_module.InputStructure if hasattr(io_module, "InputStructure") else None
-        )
+        self.__input_dataclass = io_module.InputStructure if hasattr(io_module, "InputStructure") else None
         if self.__input_dataclass is None:
-            raise Exception(
-                f"error loading in {self.name} io module {self.__io_module_path} - InputStructure not found"
-            )
+            raise Exception(f"error loading in {self.name} io module {self.__io_module_path} - InputStructure not found")
 
         self.__input_structure = self.__input_dataclass().__dict__
         self.__input_example = self.__input_dataclass().data_example
@@ -55,13 +43,9 @@ class Module:
         self.__input_process_key = self.__input_dataclass().process_key
         self.__input_process_type = self.__input_dataclass().process_type
 
-        self.__output_dataclass = (
-            io_module.OutputStructure if hasattr(io_module, "OutputStructure") else None
-        )
+        self.__output_dataclass = io_module.OutputStructure if hasattr(io_module, "OutputStructure") else None
         if self.__output_dataclass is None:
-            raise Exception(
-                f"error loading in {self.name} io module {self.__io_module_path} - OutputStructure not found"
-            )
+            raise Exception(f"error loading in {self.name} io module {self.__io_module_path} - OutputStructure not found")
 
         self.__output_structure = self.__output_dataclass().__dict__
         self.__output_example = self.__output_dataclass().data_example

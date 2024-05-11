@@ -34,22 +34,16 @@ def individual_clean_option_checker(key: str, value: str) -> None:
 
     # check that value length is less than CLEAN_OPTION_VALUE_MAX_LENGTH
     if len(value) > CLEAN_OPTION_VALUE_MAX_LENGTH:
-        raise ValueError(
-            f"invalid clean_option value: length is greater than 32 (current maximum length allowable) - {value}"
-        )
+        raise ValueError(f"invalid clean_option value: length is greater than 32 (current maximum length allowable) - {value}")
 
     # check that value contains only alphanumeric and alphanumeric characters
     res = contains_only_alphanumeric(value)
     if res is False:
-        raise ValueError(
-            f"invalid clean_option value: please check that it contains only basic alphanumeric characters or punctuation - {value}"
-        )
+        raise ValueError(f"invalid clean_option value: please check that it contains only basic alphanumeric characters or punctuation - {value}")
 
     # check that key is not equal to value
     if key == value:
-        raise ValueError(
-            f"invalid clean_option: key and value cannot be the same - {key} and {value}"
-        )
+        raise ValueError(f"invalid clean_option: key and value cannot be the same - {key} and {value}")
 
 
 # check clean_options
@@ -61,9 +55,7 @@ def clean_options_checker(clean_options: dict) -> None:
 
         # if dict is empty, raise error
         if len(clean_options) == 0:
-            raise ValueError(
-                "invalid clean_options: empty dict provided, you must provide at least one clean_option"
-            )
+            raise ValueError("invalid clean_options: empty dict provided, you must provide at least one clean_option")
 
         # check that clean_options is less or equal to MAX_CLEAN_OPTIONS_COUNT
         if len(clean_options) > MAX_CLEAN_OPTIONS_COUNT:
@@ -80,9 +72,7 @@ def clean_options_checker(clean_options: dict) -> None:
         # check that keys and values share no common elements
         common_elements = set(keys) & set(values)
         if len(common_elements) > 0:
-            raise ValueError(
-                f"invalid clean_options: keys and values cannot share common elements - {common_elements}"
-            )
+            raise ValueError(f"invalid clean_options: keys and values cannot share common elements - {common_elements}")
 
         # check for duplicates - print duplicates
         c = Counter(keys)
@@ -95,6 +85,4 @@ def clean_options_checker(clean_options: dict) -> None:
 
         # print invalid keys
         if len(invalid_keys) > 0:
-            raise ValueError(
-                f"invalid clean_options: duplicate keys found: {invalid_keys}"
-            )
+            raise ValueError(f"invalid clean_options: duplicate keys found: {invalid_keys}")

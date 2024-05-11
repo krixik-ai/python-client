@@ -75,7 +75,7 @@ def is_size(
         # check that file size in megabytes is greater than minimum_file_size and less than maximum_file_size
         if file_size < minimum_file_size or file_size > maximum_file_size:
             raise ValueError(
-                f"input file size is {file_size} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
             )
 
         # compute word count
@@ -83,9 +83,7 @@ def is_size(
 
         # check that word count is greater than minimum_word_count
         if file_word_count < minimum_word_count:
-            raise ValueError(
-                f"file word count is less than {minimum_word_count} words (current minimum word count allowable) - {local_file_path}"
-            )
+            raise ValueError(f"file word count is less than {minimum_word_count} words (current minimum word count allowable) - {local_file_path}")
 
     except ValueError as ve:
         raise ve

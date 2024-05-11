@@ -1,9 +1,7 @@
 from typing import List
 
 
-def get_all_key_paths(
-    dictionary: dict, parent_key: str = "", separator: str = "."
-) -> List[str]:
+def get_all_key_paths(dictionary: dict, parent_key: str = "", separator: str = ".") -> List[str]:
     key_paths = []
     for key, value in dictionary.items():
         current_key = f"{parent_key}{separator}{key}" if parent_key else key
@@ -14,9 +12,7 @@ def get_all_key_paths(
     return key_paths
 
 
-def find_value_by_path(
-    dictionary: dict, target_path: str, separator="."
-) -> dict | None:
+def find_value_by_path(dictionary: dict, target_path: str, separator=".") -> dict | None:
     keys = target_path.split(separator)
     current = dictionary
     for key in keys:
@@ -27,9 +23,7 @@ def find_value_by_path(
     return current
 
 
-def find_key_path_with_type(
-    nested_dict: dict, target_key: str, current_path=None
-) -> list | None:
+def find_key_path_with_type(nested_dict: dict, target_key: str, current_path=None) -> list | None:
     if current_path is None:
         current_path = []
 
@@ -45,9 +39,7 @@ def find_key_path_with_type(
     return None
 
 
-def find_key_paths_with_prefix_with_type(
-    nested_dict: dict, target_prefix: str, current_path=None
-) -> dict | None:
+def find_key_paths_with_prefix_with_type(nested_dict: dict, target_prefix: str, current_path=None) -> dict | None:
     if current_path is None:
         current_path = []
 

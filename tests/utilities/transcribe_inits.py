@@ -1,6 +1,6 @@
 from tests.utilities.decorators import capture_printed_output
-from tests import TEST_DUMMY_API_KEY_DEV
-from tests import TEST_DUMMY_API_URL_DEV
+from tests import USER_API_KEY_DEV
+from tests import USER_API_URL_DEV
 from functools import wraps
 from krixik import krixik
 
@@ -17,7 +17,7 @@ def bad_init():
 
 @capture_printed_output
 def good_init():
-    krixik.init(api_key=TEST_DUMMY_API_KEY_DEV, api_url=TEST_DUMMY_API_URL_DEV)
+    krixik.init(api_key=USER_API_KEY_DEV, api_url=USER_API_URL_DEV)
 
 
 def transcribe_bad_init(func):

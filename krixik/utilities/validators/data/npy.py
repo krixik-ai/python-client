@@ -7,15 +7,11 @@ def is_valid(local_file_path: str) -> None:
         # check that local_file_path is a text file
         _, file_extension = os.path.splitext(local_file_path)
         if file_extension not in [".npy"]:
-            raise ValueError(
-                f"invalid local_file_path: please check that it is an npy file - {local_file_path}"
-            )
-        np_array = np.load(local_file_path, mmap_mode='r')
+            raise ValueError(f"invalid local_file_path: please check that it is an npy file - {local_file_path}")
+        np_array = np.load(local_file_path, mmap_mode="r")
         partial_array = np_array[:4096]
     except UnicodeDecodeError:
-        raise ValueError(
-            f"invalid local_file_path: please check that it is an npy file - {local_file_path}"
-        )
+        raise ValueError(f"invalid local_file_path: please check that it is an npy file - {local_file_path}")
     except FileNotFoundError:
         raise FileNotFoundError(f"the file '{local_file_path}' does not exist.")
     except Exception as e:
@@ -55,12 +51,10 @@ def is_size(
         # check that file size in megabytes is greater than minimum_file_size and less than maximum_file_size
         if file_size < minimum_file_size:
             raise ValueError(
-                f"input file size is {file_size} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
             )
         if file_size > maximum_file_size:
-            raise ValueError(
-                f"file size is greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
-            )
+            raise ValueError(f"file size is greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}")
 
     except ValueError as ve:
         raise ve

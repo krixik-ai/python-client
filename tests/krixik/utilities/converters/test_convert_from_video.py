@@ -5,7 +5,7 @@ from krixik.utilities.validators.data.audio import is_valid
 from tests.krixik import video_files_path, audio_files_path
 import pytest
 
-valid_local_file_path = video_files_path + "/" + "valid_1.mp4"
+valid_local_file_path = video_files_path + "valid_1.mp4"
 valid_local_save_directory = audio_files_path
 
 

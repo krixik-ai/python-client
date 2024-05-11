@@ -21,9 +21,7 @@ def individual_file_tag_checker(file_tag: dict, phase: str = "other") -> None:
 
     # check that file_tag is a dictionary with only one key-value pair
     if len(file_tag) != 1:
-        raise ValueError(
-            f"file_tag must be a dictionary with only one key-value pair - {file_tag}"
-        )
+        raise ValueError(f"file_tag must be a dictionary with only one key-value pair - {file_tag}")
 
     # check key and value of file_tag to be valid strings
     key = list(file_tag.keys())[0]
@@ -39,16 +37,12 @@ def individual_file_tag_checker(file_tag: dict, phase: str = "other") -> None:
 
     # check that key length is less than 32
     if len(key) > TAG_KEY_LENGTH_MAX:
-        raise ValueError(
-            f"invalid file_tag key: length is greater than {TAG_KEY_LENGTH_MAX} (current maximum length allowable) - {key}"
-        )
+        raise ValueError(f"invalid file_tag key: length is greater than {TAG_KEY_LENGTH_MAX} (current maximum length allowable) - {key}")
 
     # check that key contains only alphanumeric and alphanumeric characters
     res = contains_only_alphanumeric_and_alphanumeric(key)
     if res is False:
-        raise ValueError(
-            f"invalid file_tag key: {key} - please check that it contains only alphanumeric and alphanumeric characters"
-        )
+        raise ValueError(f"invalid file_tag key: {key} - please check that it contains only alphanumeric and alphanumeric characters")
 
     # check that value is a string
     if not isinstance(value, str):
@@ -60,9 +54,7 @@ def individual_file_tag_checker(file_tag: dict, phase: str = "other") -> None:
 
     # check that value length is less than 32
     if len(value) > TAG_VALUE_LENGTH_MAX:
-        raise ValueError(
-            f"invalid file_tag value: length is greater than {TAG_VALUE_LENGTH_MAX} (current maximum length allowable) - {value}"
-        )
+        raise ValueError(f"invalid file_tag value: length is greater than {TAG_VALUE_LENGTH_MAX} (current maximum length allowable) - {value}")
 
     # if phase is process do not allow wildcard
     if phase == "process":
@@ -75,9 +67,7 @@ def individual_file_tag_checker(file_tag: dict, phase: str = "other") -> None:
     if value != "*":
         res = contains_only_alphanumeric_and_alphanumeric(value)
         if res is False:
-            raise ValueError(
-                f"invalid file_tag value: {value} - please check that it contains only alphanumeric and alphanumeric characters"
-            )
+            raise ValueError(f"invalid file_tag value: {value} - please check that it contains only alphanumeric and alphanumeric characters")
 
 
 def lower_case_file_tags(file_tags: list) -> list:
@@ -119,9 +109,7 @@ def file_tags_checker(file_tags: list, phase: str = "other") -> None:
             lower_case_tags = lower_case_file_tags(file_tags)
 
             # check for duplicate dicts in lower_case_file_tags
-            if len(lower_case_tags) != len(
-                set(map(lambda x: frozenset(x.items()), lower_case_tags))
-            ):
+            if len(lower_case_tags) != len(set(map(lambda x: frozenset(x.items()), lower_case_tags))):
                 # determine duplicates
                 duplicates = []
                 seen = set()
@@ -130,8 +118,6 @@ def file_tags_checker(file_tags: list, phase: str = "other") -> None:
                         duplicates.append(tag)
                     else:
                         seen.add(frozenset(tag.items()))
-                raise ValueError(
-                    f"file_tags contains duplicate key-value pairs: {duplicates}"
-                )
+                raise ValueError(f"file_tags contains duplicate key-value pairs: {duplicates}")
         else:
             raise ValueError("file_tags is None")

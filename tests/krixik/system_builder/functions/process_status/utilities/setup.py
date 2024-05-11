@@ -6,14 +6,14 @@ from krixik.__base__ import library_base_dir
 from tests.krixik.system_builder.functions.process_status.utilities.test_data import test_data
 from tests.krixik.system_builder.functions.process_status.utilities.test_data import test_data_multi
 from tests.krixik.system_builder.functions.process_status.utilities.test_data import test_failure_data
-from tests import TEST_DUMMY_API_KEY, TEST_DUMMY_API_URL
+from tests import USER_API_KEY, USER_API_URL
 from krixik import krixik
 
 
 def load_pipeline() -> object:
     # initialize krixik
-    krixik.init(api_key=TEST_DUMMY_API_KEY,
-                api_url=TEST_DUMMY_API_URL)
+    krixik.init(api_key=USER_API_KEY,
+                api_url=USER_API_URL)
 
     # select single module pipeline and input data from test_data file
     pipeline_name = list(test_data.keys())[0]
@@ -41,7 +41,7 @@ def load_pipeline() -> object:
     # process all input files
     for ind, test_file in enumerate(test_files):
         output = pipeline.process(local_file_path=test_file,
-                                  expire_time=60*5,
+                                  expire_time=60*30,
                                   modules={},
                                   local_save_directory=output_files_path,
                                   verbose=False,
@@ -73,8 +73,8 @@ def load_pipeline() -> object:
 
 def load_multi_pipeline(pipeline_name: str) -> dict:
     # initialize krixik
-    krixik.init(api_key=TEST_DUMMY_API_KEY,
-                api_url=TEST_DUMMY_API_URL)
+    krixik.init(api_key=USER_API_KEY,
+                api_url=USER_API_URL)
     
     all_test_data = copy.deepcopy(test_data_multi)
     all_test_data.update(test_data)
@@ -97,7 +97,7 @@ def load_multi_pipeline(pipeline_name: str) -> dict:
         
     # reset the pipeline name so it is uniqe to this function
     pipeline.pipeline_name = f"{pipeline.pipeline}-process-status"
-    pipeline_ordered_modules = pipeline.pipeline_ordered_modules
+    pipeline_ordered_modules = pipeline.module_chain
         
     # delete all files for pipeline before running tests
     current_files = pipeline.list(symbolic_directory_paths=["/*"])

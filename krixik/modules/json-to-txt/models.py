@@ -11,9 +11,7 @@ default_params = module_config["default_params"]
 
 def params_validator(model: str, params: dict) -> None:
     if len(params) != 0:
-        raise ValueError(
-            f"params must have no values - the params entered is not in this required form - {params}"
-        )
+        raise ValueError(f"params must have no values - the params entered is not in this required form - {params}")
 
 
 def model_setup(model_selection: dict):
