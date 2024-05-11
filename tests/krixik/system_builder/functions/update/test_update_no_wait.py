@@ -41,4 +41,5 @@ def test_1(subtests):
             count += 1
         assert update_output["status_code"] == 200
         assert finished_message in update_output["message"]
+
     reset_pipeline(pipeline)
