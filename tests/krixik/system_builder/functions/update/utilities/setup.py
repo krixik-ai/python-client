@@ -10,7 +10,7 @@ from krixik import krixik
 
 
 # define expire time
-update_expire_time = 60*5
+update_expire_time = 60*30
 
 
 def load_but_no_process_pipeline():

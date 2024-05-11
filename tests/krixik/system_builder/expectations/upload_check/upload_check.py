@@ -35,7 +35,7 @@ def test_1(pipeline):
         "symbolic_directory_path": "/etc",
         "file_tags": [],
         "file_description": "",
-        "expire_time": 1800,
+        "expire_time": 60*30,
     }
 
     # create simple object to attach api_key to
@@ -101,7 +101,7 @@ def test_2(pipeline):
         "symbolic_directory_path": "/etc",
         "file_tags": [],
         "file_description": "",
-        "expire_time": 90,
+        "expire_time": 60*30,
     }
 
     # create simple object to attach api_key to

@@ -29,7 +29,7 @@ def run_test(pipeline_name):
 
     # run pipeline
     output = pipeline.process(local_file_path=test_file,
-                              expire_time=60*3,
+                              expire_time=60*30,
                               modules={},
                               local_save_directory=output_files_path,
                               verbose=False) 

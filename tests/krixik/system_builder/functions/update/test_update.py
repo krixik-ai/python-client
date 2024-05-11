@@ -1,11 +1,11 @@
 
 from tests.krixik.system_builder.functions.update.utilities.setup import load_pipeline
 from tests.krixik.system_builder.functions.update.utilities.setup import update_expire_time
-
 from tests.utilities.dynamodb_interactions import check_meter
 from tests.utilities.dynamodb_interactions import check_expire
 from tests.utilities.dynamodb_interactions import check_history
 from tests.utilities.scheduler_interactions import check_schedule
+from tests.utilities.reset import reset_pipeline
 import pytest
 import uuid
 from datetime import datetime
@@ -20,6 +20,7 @@ def test_1(pipeline):
     """failure to update due to no input arg"""
     with pytest.raises(ValueError, match=r".*invalid file_id\.*"):
         pipeline.update()
+    reset_pipeline(pipeline)
         
         
 def test_2(pipeline):
@@ -28,6 +29,7 @@ def test_2(pipeline):
         ValueError, match=r".*one of the following update arguments must be given:\.*"
     ):
         pipeline.update(file_id=str(uuid.uuid4()))
+    reset_pipeline(pipeline)
 
     
 def test_3(pipeline, subtests):
@@ -39,6 +41,7 @@ def test_3(pipeline, subtests):
 
     with subtests.test(msg="meter"):
         check_meter(results)
+    reset_pipeline(pipeline)
 
 
 def test_4(pipeline, subtests):
@@ -62,7 +65,8 @@ def test_4(pipeline, subtests):
 
     with subtests.test(msg="meter"):
         check_meter(results)
-        
+    reset_pipeline(pipeline)
+
 
 def test_5(pipeline, subtests):
     """bad extension update failure - cannot update a file to a different extension than the one used at process"""
@@ -78,6 +82,7 @@ def test_5(pipeline, subtests):
         
         with pytest.raises(ValueError, match=r".*invalid file_name\.*"):
             pipeline.update(file_id=first_file_id, file_name=new_file_name)
+    reset_pipeline(pipeline)
 
 
 def test_6(pipeline, subtests):
@@ -98,7 +103,8 @@ def test_6(pipeline, subtests):
 
     with subtests.test(msg="meter"):
         check_meter(results)
-        
+    reset_pipeline(pipeline)
+
         
 def test_7(pipeline, subtests):
     """successful update using mixed query arguments"""
@@ -172,7 +178,9 @@ def test_7(pipeline, subtests):
     og_expire_time = datetime.strptime(og_expire_time, "%Y-%m-%d %H:%M:%S")
     updated_expire_time = datetime.strptime(updated_expire_time, "%Y-%m-%d %H:%M:%S")
     assert updated_expire_time > og_expire_time
-    
+
+    reset_pipeline(pipeline)
+
 
 def test_8(pipeline):
     """ reset pipeline for tests """
@@ -184,3 +192,4 @@ def test_8(pipeline):
     current_files = pipeline.list(symbolic_directory_paths=["/*"])
     assert current_files["status_code"] == 200
     assert len(current_files["items"]) == 0
+    reset_pipeline(pipeline)
