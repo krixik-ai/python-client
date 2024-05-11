@@ -409,6 +409,7 @@ class KrixikBasePipeline:
         verbose: bool = True,
         wait_for_process: bool = True,
         local_save_directory: str = os.getcwd(),
+        download_output: bool = True,
         og_local_file_path: Optional[str] = None,
     ) -> dict | None:
         """process a file to the server for a given pipeline
@@ -439,6 +440,8 @@ class KrixikBasePipeline:
             whether to process the file asynchronously, by default False
         local_save_directory: str
             local directory for process output, by default os.getcwd()
+        download_output: bool
+            boolean switch, download process output (set True) or not (set False)
         og_local_file_path: str, optional
             local file path used for any file conversion (e.g., mp4 to mp3, controlled internally
         Returns
@@ -550,7 +553,7 @@ class KrixikBasePipeline:
         if not self.wait_for_process:
             return output_data
 
-        if output_data is not None:
+        if download_output and output_data is not None:
             try:
                 file_id = output_data["file_id"]
                 file_output = self.fetch_output(file_id=file_id, local_save_directory=local_save_directory)
