@@ -1,7 +1,7 @@
 from krixik.pipeline_builder.module import Module
 from krixik.pipeline_builder.pipeline import BuildPipeline
 from krixik.pipeline_builder.utilities.chain_checker import MAX_MODULES
-from tests.krixik import text_files_path, audio_files_path
+from tests.krixik import text_files_path, audio_files_path, pipeline_configs_path
 import os
 import yaml
 import pytest
@@ -82,7 +82,7 @@ def test_4(module_names, local_file_path):
 test_success_local_paths = [
     (
         ["parser", "text-embedder", "vector-db"],
-        "vector-db-pipeline.yml",
+        pipeline_configs_path + "vector-db-pipeline.yml",
     ),
 ]
 

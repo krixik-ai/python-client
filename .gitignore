@@ -13,6 +13,7 @@ tests/test_files/text/test_preprocessed/*
 push_pypi.sh
 tests/test_files/output_data/*
 requirements.*
+tests/test_files/pipeline_configs/*
 
 
 tests/speed/test_results/*

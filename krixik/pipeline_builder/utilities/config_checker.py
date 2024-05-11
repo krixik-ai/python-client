@@ -8,7 +8,7 @@ def config_check(filename):
     
     if not os.path.exists(filename):
         raise FileExistsError(f"FAILURE: config file does not exist - {filename}")
-    if os.path.isfile(filename):
+    if not os.path.isfile(filename):
         raise FileExistsError(f"FAILURE: config file does not exist - {filename}")
 
     file_size_bytes = os.path.getsize(filename)
