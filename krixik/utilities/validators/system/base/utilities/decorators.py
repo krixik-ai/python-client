@@ -96,7 +96,7 @@ def type_check_inputs(func: Callable) -> Callable:
 
             if "file_description" in list(kwargs.keys()):
                 file_description_checker(kwargs["file_description"])
-                
+
             download_output = get_input("download_output", signature, kwargs, default_value=True)
             download_output_checker(download_output)
 

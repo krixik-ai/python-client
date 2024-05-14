@@ -50,10 +50,10 @@ class BuildPipeline:
 
         if module_chain is not None and config_path is not None:
             raise ValueError("you cannot enter in both a module_chain and a config_path - please enter in one or the other")
-            
+
         if self.name is not None:
             name_check(self.name)
-            
+
         if config_path is not None:
             self.load(config_path)
 
@@ -215,7 +215,7 @@ class BuildPipeline:
 
     def load(self, pipeline_config_path: str) -> None:
         config_check(pipeline_config_path)
-        
+
         with open(pipeline_config_path, "r") as file:
             pipeline_config = yaml.safe_load(file)
 

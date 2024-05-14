@@ -7,7 +7,7 @@ from krixik.modules.utilities.io_validator import is_valid
 def input_check(local_file_path: str, module_chain: list) -> None:
     if not isinstance(local_file_path, str):
         raise TypeError(f"local_file_path must be a string: {local_file_path}")
-    
+
     if not os.path.exists(local_file_path):
         raise FileExistsError(f"FAILURE: local_file_path does not exist - {local_file_path}")
     chain_check(module_chain)

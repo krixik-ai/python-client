@@ -220,7 +220,7 @@ class KrixikBasePipeline:
     @kwargs_checker
     @check_init_decorator
     @type_check_inputs
-    def fetch_output(self, *, file_id: str, local_save_directory: str = os.getcwd()) -> dict | None:
+    def fetch_output(self, *, file_id: str, local_save_directory: str = os.path.abspath("")) -> dict | None:
         """fetch the output of a file from the server via its file_id for a given pipeline
 
         Parameters
@@ -408,7 +408,7 @@ class KrixikBasePipeline:
         expire_time: Optional[int] = None,
         verbose: bool = True,
         wait_for_process: bool = True,
-        local_save_directory: str = os.path.abspath(''),
+        local_save_directory: str = os.path.abspath(""),
         download_output: bool = True,
         og_local_file_path: Optional[str] = None,
     ) -> dict | None:
@@ -564,7 +564,7 @@ class KrixikBasePipeline:
                 return file_output
             except Exception as e:
                 raise e
-
+        output_data["status_code"] = 200
         return output_data
 
     @kwargs_checker
@@ -660,7 +660,11 @@ class KrixikBasePipeline:
 
     def __getattr__(self, attr):
         if attr == "keyword_search":
-            raise AttributeError(f"your pipeline has no attribute '{attr}' because its module_chain does not end with keyword-db: - {self.module_chain}")
+            raise AttributeError(
+                f"your pipeline has no attribute '{attr}' because its module_chain does not end with keyword-db: - {self.module_chain}"
+            )
         if attr == "semantic_search":
-            raise AttributeError(f"your pipeline has no attribute '{attr}' because its module_chain does not end with vector-db: - {self.module_chain}")
+            raise AttributeError(
+                f"your pipeline has no attribute '{attr}' because its module_chain does not end with vector-db: - {self.module_chain}"
+            )
         raise AttributeError(f"pipelines do not have the attribute '{attr}'")
