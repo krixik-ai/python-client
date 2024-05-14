@@ -9,7 +9,7 @@ from tests.utilities.reset import reset_pipeline
 import pytest
 import time
 
-
+    
 @pytest.fixture(scope="session", autouse=True)
 def pipeline():
     return load_pipeline()
@@ -22,12 +22,12 @@ def test_1(pipeline, subtests):
             pipeline.process_status(
                 request_id="11111111-1111-1111-1111-11111111111111"
             )
-    reset_pipeline(pipeline)
 
 
 def test_2(pipeline, subtests):
     """ check process status of recently processed file """
     results = pipeline.list(symbolic_directory_paths=["/*"])
+    print(f"results {results}")
     file_id = results["items"][0]["file_id"]
     process_id = results["items"][0]["process_id"]
     assert results["status_code"] == 200
