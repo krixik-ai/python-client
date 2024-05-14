@@ -17,7 +17,7 @@ def is_valid(local_file_path: str) -> bool | None:
             if image_type in ["jpg", "jpeg", "png"]:
                 return True
             else:
-                raise ValueError(f"The file '{local_file_path}' does not represent a valid image.")
+                raise ValueError(f"The file '{local_file_path}' does not represent a valid image - its type is being read as {image_type}.")
     except FileNotFoundError:
         raise FileNotFoundError(f"The file '{local_file_path}' does not exist.")
     except Exception as e:
@@ -69,7 +69,7 @@ def is_size(
         file_size = compute_size(local_file_path)
         if file_size < minimum_file_size or file_size > maximum_file_size:
             raise ValueError(
-                f"input file size is {file_size} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
             )
     except ValueError as ve:
         raise ve

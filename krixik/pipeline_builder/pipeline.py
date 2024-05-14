@@ -1,3 +1,4 @@
+import os
 import yaml
 from typing import Optional, List
 from collections import OrderedDict
@@ -33,7 +34,7 @@ def convert_to_dict(obj):
         return obj
 
 
-class CreatePipeline:
+class BuildPipeline:
     def __init__(
         self,
         name: Optional[str] = None,
@@ -46,6 +47,9 @@ class CreatePipeline:
         self.__module_chain_output_process_keys = []
         self.__pipeline_config = None
         self.__module_chain_configs = []
+
+        if module_chain is not None and config_path is not None:
+            raise ValueError("you cannot enter in both a module_chain and a config_path - please enter in one or the other")
 
         if self.name is not None:
             name_check(self.name)
@@ -116,8 +120,15 @@ class CreatePipeline:
 
     @datatype_validator
     def test_input(self, *, local_file_path: str) -> None:
+        """test input file will flow through pipeline correctly via simulation (currently in beta)
+
+        Parameters
+        ----------
+        local_file_path : str
+            path to local file to test for pipeline threadthrough
+        """
         input_check(local_file_path, self.__module_chain)
-        print(f"SUCCESS: local file {local_file_path} passed pipeline input test passed")
+        print(f"SUCCESS: local file '{local_file_path}' passed pipeline input test passed")
 
     @property
     def module_chain(self) -> list:

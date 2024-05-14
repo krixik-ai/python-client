@@ -39,6 +39,7 @@ from krixik.utilities.validators.system.base.user_secrets import (
     api_key_checker,
     api_url_checker,
 )
+from krixik.utilities.validators.system.base.download_output import download_output_checker
 
 from krixik.utilities.utilities import get_input
 from typing import Callable
@@ -48,7 +49,6 @@ def type_check_inputs(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
-            func_name = func.__name__
             signature = inspect.signature(func)
 
             verbose = get_input("verbose", signature, kwargs, default_value=True)
@@ -96,6 +96,9 @@ def type_check_inputs(func: Callable) -> Callable:
 
             if "file_description" in list(kwargs.keys()):
                 file_description_checker(kwargs["file_description"])
+
+            download_output = get_input("download_output", signature, kwargs, default_value=True)
+            download_output_checker(download_output)
 
             max_files = get_input("max_files", signature, kwargs)
             if max_files is not None:

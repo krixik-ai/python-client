@@ -4,10 +4,12 @@ from tests.krixik.system_builder.functions.process_status.utilities.setup import
 from tests.krixik.system_builder.functions.process_status.utilities.setup import test_data_multi
 from tests.krixik.system_builder.functions.process_status.utilities.test_data import test_failure_data
 from tests.krixik import output_files_path
+from tests.utilities.reset import reset_pipeline
+
 import pytest
 import time
 
-
+    
 @pytest.fixture(scope="session", autouse=True)
 def pipeline():
     return load_pipeline()
@@ -25,6 +27,7 @@ def test_1(pipeline, subtests):
 def test_2(pipeline, subtests):
     """ check process status of recently processed file """
     results = pipeline.list(symbolic_directory_paths=["/*"])
+    print(f"results {results}")
     file_id = results["items"][0]["file_id"]
     process_id = results["items"][0]["process_id"]
     assert results["status_code"] == 200
@@ -34,7 +37,8 @@ def test_2(pipeline, subtests):
 
         # assert that all values in results["process_status"] are True
         assert all(results["process_status"].values())
-
+    reset_pipeline(pipeline)
+        
 
 test_success_data = list(test_data.keys()) + list(test_data_multi.keys())
 
@@ -48,7 +52,7 @@ def test_3(subtests, pipeline_name):
 
     with subtests.test(msg="process_status expectation with successful upload"):
         output = pipeline.process(local_file_path=test_file,
-                                  expire_time=60*5,
+                                  expire_time=60*30,
                                   modules={},
                                   local_save_directory=output_files_path,
                                   verbose=False,
@@ -64,6 +68,7 @@ def test_3(subtests, pipeline_name):
         pipeline.pipeline_name = 'my-favorite-pipeline'
         with pytest.raises(ValueError,  match=r".*pipeline of process_id does not match associated file pipeline\.*"):
             process_status_output = pipeline.process_status(request_id=output["request_id"])
+    reset_pipeline(pipeline)
 
 
 def test_4(subtests):
@@ -77,7 +82,7 @@ def test_4(subtests):
         # catch expected error on running process with wait_for_process=True
         with pytest.raises(ValueError,  match=r".*processes associated with request_id\.*"):
             output = pipeline.process(local_file_path=test_file,
-                                      expire_time=60*5,
+                                      expire_time=60*30,
                                       modules={"parser":{"model": "fixed", "params":{
                                         "chunk_size": 10,
                                         "overlap_size": 8
@@ -89,7 +94,7 @@ def test_4(subtests):
     with subtests.test(msg="process_status expectation with failed upload and wait_for_process False"):
         # catch expected failure_status dictionary response when using wait_for_process False
         output = pipeline.process(local_file_path=test_file,
-                                  expire_time=60*5,
+                                  expire_time=60*30,
                                   modules={"parser":{"model": "fixed", "params":{
                                     "chunk_size": 10,
                                     "overlap_size": 8
@@ -111,15 +116,9 @@ def test_4(subtests):
 
         assert "failure_status" in list(output.keys())
         assert "failure_module" in output["failure_status"]
+    reset_pipeline(pipeline)
 
   
 def test_end(pipeline):
     """ reset pipeline for tests """
-    current_files = pipeline.list(symbolic_directory_paths=["/*"])
-    assert current_files["status_code"] == 200
-    for item in current_files["items"]:
-        delete_result = pipeline.delete(file_id=item["file_id"])
-        assert delete_result["status_code"] == 200
-    current_files = pipeline.list(symbolic_directory_paths=["/*"])
-    assert current_files["status_code"] == 200
-    assert len(current_files["items"]) == 0
+    reset_pipeline(pipeline)

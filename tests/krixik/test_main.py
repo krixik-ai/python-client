@@ -2,11 +2,11 @@ from krixik import krixik
 from tests.krixik import pipeline_configs_path
 from tests.krixik import text_files_path
 from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.pipeline import BuildPipeline
 import pytest
 
 module_1 = Module(module_type="parser")
-test_pipeline = CreatePipeline(name='temp-parser-pipeline',
+test_pipeline = BuildPipeline(name='temp-parser-pipeline',
                                module_chain=[module_1])
 test_config = pipeline_configs_path + "parser.yml"
 
@@ -22,7 +22,7 @@ failure_tests = [
     (None, None), # both input cannot be None
     ('/this/path/has/no/extension', None), # invalid config
     (text_files_path + "1984_short.txt", None), # invalid config
-    (None, 1),  # invalid CreatePipeline object
+    (None, 1),  # invalid BuildPipeline object
 ]
 
 

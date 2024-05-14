@@ -15,10 +15,10 @@ def is_valid(local_file_path: str) -> bool | None:
                 raise ValueError("JSON file does not represent a dictionary.")
             for v in json_object:
                 if not isinstance(v, dict):
-                    raise ValueError("JSON file does not represent a dictionary.")
+                    raise ValueError(f"object in JSON file does not represent a valid dictionary: {v}")
             return True
         else:
-            raise ValueError("JSON file does not represent a dictionary.")
+            raise ValueError("JSON file must consist of a list of dictionaries.")
     except json.JSONDecodeError as e:
         raise ValueError(f"Invalid JSON file - your file is not a valid JSON file: {e}")
     except FileNotFoundError:
@@ -111,7 +111,7 @@ def is_size(
         file_size = compute_size(local_file_path)
         if file_size < minimum_file_size or file_size > maximum_file_size:
             raise ValueError(
-                f"input file size is {file_size} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
             )
 
         (
@@ -135,11 +135,11 @@ def is_size(
             )
         if minimum_token_count < snippet_min_token_count:
             raise ValueError(
-                f"too few tokens - the value in the following key-value pair {minimum_token_count_key_value} has too few tokens (at present the minimum is {snippet_min_token_count} - please check this key-value pair in your input local_file_path {local_file_path}"
+                f"too few tokens - the value in the following key-value pair has too few tokens (at present the minimum is {snippet_min_token_count} - please check this key-value pair in your input local_file_path {local_file_path} - {minimum_token_count_key_value}"
             )
         if maximum_token_count > snippet_max_token_count:
             raise ValueError(
-                f"too many tokens - the value in the following key-value pair {maximum_token_count_key_value} has too many tokens (at present the minimum is {snippet_max_token_count} - please check this key-value pair in your input local_file_path {local_file_path}"
+                f"too many tokens - the value in the following key-value pair has too many tokens (at present the maximum is {snippet_max_token_count} - please check this key-value pair in your input local_file_path {local_file_path} - {maximum_token_count_key_value} "
             )
 
     except ValueError as ve:

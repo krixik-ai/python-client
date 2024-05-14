@@ -220,7 +220,7 @@ class KrixikBasePipeline:
     @kwargs_checker
     @check_init_decorator
     @type_check_inputs
-    def fetch_output(self, *, file_id: str, local_save_directory: str = os.getcwd()) -> dict | None:
+    def fetch_output(self, *, file_id: str, local_save_directory: str = os.path.abspath("")) -> dict | None:
         """fetch the output of a file from the server via its file_id for a given pipeline
 
         Parameters
@@ -408,7 +408,8 @@ class KrixikBasePipeline:
         expire_time: Optional[int] = None,
         verbose: bool = True,
         wait_for_process: bool = True,
-        local_save_directory: str = os.getcwd(),
+        local_save_directory: str = os.path.abspath(""),
+        download_output: bool = True,
         og_local_file_path: Optional[str] = None,
     ) -> dict | None:
         """process a file to the server for a given pipeline
@@ -439,6 +440,8 @@ class KrixikBasePipeline:
             whether to process the file asynchronously, by default False
         local_save_directory: str
             local directory for process output, by default os.getcwd()
+        download_output: bool
+            boolean switch, download process output (set True) or not (set False)
         og_local_file_path: str, optional
             local file path used for any file conversion (e.g., mp4 to mp3, controlled internally
         Returns
@@ -550,7 +553,10 @@ class KrixikBasePipeline:
         if not self.wait_for_process:
             return output_data
 
-        if output_data is not None:
+        if not download_output:
+            vprint("INFO: downlaod_output set to False, not fetching output", verbose=verbose)
+
+        if download_output and output_data is not None:
             try:
                 file_id = output_data["file_id"]
                 file_output = self.fetch_output(file_id=file_id, local_save_directory=local_save_directory)
@@ -558,7 +564,7 @@ class KrixikBasePipeline:
                 return file_output
             except Exception as e:
                 raise e
-
+        output_data["status_code"] = 200
         return output_data
 
     @kwargs_checker
@@ -651,3 +657,14 @@ class KrixikBasePipeline:
             report["overall_status"] = "failed"
             return report
         return report
+
+    def __getattr__(self, attr):
+        if attr == "keyword_search":
+            raise AttributeError(
+                f"your pipeline has no attribute '{attr}' because its module_chain does not end with keyword-db: - {self.module_chain}"
+            )
+        if attr == "semantic_search":
+            raise AttributeError(
+                f"your pipeline has no attribute '{attr}' because its module_chain does not end with vector-db: - {self.module_chain}"
+            )
+        raise AttributeError(f"pipelines do not have the attribute '{attr}'")

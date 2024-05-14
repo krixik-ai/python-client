@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 setup(
     name="krixik",
-    version="1.1.15",
+    version="1.1.16",
     description="Easily assemble and serverlessly consume modular AI pipelines through secure Python APIs.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

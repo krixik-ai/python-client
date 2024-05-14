@@ -1,11 +1,12 @@
 
+from regex import D
 from tests.krixik.system_builder.functions.update.utilities.setup import load_pipeline
 from tests.krixik.system_builder.functions.update.utilities.setup import update_expire_time
-
 from tests.utilities.dynamodb_interactions import check_meter
 from tests.utilities.dynamodb_interactions import check_expire
 from tests.utilities.dynamodb_interactions import check_history
 from tests.utilities.scheduler_interactions import check_schedule
+from tests.utilities.reset import reset_pipeline
 import pytest
 import uuid
 from datetime import datetime
@@ -21,7 +22,7 @@ def test_1(pipeline):
     with pytest.raises(ValueError, match=r".*invalid file_id\.*"):
         pipeline.update()
         
-        
+
 def test_2(pipeline):
     """failure to update due no update args"""
     with pytest.raises(
@@ -62,7 +63,7 @@ def test_4(pipeline, subtests):
 
     with subtests.test(msg="meter"):
         check_meter(results)
-        
+
 
 def test_5(pipeline, subtests):
     """bad extension update failure - cannot update a file to a different extension than the one used at process"""
@@ -98,7 +99,7 @@ def test_6(pipeline, subtests):
 
     with subtests.test(msg="meter"):
         check_meter(results)
-        
+
         
 def test_7(pipeline, subtests):
     """successful update using mixed query arguments"""
@@ -172,15 +173,8 @@ def test_7(pipeline, subtests):
     og_expire_time = datetime.strptime(og_expire_time, "%Y-%m-%d %H:%M:%S")
     updated_expire_time = datetime.strptime(updated_expire_time, "%Y-%m-%d %H:%M:%S")
     assert updated_expire_time > og_expire_time
-    
+
 
 def test_8(pipeline):
     """ reset pipeline for tests """
-    current_files = pipeline.list(symbolic_directory_paths=["/*"])
-    assert current_files["status_code"] == 200
-    for item in current_files["items"]:
-        delete_result = pipeline.delete(file_id=item["file_id"])
-        assert delete_result["status_code"] == 200
-    current_files = pipeline.list(symbolic_directory_paths=["/*"])
-    assert current_files["status_code"] == 200
-    assert len(current_files["items"]) == 0
+    reset_pipeline(pipeline)

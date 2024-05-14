@@ -36,7 +36,4 @@ class OutputStructure:
 
     @property
     def data_example(self):
-        return {
-            "snippet": self.snippet,
-            "other": self.other,
-        }
+        return {"snippet": self.snippet, "positive": 0.33, "negative": 0.33, "neutral": 0.33}

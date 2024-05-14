@@ -26,5 +26,5 @@ pipeline_configs_path = (
     Path(os.path.abspath(__file__)).parent.parent.__str__() + "/test_files/pipeline_configs/"
 )
 output_files_path = (
-    Path(os.path.abspath(__file__)).parent.parent.__str__() + "/test_files/output"
+    Path(os.path.abspath(__file__)).parent.parent.__str__() + "/test_files/output_data"
 )

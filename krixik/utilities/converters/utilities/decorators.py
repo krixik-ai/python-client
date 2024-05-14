@@ -1,6 +1,7 @@
 import copy
 import inspect
 import tempfile
+from functools import wraps
 from krixik.utilities.converters.read_config import convert_extension
 from krixik.utilities.converters.unclean_to_clean_txt import (
     convert as convert_unclean_text,
@@ -13,6 +14,7 @@ from krixik.utilities.utilities import vprint, get_input
 
 
 def datatype_converter_wrapper(func):
+    @wraps(func)
     def converter_wrapper(*args, **kwargs):
         try:
             signature = inspect.signature(func)

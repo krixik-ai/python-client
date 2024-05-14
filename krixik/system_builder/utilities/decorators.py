@@ -43,6 +43,7 @@ allowed_args_dict = {
         "wait_for_process",
         "local_save_directory",
         "og_local_file_path",
+        "download_output",
     },
     "show_tree": {"symbolic_directory_path", "max_files", "verbose"},
     "process_status": {"request_id"},

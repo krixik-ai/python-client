@@ -10,7 +10,7 @@ def test_1(subtests):
     pipeline, test_files = load_but_no_process_pipeline()
     test_file = test_files[0]
     process_output = pipeline.process(local_file_path=test_file,
-                                      expire_time=60*5,
+                                      expire_time=60*30,
                                       modules={},
                                       local_save_directory=output_files_path,
                                       verbose=False,

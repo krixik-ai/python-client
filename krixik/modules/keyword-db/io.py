@@ -30,4 +30,4 @@ class OutputStructure:
 
     @property
     def data_example(self):
-        return None
+        return "this will be a database"

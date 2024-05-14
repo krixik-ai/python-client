@@ -2,7 +2,6 @@ import requests
 import json
 from krixik.utilities.tree_illustrator import show_symbolic_file_tree
 from krixik.system_builder.functions import show_tree_endpoint
-from krixik.utilities.utilities import vprint
 
 
 def show_post(self, *, symbolic_directory_path: str, max_files: int = 1000, verbose: bool = True):

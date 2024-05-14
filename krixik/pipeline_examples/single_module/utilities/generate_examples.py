@@ -1,6 +1,6 @@
 import os
 from krixik.pipeline_builder.module import Module
-from krixik.pipeline_builder.pipeline import CreatePipeline
+from krixik.pipeline_builder.pipeline import BuildPipeline
 from krixik.modules import available_modules
 from krixik.__base__ import library_base_dir
 
@@ -13,10 +13,10 @@ def generate():
             if file.endswith(".yml"):
                 os.remove(os.path.join(save_directory, file))
 
-        pipeline = CreatePipeline()
+        pipeline = BuildPipeline()
         for module_name in available_modules:
             module = Module(module_name)
-            pipeline = CreatePipeline(name=f"{module_name}-pipeline", module_chain=[module])
+            pipeline = BuildPipeline(name=f"{module_name}-pipeline", module_chain=[module])
             pipeline.save(config_path=f"{save_directory}/{module_name}.yml")
 
     except Exception as e:
