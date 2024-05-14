@@ -109,8 +109,6 @@ def test_5(module_names, config_path):
     assert pipeline_v1.name == pipeline_v2.name
     assert pipeline_v1.config == pipeline_v2.config
 
-    os.remove(config_path)
-
 
 def test_6():
     """ test that MAX_MODULES is obeyed"""
