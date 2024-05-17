@@ -62,7 +62,7 @@ def test_3(subtests, pipeline_name):
         process_status = process_status_output["process_status"]
 
         assert len(process_status) == len(pipeline_ordered_modules)
-        assert set(process_status.keys()) == set(pipeline_ordered_modules)
+        assert set(process_status.keys()) == set([f"module_{i+1}" for i in range(len(pipeline_ordered_modules))])
 
     with subtests.test(msg="process_status expectation with successful upload - pipeline barrier"):
         pipeline.pipeline_name = 'my-favorite-pipeline'
