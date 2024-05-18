@@ -4,6 +4,9 @@ import yaml
 from tests.krixik import output_files_path
 from krixik.__base__ import library_base_dir
 from tests.krixik.pipeline_examples.single_module.utilities.test_data import module_test_data
+from tests.utilities.dynamodb_interactions import check_meter
+from tests.utilities.dynamodb_interactions import check_expire
+from tests.utilities.scheduler_interactions import check_schedule
 from tests import USER_API_KEY, USER_API_URL
 from krixik import krixik
 krixik.init(api_key=USER_API_KEY,
@@ -56,6 +59,15 @@ def run_test(module_name, module_selection, pipeline, test_file):
 
     # assert 200 status code
     assert output["status_code"] == 200
+    
+    # check meter
+    assert check_meter(output) is True
+    
+    # check for file_id in expiration table
+    assert check_expire(file_id=output["file_id"]) is True
+
+    # check for file_id in scheduler
+    assert check_schedule(file_id=output["file_id"]) is True
 
     # check that output is a dictionary
     process_output_files = output["process_output_files"]

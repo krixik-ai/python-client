@@ -137,9 +137,9 @@ def get_history_record(request_id: str, stage: str = user_stage):
         for item in items:
             item["timestamp"] = convert_timestamp(item["timestamp"])
 
-        # convert duration to float
+        # convert duration to int
         for item in items:
-            item["duration"] = float(item["duration"])
+            item["duration"] = int(item["duration"])
 
         return items
 
@@ -170,11 +170,11 @@ def get_meter_record(request_id: str, user_id: str, stage: str):
 
         # convert timestamp to string
         for item in items:
-            item["timestamp"] = convert_timestamp(item["timestamp"])
+            item["timestamp"] = convert_timestamp(int(item["timestamp"]/1000))
 
-        # convert duration to float
+        # convert duration to int
         for item in items:
-            item["duration"] = float(item["duration"])
+            item["compute_duration"] = int(item["compute_duration"])
 
         return items
 
@@ -320,6 +320,7 @@ def check_meter(results: dict, single_record: bool = True):
                         "Status from results does not match status from meter"
                     )
             if len(meter) > 1:
+                print(f"meter {meter}")
                 if single_record:
                     raise ValueError("More than one meter record found")
                 else:
