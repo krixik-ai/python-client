@@ -49,7 +49,6 @@ def gather_test_data(pipeline: str):
     if pipeline == "transcribe":
         test_data = [
             "/Users/jeremywatt/Desktop/krixik_cli/tests/test_files/transcribe/audio_files/valid_1_2.mp3",
-            "/Users/jeremywatt/Desktop/krixik_cli/tests/test_files/transcribe/video_files/valid_1.mp4",
         ]
     if pipeline == "translate":
         pass

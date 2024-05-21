@@ -443,7 +443,7 @@ class KrixikBasePipeline:
         download_output: bool
             boolean switch, download process output (set True) or not (set False)
         og_local_file_path: str, optional
-            local file path used for any file conversion (e.g., mp4 to mp3, controlled internally
+            local file path used for any file conversion - controlled internally
         Returns
         -------
         dict | None
@@ -560,7 +560,7 @@ class KrixikBasePipeline:
             try:
                 file_id = output_data["file_id"]
                 file_output = self.fetch_output(file_id=file_id, local_save_directory=local_save_directory)
-                vprint("SUCCESS: process output downloaded", verbose=verbose)
+                vprint("SUCCESS: process output downloaded.", verbose=verbose)
                 return file_output
             except Exception as e:
                 raise e

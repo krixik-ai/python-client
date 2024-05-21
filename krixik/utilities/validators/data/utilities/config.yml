@@ -12,7 +12,6 @@ data_types:
     - .png
   audio: 
     - .mp3
-    - .mp4
   npy:
     - .npy
   faiss:

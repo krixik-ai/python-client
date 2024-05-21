@@ -111,7 +111,7 @@ my_pipeline_1 = krixik.load_pipeline(pipeline=custom_pipeline_1)
 The pipeline is ready! Now you can process audio and video files through it to generate transcripts of them.
 
 ```python
-my_pipeline_1.process(local_file_path='./path/to/my/mp3/or/mp4')
+my_pipeline_1.process(local_file_path='./path/to/my/mp3')
 ```
 
 The outputs of this pipeline will be a timestamped transcript of your input audio/video file, a `file_id` for the processed file, and a `process_id` for the process itself.
