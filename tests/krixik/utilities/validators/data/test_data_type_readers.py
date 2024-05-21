@@ -4,7 +4,7 @@ from krixik.utilities.validators.data.utilities.read_config import get_allowable
 
 
 # as of 2024-04-01
-current_data_types = ["docx", "pdf", "text", "audio", "json", "video", "image", "pptx", "npy"]
+current_data_types = ["docx", "pdf", "text", "audio", "json", "image", "pptx", "npy"]
 
 
 def test_available_data_types():    
@@ -13,7 +13,7 @@ def test_available_data_types():
 
 test_data = [
     ("image", [".jpg", ".jpeg", ".png"]),
-    ("audio", [".mp3", ".mp4"]),
+    ("audio", [".mp3"]),
     ("json", [".json"]),
     ("text", [".txt", ".pdf", ".pptx", ".docx"]),
 ]
