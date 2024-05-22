@@ -17,7 +17,7 @@ def test_1(failure_data):
 
 
 success_data = [
-    ("/my.mp4", ("/", "my.mp4")),
+    ("/my.mp3", ("/", "my.mp3")),
     ("/a/pizza/good.txt", ("/a/pizza", "good.txt"))
 ]
 

@@ -6,7 +6,7 @@ from krixik.utilities.validators.data import available_data_types
 
 def format_checker(format_: str, local_file_path: str) -> None:
     if format_ not in available_data_types:
-        raise ValueError("FAILURE: format not supported")
+        raise ValueError(f"FAILURE: format {format_} not yet supported")
 
     if format_ == "json":
         try:

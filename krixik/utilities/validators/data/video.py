@@ -13,7 +13,8 @@ def is_valid(local_file_path: str) -> None:
     try:
         start_time = 0
         end_time = 3
-        VideoFileClip(local_file_path).subclip(start_time, end_time)
+        clip = VideoFileClip(local_file_path).subclip(start_time, end_time)
+        clip.close()
     except PydubException:
         raise ValueError(f"input file is not a valid video file - {local_file_path}")
     except FileNotFoundError:

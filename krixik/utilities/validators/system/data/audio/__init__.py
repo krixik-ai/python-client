@@ -1,1 +1,1 @@
-valid_extensions = [".mp3", ".mp4"]
+valid_extensions = [".mp3"]

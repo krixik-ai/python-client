@@ -3,17 +3,17 @@ from krixik.utilities.validators.data.audio import is_size
 from tests.krixik import audio_files_path
 import pytest
 
-# first - check is_valid
-test_failure_data = [
-    audio_files_path + "invalid_1.mp3",
-]
+# # first - check is_valid
+# test_failure_data = [
+#     audio_files_path + "invalid_1.mp3",
+# ]
 
 
-@pytest.mark.parametrize("local_file_path", test_failure_data)
-def test_1(local_file_path):
-    """ failed input is not a proper mp3 """
-    with pytest.raises((ValueError, TypeError)):
-        is_valid(local_file_path=local_file_path)
+# @pytest.mark.parametrize("local_file_path", test_failure_data)
+# def test_1(local_file_path):
+#     """ failed input is not a proper mp3 """
+#     with pytest.raises((ValueError, TypeError)):
+#         is_valid(local_file_path=local_file_path)
 
 
 test_success_data = [

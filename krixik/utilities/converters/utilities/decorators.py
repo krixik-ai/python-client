@@ -9,7 +9,8 @@ from krixik.utilities.converters.unclean_to_clean_txt import (
 from krixik.utilities.converters.docx_to_txt import convert as convert_docx
 from krixik.utilities.converters.pdf_to_txt import convert as convert_pdf
 from krixik.utilities.converters.pptx_to_txt import convert as convert_pptx
-from krixik.utilities.converters.video_to_audio import convert as convert_video
+
+# from krixik.utilities.converters.video_to_audio import convert as convert_video
 from krixik.utilities.utilities import vprint, get_input
 
 
@@ -27,13 +28,13 @@ def datatype_converter_wrapper(func):
                 if conversion is not None:
                     with tempfile.TemporaryDirectory() as conversion_save_directory:
                         og_local_file_path = copy.deepcopy(local_file_path)
-                        if extension == "mp4":
-                            local_file_path = convert_video(
-                                local_file_path=local_file_path,
-                                local_save_directory=conversion_save_directory,
-                                verbose=verbose,
-                            )
-                        elif extension == "pdf":
+                        # if extension == "mp4":
+                        #     local_file_path = convert_video(
+                        #         local_file_path=local_file_path,
+                        #         local_save_directory=conversion_save_directory,
+                        #         verbose=verbose,
+                        #     )
+                        if extension == "pdf":
                             local_file_path = convert_pdf(
                                 local_file_path=local_file_path,
                                 local_save_directory=conversion_save_directory,

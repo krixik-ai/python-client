@@ -28,7 +28,6 @@ success_test_data = [
     (f"{parent_path}/tests/test_files/images/family.png", True),
     (f"{parent_path}/tests/test_files/text/sample_article.txt", True),
     (f"{parent_path}/tests/test_files/text/chapter_1_short.pdf", False),
-    (f"{parent_path}/tests/test_files/video/valid_1.mp4", False),
 ]
 
 
