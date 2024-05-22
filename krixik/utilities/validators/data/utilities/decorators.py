@@ -1,7 +1,8 @@
 from functools import wraps
 
 from krixik.utilities.validators.data.audio import is_size as is_audio_size
-from krixik.utilities.validators.data.video import is_size as is_video_size
+
+# from krixik.utilities.validators.data.video import is_size as is_video_size
 from krixik.utilities.validators.data.text import is_size as is_text_size
 from krixik.utilities.validators.data.pdf import is_size as is_pdf_size
 from krixik.utilities.validators.data.json import is_size as is_json_size
