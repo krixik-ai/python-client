@@ -8,7 +8,7 @@
 
 Sequentially assembling multiple AI models into a single pipeline can be painful and expensive. Consuming even a single model can often be draining.
 
-That's why we're here. **Welcome to Krixik**, where you can easily assemble and serverlessly consume modular AI pipelines through secure Python APIs.
+That's why we're here. **Welcome to Krixik**, where you can easily assemble and serverlessly consume modular AI pipelines through secure APIs.
 
 ### Table of Contents
 
@@ -20,13 +20,13 @@ That's why we're here. **Welcome to Krixik**, where you can easily assemble and 
 
 ### Account Registration
 
-Krixik is currently in beta, so access to the Krixik CLI is by request only.
+Krixik is currently in beta, so access to the Krixik client is by request only.
 
 If you'd like to participate as a beta tester, please complete [this brief Google form](https://forms.gle/RyBAvjN1HEWPScb67).
 
 ### Install Krixik
 
-Run the following command to [install](https://krixik-docs.readthedocs.io/en/latest/system/initialization/install_cli/) the Krixik Python CLI:
+Run the following command to [install](https://krixik-docs.readthedocs.io/en/latest/system/initialization/install_cli/) the Krixik Python Client:
 
 ```pip
 pip install krixik
@@ -37,7 +37,7 @@ Note: Python version 3.10 or higher is required.
 
 ### Initialize your Session
 
-To [initialize](https://krixik-docs.readthedocs.io/en/latest/system/initialization/initialize_and_authenticate/) your Krixik CLI session you will need your unique `api_key` and `api_url` secrets.  Beta testers will receive their secrets from Krixik admin.
+To [initialize](https://krixik-docs.readthedocs.io/en/latest/system/initialization/initialize_and_authenticate/) your Krixik client session you will need your unique `api_key` and `api_url` secrets.  Beta testers will receive their secrets from Krixik admin.
 
 Instead of handling your secrets directly, we strongly recommend storing them in an `.env` file and loading them via [python-dotenv](https://pypi.org/project/python-dotenv/).
 
