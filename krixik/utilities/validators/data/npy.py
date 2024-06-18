@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 import numpy as np
 
 
@@ -20,7 +21,7 @@ def is_valid(local_file_path: str) -> None:
 
 def is_size(
     *,
-    local_file_path: str | None,
+    local_file_path: Optional[str],
     minimum_word_count: int = 6,
     maximum_line_count: int = 100000,
     minimum_file_size: float = 0.000001,

@@ -1,9 +1,11 @@
 import os
+from typing import Optional
 import imghdr
 from PIL import Image
 
 
-def is_valid(local_file_path: str) -> bool | None:
+
+def is_valid(local_file_path: str) -> Optional[bool]:
     try:
         with open(local_file_path, "rb") as f:
             # Read the first 10 bytes to determine the image type

@@ -23,7 +23,7 @@ class krixik:
     __local_conversion_directory = tempfile.gettempdir()
 
     @classmethod
-    def init(cls, *, api_key: str | None, api_url: str | None) -> None:
+    def init(cls, *, api_key: Optional[str], api_url: Optional[str]) -> None:
         """krixik pipeline initialization method - initializes unique user session using api_key and api_url
 
         Parameters

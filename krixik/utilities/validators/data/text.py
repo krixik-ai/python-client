@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from krixik.utilities.utilities import invalid_char_check
 from krixik.utilities.converters.default_clean_options import default_clean_options
 from krixik.utilities.utilities import vprint
@@ -25,7 +26,7 @@ def is_valid(local_file_path: str) -> None:
 
 def is_size(
     *,
-    local_file_path: str | None,
+    local_file_path: Optional[str],
     minimum_word_count: int = 6,
     maximum_line_count: int = 100000,
     minimum_file_size: float = 0.000001,
@@ -93,14 +94,14 @@ def is_size(
 
 def is_clean(
     *,
-    local_file_path: str | None,
+    local_file_path: Optional[str],
     minimum_word_count: int = 10,
     maximum_line_count: int = 100000,
     minimum_file_size: float = 0.000001,
     maximum_file_size: float = 3.000001,
     verbose: bool = True,
-) -> dict | None:
-    def check_char_ord(file_path: str | None) -> dict | None:
+) -> Optional[dict]:
+    def check_char_ord(file_path: Optional[str]) -> Optional[dict]:
         if file_path is None:
             raise ValueError("invalid file_path - file_path cannot be None")
 

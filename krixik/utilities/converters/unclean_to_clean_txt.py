@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from krixik.utilities.validators.data.text import is_size
 from krixik.utilities.validators.system.base.utilities.decorators import (
     file_converters_input_check,
@@ -21,12 +22,12 @@ def delete_file(*, file_path: str, exception: str) -> None:
 @file_converters_input_check
 def convert(
     *,
-    local_file_path: str | None,
-    local_save_directory: str | None,
-    clean_options: dict | None = None,
+    local_file_path: Optional[str],
+    local_save_directory: Optional[str],
+    clean_options: Optional[dict] = None,
     use_default_clean_options: bool = False,
     verbose: bool = True,
-) -> str | None:
+) -> Optional[str]:
     """cleans input text file, replacing un-processable characters
 
     Parameters

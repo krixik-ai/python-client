@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from pypdf import PdfReader
 from krixik.utilities.validators.system.base.utilities.decorators import (
     file_converters_input_check,
@@ -21,9 +22,9 @@ def delete_file(*, file_path: str, exception: str) -> None:
 def extract(
     *,
     local_file_path: str,
-    local_save_directory: str | None = None,
+    local_save_directory: Optional[str] = None,
     verbose: bool = True,
-) -> str | None:
+) -> Optional[str]:
     if local_file_path is not None and local_save_directory is not None:
         convert_save_path = ""
         try:
@@ -85,8 +86,8 @@ def extract(
 @file_converters_input_check
 def convert(
     *,
-    local_file_path: str | None,
-    local_save_directory: str | None,
+    local_file_path: Optional[str],
+    local_save_directory: Optional[str],
     verbose: bool = True,
 ) -> str:
     """pdf converter - converts pdf file to txt using the pypdf library

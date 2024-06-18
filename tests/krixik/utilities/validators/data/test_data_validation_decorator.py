@@ -4,6 +4,7 @@ from krixik.utilities.validators.data.utilities.decorators import (
 import pytest
 from krixik.__base__ import library_base_dir
 from pathlib import Path
+from typing import Optional
 
 core_path = Path(library_base_dir)
 parent_path = core_path.parent.absolute()
@@ -23,7 +24,7 @@ class MyClass:
     def my_method(
         self,
         *,
-        local_file_path: str | None = None,
+        local_file_path: Optional[str] = None,
     ):
         return True
 

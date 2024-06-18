@@ -1,10 +1,11 @@
 import json
 import requests
+from typing import Tuple
 from krixik.system_builder.functions import upload_presigned_endpoint
 from krixik.system_builder.functions.delete import delete_server_files
 
 
-def process_local_file(self) -> tuple[bool, requests.Response]:
+def process_local_file(self) -> Tuple[bool, requests.Response]:
     if hasattr(self, "_KrixikBasePipeline__presigned_post_url_results"):
         if self._KrixikBasePipeline__presigned_post_url_results is None:
             raise ValueError("presigned_post_url_results is None - cannot upload file for processing")

@@ -1,8 +1,9 @@
+from typing import Optional
 from krixik.utilities.validators import K_MIN
 from krixik.utilities.validators import K_MAX
 
 
-def k_checker(k: int | None = None) -> None:
+def k_checker(k: Optional[int] = None) -> None:
     if k is not None:
         # check that k is an int, greater than 0, and less than or equal to 10
         if not isinstance(k, int) or isinstance(k, bool):

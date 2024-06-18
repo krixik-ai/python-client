@@ -2,7 +2,7 @@ import time
 import copy
 import os
 import tempfile
-from typing import Optional
+from typing import Optional, Tuple
 from krixik.__version__ import __version__
 from krixik.utilities.validators.system import EXPIRE_TIME_DEFAULT
 from krixik.system_builder.functions.checkin import checkin
@@ -29,7 +29,7 @@ class KrixikBasePipeline:
     def __init__(
         self,
         *,
-        pipeline: str | None = None,
+        pipeline: Optional[str] = None,
         module_chain: list,
         output_process_keys: list,
         api_key: Optional[str] = None,
@@ -107,7 +107,7 @@ class KrixikBasePipeline:
         self.__pipeline = value
 
     @type_check_inputs
-    def init(self, *, api_key: str | None, api_url: str | None) -> None:
+    def init(self, *, api_key: Optional[str], api_url: Optional[str]) -> None:
         """initialize pipeline with an api_key and api_url
 
         Parameters
@@ -152,17 +152,17 @@ class KrixikBasePipeline:
     def list(
         self,
         *,
-        file_ids: list | None = None,
-        file_names: list | None = None,
-        symbolic_directory_paths: list | None = None,
-        symbolic_file_paths: list | None = None,
-        file_tags: list | None = None,
+        file_ids: Optional[list] = None,
+        file_names: Optional[list]= None,
+        symbolic_directory_paths: Optional[list] = None,
+        symbolic_file_paths: Optional[list] = None,
+        file_tags: Optional[list] = None,
         sort_order: str = "descending",
-        max_files: int | None = None,
-        created_at_start: str | None = None,
-        created_at_end: str | None = None,
-        last_updated_start: str | None = None,
-        last_updated_end: str | None = None,
+        max_files: Optional[int] = None,
+        created_at_start: Optional[str] = None,
+        created_at_end: Optional[str] = None,
+        last_updated_start: Optional[str] = None,
+        last_updated_end: Optional[str] = None,
         verbose: bool = False,
     ) -> dict:
         """list files on the server for a given pipeline
@@ -220,7 +220,7 @@ class KrixikBasePipeline:
     @kwargs_checker
     @check_init_decorator
     @type_check_inputs
-    def fetch_output(self, *, file_id: str, local_save_directory: str = os.path.abspath("")) -> dict | None:
+    def fetch_output(self, *, file_id: str, local_save_directory: str = os.path.abspath("")) -> Optional[dict]:
         """fetch the output of a file from the server via its file_id for a given pipeline
 
         Parameters
@@ -290,7 +290,7 @@ class KrixikBasePipeline:
             verbose=verbose,
         )
 
-    def _get_presigned_url(self, payload_data: dict) -> tuple[bool, dict]:
+    def _get_presigned_url(self, payload_data: dict) -> Tuple[bool, dict]:
         return get_presigned_url(self, payload_data)
 
     def _reset_class_variables(self) -> None:
@@ -411,7 +411,7 @@ class KrixikBasePipeline:
         local_save_directory: str = os.path.abspath(""),
         download_output: bool = True,
         og_local_file_path: Optional[str] = None,
-    ) -> dict | None:
+    ) -> Optional[dict]:
         """process a file to the server for a given pipeline
 
         Parameters
@@ -576,7 +576,7 @@ class KrixikBasePipeline:
         symbolic_directory_path: str = "/*",
         max_files: int = 1000,
         verbose: bool = True,
-    ) -> dict | None:
+    ) -> Optional[dict]:
         """show the tree of files on the server for a given pipeline
 
         Parameters

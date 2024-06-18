@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 
 def get_all_key_paths(dictionary: dict, parent_key: str = "", separator: str = ".") -> List[str]:
@@ -12,7 +12,7 @@ def get_all_key_paths(dictionary: dict, parent_key: str = "", separator: str = "
     return key_paths
 
 
-def find_value_by_path(dictionary: dict, target_path: str, separator=".") -> dict | None:
+def find_value_by_path(dictionary: dict, target_path: str, separator=".") -> Optional[dict]:
     keys = target_path.split(separator)
     current = dictionary
     for key in keys:
@@ -23,7 +23,7 @@ def find_value_by_path(dictionary: dict, target_path: str, separator=".") -> dic
     return current
 
 
-def find_key_path_with_type(nested_dict: dict, target_key: str, current_path=None) -> list | None:
+def find_key_path_with_type(nested_dict: dict, target_key: str, current_path=None) -> Optional[list]:
     if current_path is None:
         current_path = []
 
@@ -39,7 +39,7 @@ def find_key_path_with_type(nested_dict: dict, target_key: str, current_path=Non
     return None
 
 
-def find_key_paths_with_prefix_with_type(nested_dict: dict, target_prefix: str, current_path=None) -> dict | None:
+def find_key_paths_with_prefix_with_type(nested_dict: dict, target_prefix: str, current_path=None) -> Optional[dict]:
     if current_path is None:
         current_path = []
 

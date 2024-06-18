@@ -1,8 +1,9 @@
 import os
 import json
+from typing import Optional
 
 
-def is_valid(local_file_path: str) -> bool | None:
+def is_valid(local_file_path: str) -> Optional[bool]:
     try:
         # Read the content of the JSON file and load it
         with open(local_file_path, "r") as file:

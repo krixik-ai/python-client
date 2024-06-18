@@ -2,14 +2,15 @@ import json
 from typing import Dict, Any
 import requests
 import time
+from typing import Optional, Union
 from krixik.system_builder.functions import upload_status_endpoint
 from krixik.utilities.utilities import vprint
 
 
 def process_status_reporter(
     self,
-    prev_process_status: dict | str | None,
-    process_status: dict | str | None,
+    prev_process_status: Optional[Union[str, dict]],
+    process_status:  Optional[Union[str, dict]],
     verbose: bool,
 ) -> bool:
     if process_status is None or (isinstance(process_status, str)):

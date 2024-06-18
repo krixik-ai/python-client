@@ -1,6 +1,7 @@
 import requests
 import json
 import datetime
+from typing import Optional
 from krixik.utilities.utilities import vprint
 from krixik.utilities.validators.system.base.timestamp_bookends import (
     convert_timestamps,
@@ -12,17 +13,17 @@ from krixik.system_builder.functions import list_endpoint
 def list_files(
     self,
     *,
-    file_ids: list | None = None,
-    file_names: list | None = None,
-    symbolic_directory_paths: list | None = None,
-    symbolic_file_paths: list | None = None,
-    file_tags: list | None = None,
+    file_ids: Optional[list] = None,
+    file_names: Optional[list] = None,
+    symbolic_directory_paths: Optional[list] = None,
+    symbolic_file_paths: Optional[list] = None,
+    file_tags: Optional[list] = None,
     sort_order: str = "descending",
-    max_files: int | None = None,
-    created_at_start: str | None = None,
-    created_at_end: str | None = None,
-    last_updated_start: str | None = None,
-    last_updated_end: str | None = None,
+    max_files: Optional[int] = None,
+    created_at_start: Optional[str] = None,
+    created_at_end: Optional[str] = None,
+    last_updated_start: Optional[str] = None,
+    last_updated_end: Optional[str] = None,
     verbose: bool = True,
 ) -> dict:
     # check that at least one query argument is given

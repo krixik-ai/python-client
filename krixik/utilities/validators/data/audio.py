@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 # from pydub import AudioSegment
 # from moviepy.editor import AudioFileClip
 # from pydub.exceptions import PydubException
@@ -20,7 +21,7 @@ import os
 #         raise ValueError(f"Error reading audio: {e}")
 
 
-def is_valid(local_file_path: str | None) -> None:
+def is_valid(local_file_path: Optional[str]) -> None:
     if local_file_path is None:
         raise ValueError("input local_file_path is None")
     if not isinstance(local_file_path, str):
