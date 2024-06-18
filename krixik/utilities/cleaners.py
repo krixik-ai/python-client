@@ -1,6 +1,6 @@
 from typing import Optional, Union
 
-def clean_strings(input_data: Optional[Union[str, list]]:
+def clean_strings(input_data: Optional[Union[str, list]]):
     if input_data is not None:
         if isinstance(input_data, str):
             c_string = input_data.replace("\n", " ").replace("\r", "").strip()

@@ -4,7 +4,6 @@ import imghdr
 from PIL import Image
 
 
-
 def is_valid(local_file_path: str) -> Optional[bool]:
     try:
         with open(local_file_path, "rb") as f:

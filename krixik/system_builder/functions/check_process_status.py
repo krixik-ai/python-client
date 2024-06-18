@@ -10,7 +10,7 @@ from krixik.utilities.utilities import vprint
 def process_status_reporter(
     self,
     prev_process_status: Optional[Union[str, dict]],
-    process_status:  Optional[Union[str, dict]],
+    process_status: Optional[Union[str, dict]],
     verbose: bool,
 ) -> bool:
     if process_status is None or (isinstance(process_status, str)):

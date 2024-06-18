@@ -1,6 +1,6 @@
 [![Upload Python Package](https://github.com/krixik-ai/krixik-cli/actions/workflows/python-publish.yml/badge.svg)](https://github.com/krixik-ai/krixik-cli/actions/workflows/python-app.yml/python-publish.yml)
 [![Python application](https://github.com/krixik-ai/krixik-docs/actions/workflows/python-app.yml/badge.svg)](https://github.com/krixik-ai/krixik-docs/actions/workflows/python-app.yml/python-app.yml)
-[![python](https://img.shields.io/badge/Python-3.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![python](https://img.shields.io/badge/Python-3.8-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
 
 

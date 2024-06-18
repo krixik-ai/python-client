@@ -153,7 +153,7 @@ class KrixikBasePipeline:
         self,
         *,
         file_ids: Optional[list] = None,
-        file_names: Optional[list]= None,
+        file_names: Optional[list] = None,
         symbolic_directory_paths: Optional[list] = None,
         symbolic_file_paths: Optional[list] = None,
         file_tags: Optional[list] = None,
