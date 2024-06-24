@@ -1,0 +1,14 @@
+module:
+  name: vqa 
+  models: 
+    - name: moondream
+      params: 
+        prompt:
+          type: str    
+          default: Describe this image.
+  input:
+    type: image
+  output: 
+    type: json
+  defaults:
+    model: moondream
