@@ -212,6 +212,37 @@ def get_expire_record(file_id: str, stage: str):
     except Exception as e:
         error_message = f"Failed to get expire record: {str(e)}"
         return error_message
+    
+    
+
+def check_cap(user_id: str, stage: str = user_stage):
+    try:
+        # construct table_name
+        table_name = f"{user_id}-cap-{stage}"
+
+        # get table based on table_name
+        table = dynamodb.Table(table_name)
+
+        # get row based on file_id key
+        response = table.get_item(Key={"user_id": user_id})
+
+        # check status code of response
+        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+            print("SUCCESS: check_cap_record executed successfully")
+            # collect item from response
+            if "Item" in response:
+                if len(response["Item"]) > 0:
+                    return response["Item"]
+                return None
+            return None
+        else:
+            print(f"FAILURE: check_cap_record failed, got response: {response}")
+            return None
+    except Exception as e:
+        print(
+            f"FAILURE: check_cap_record failed for file_id {user_id} - got exception: {e}"
+        )
+        return None
 
 
 def check_file_record(file_id: str, stage: str = user_stage):

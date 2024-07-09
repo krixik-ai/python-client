@@ -1,4 +1,4 @@
-cli_env
+cli_venv
 **/.env*
 scratch.ipynb
 bug_reports/

@@ -9,4 +9,4 @@ load_dotenv(env_file_path)
 USER_API_KEY = os.getenv("USER_API_KEY")
 USER_API_URL = os.getenv("USER_API_URL")
 USER_ID = os.getenv("USER_ID")
-user_stage = "pro"
+user_stage = "dev"

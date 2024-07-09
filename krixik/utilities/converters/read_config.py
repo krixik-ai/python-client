@@ -1,10 +1,11 @@
+from typing import Optional
 import yaml
 from krixik.__base__ import library_base_dir
 
 config_path = f"{library_base_dir}/utilities/converters/utilities/config.yml"
 
 
-def convert_extension(extension: str) -> dict | None:
+def convert_extension(extension: str) -> Optional[dict]:
     with open(config_path, "r") as file:
         data_config = yaml.safe_load(file)["convertable_extensions"]
     simple_data_config = {k["name"]: k["convert"] for k in data_config}

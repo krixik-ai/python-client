@@ -1,5 +1,6 @@
 import os
 from docx import Document
+from typing import Optional
 from krixik.utilities.validators.system.base.utilities.decorators import (
     file_converters_input_check,
 )
@@ -21,9 +22,9 @@ def delete_file(*, file_path: str, exception: str) -> None:
 def extract(
     *,
     local_file_path: str,
-    local_save_directory: str | None = None,
+    local_save_directory: Optional[str] = None,
     verbose: bool = True,
-) -> str | None:
+) -> Optional[str]:
     # try conversion
     convert_save_path = ""
     if local_file_path is not None and local_save_directory is not None:
@@ -87,8 +88,8 @@ def extract(
 @file_converters_input_check
 def convert(
     *,
-    local_file_path: str | None,
-    local_save_directory: str | None = None,
+    local_file_path: Optional[str],
+    local_save_directory: Optional[str] = None,
     verbose: bool = True,
 ) -> str:
     """docx converter - converts docx file to txt using the pyton docx library

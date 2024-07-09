@@ -3,7 +3,7 @@ from krixik.utilities.validators.system.base.utilities.decorators import (
 )
 from krixik.__base__ import library_base_dir
 from pathlib import Path
-
+from typing import Optional
 core_path = Path(library_base_dir)
 parent_path = core_path.parent.absolute()
 
@@ -13,11 +13,11 @@ class MySystemBaseClass:
     def my_method(
         self,
         *,
-        file_name: str | None = None,
-        local_file_path: str | None = None,
-        symbolic_directory_path: str | None = None,
-        file_tags: list | None = None,
-        expire_time: int | None = None,
+        file_name: Optional[str] = None,
+        local_file_path: Optional[str] = None,
+        symbolic_directory_path: Optional[str] = None,
+        file_tags: Optional[list] = None,
+        expire_time: Optional[int] = None,
     ):
         return True
 

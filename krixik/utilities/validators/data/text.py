@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from krixik.utilities.utilities import invalid_char_check
 from krixik.utilities.converters.default_clean_options import default_clean_options
 from krixik.utilities.utilities import vprint
@@ -25,7 +26,7 @@ def is_valid(local_file_path: str) -> None:
 
 def is_size(
     *,
-    local_file_path: str | None,
+    local_file_path: Optional[str],
     minimum_word_count: int = 6,
     maximum_line_count: int = 100000,
     minimum_file_size: float = 0.000001,
@@ -68,9 +69,14 @@ def is_size(
         file_size = compute_size(local_file_path)
 
         # check that file size in megabytes is greater than minimum_file_size and less than maximum_file_size
-        if file_size < minimum_file_size or file_size > maximum_file_size:
+        if file_size < minimum_file_size:
             raise ValueError(
-                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: less than {minimum_file_size} megabytes (current minimum size allowable)"
+            )
+
+        if file_size > maximum_file_size:
+            raise ValueError(
+                f"*** Krixik Open Beta warning *** input file size is {round(file_size,2)} megabytes: greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path} during Krixik Open Beta"
             )
 
         # compute word count
@@ -93,14 +99,14 @@ def is_size(
 
 def is_clean(
     *,
-    local_file_path: str | None,
+    local_file_path: Optional[str],
     minimum_word_count: int = 10,
     maximum_line_count: int = 100000,
     minimum_file_size: float = 0.000001,
     maximum_file_size: float = 3.000001,
     verbose: bool = True,
-) -> dict | None:
-    def check_char_ord(file_path: str | None) -> dict | None:
+) -> Optional[dict]:
+    def check_char_ord(file_path: Optional[str]) -> Optional[dict]:
         if file_path is None:
             raise ValueError("invalid file_path - file_path cannot be None")
 

@@ -1,16 +1,16 @@
 import json
 import functools
-from typing import Callable
+from typing import Callable, Dict, Optional
 import requests
 from krixik.system_builder.functions import cli_checkin_endpoint
 
 
-def checkin(api_key: str | None, api_url: str | None) -> int:
+def checkin(api_key: Optional[str], api_url: Optional[str]) -> int:
     if api_key is None or api_url is None:
         raise ValueError("api_key and api_url cannot be None")
 
     # prep headers
-    headers: dict[str, str] = {"Content-Type": "text/plain", "krixikApiKey": api_key}
+    headers: Dict[str, str] = {"Content-Type": "text/plain", "krixikApiKey": api_key}
 
     try:
         # make request

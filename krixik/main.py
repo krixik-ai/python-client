@@ -5,6 +5,7 @@ import types
 from krixik.utilities.utilities import classproperty
 from krixik.modules import available_modules, get_module_details
 from krixik.system_builder.functions.checkin import checkin
+from krixik.system_builder.functions.cap_check import cap_check
 from krixik.pipeline_builder.pipeline import BuildPipeline
 from krixik.system_builder.base import KrixikBasePipeline
 from krixik.system_builder.functions.semantic_search import semantic_search
@@ -23,7 +24,7 @@ class krixik:
     __local_conversion_directory = tempfile.gettempdir()
 
     @classmethod
-    def init(cls, *, api_key: str | None, api_url: str | None) -> None:
+    def init(cls, *, api_key: Optional[str], api_url: Optional[str]) -> None:
         """krixik pipeline initialization method - initializes unique user session using api_key and api_url
 
         Parameters
@@ -138,6 +139,19 @@ class krixik:
             dictionary with module details
         """
         return get_module_details(module_name)
+
+    @classmethod
+    def check_cap(cls) -> Optional[dict]:
+        """_summary_
+
+        Returns
+        -------
+        Optional[dict]
+            _description_
+        """
+
+        # make request
+        return cap_check(cls.__api_key, cls.__api_url, cls.__version)
 
     @classmethod
     def view_module_click_data(cls, *, module_name: str) -> dict:

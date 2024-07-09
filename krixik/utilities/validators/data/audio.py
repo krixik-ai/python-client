@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 # from pydub import AudioSegment
 # from moviepy.editor import AudioFileClip
 # from pydub.exceptions import PydubException
@@ -20,7 +21,7 @@ import os
 #         raise ValueError(f"Error reading audio: {e}")
 
 
-def is_valid(local_file_path: str | None) -> None:
+def is_valid(local_file_path: Optional[str]) -> None:
     if local_file_path is None:
         raise ValueError("input local_file_path is None")
     if not isinstance(local_file_path, str):
@@ -66,9 +67,14 @@ def is_size(
         file_size = compute_size(local_file_path)
 
         # check that file size in megabytes is greater than minimum_file_size and less than maximum_file_size
-        if file_size < minimum_file_size or file_size > maximum_file_size:
+        if file_size < minimum_file_size:
             raise ValueError(
-                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: less than {minimum_file_size} megabytes (current minimum size allowable)"
+            )
+
+        if file_size > maximum_file_size:
+            raise ValueError(
+                f"***Krixik Open Beta warning*** input file size is {round(file_size,2)} megabytes: greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path} during Krixik Open Beta"
             )
 
         # # compute length of audio file in seconds

@@ -1,7 +1,7 @@
 import json
 import requests
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from krixik.system_builder.functions import semantic_search_endpoint
 
 from krixik.utilities.utilities import vprint
@@ -19,19 +19,19 @@ from krixik.system_builder.utilities.decorators import kwargs_checker
 def semantic_search(
     self,
     *,
-    query: str | None = None,
-    file_ids: List | None = None,
-    file_names: List | None = None,
-    symbolic_directory_paths: List | None = None,
-    symbolic_file_paths: List | None = None,
-    file_tags: List | None = None,
+    query: Optional[str] = None,
+    file_ids: Optional[List] = None,
+    file_names: Optional[List] = None,
+    symbolic_directory_paths: Optional[List] = None,
+    symbolic_file_paths: Optional[List] = None,
+    file_tags: Optional[List] = None,
     sort_order: str = "descending",
-    k: int | None = None,
-    max_files: int | None = None,
-    created_at_start: str | None = None,
-    created_at_end: str | None = None,
-    last_updated_start: str | None = None,
-    last_updated_end: str | None = None,
+    k: Optional[int] = None,
+    max_files: Optional[int] = None,
+    created_at_start: Optional[str] = None,
+    created_at_end: Optional[str] = None,
+    last_updated_start: Optional[str] = None,
+    last_updated_end: Optional[str] = None,
     verbose: bool = False,
 ) -> dict:
     """vector search over files defined by query parameters (e.g., file_ids, file_names, etc.)

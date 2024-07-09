@@ -1,9 +1,10 @@
 import os
+from typing import Optional
 import imghdr
 from PIL import Image
 
 
-def is_valid(local_file_path: str) -> bool | None:
+def is_valid(local_file_path: str) -> Optional[bool]:
     try:
         with open(local_file_path, "rb") as f:
             # Read the first 10 bytes to determine the image type
@@ -67,10 +68,18 @@ def is_size(
 
         # check size of input json file
         file_size = compute_size(local_file_path)
-        if file_size < minimum_file_size or file_size > maximum_file_size:
+
+        # check that file size in megabytes is greater than minimum_file_size and less than maximum_file_size
+        if file_size < minimum_file_size:
             raise ValueError(
-                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: less than {minimum_file_size} megabytes (current minimum size allowable)"
             )
+
+        if file_size > maximum_file_size:
+            raise ValueError(
+                f"*** Krixik Open Beta warning *** input file size is {round(file_size,2)} megabytes: greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path} during Krixik Open Beta"
+            )
+
     except ValueError as ve:
         raise ve
     except Exception as e:
