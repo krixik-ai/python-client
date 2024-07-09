@@ -1,5 +1,8 @@
-def convert_paths_to_dict(paths: list[str]) -> dict[str, str]:
-    root: dict[str, str] = {}
+from typing import Dict, List
+
+
+def convert_paths_to_dict(paths: List[str]) -> Dict[str, str]:
+    root: Dict[str, str] = {}
     for path in paths:
         # separate by slashes, disregarding the first `/`
         path = path.lstrip("/").split("/")
@@ -8,13 +11,13 @@ def convert_paths_to_dict(paths: list[str]) -> dict[str, str]:
         # find the target dict starting from the root
         target_dict = root
         for component in path:
-            target_dict: dict[str, str] = target_dict.setdefault(component, {})
+            target_dict: Dict[str, str] = target_dict.setdefault(component, {})
         # assign key-value
         target_dict[key] = val
     return root
 
 
-def tree(paths: list[str], prefix: str = "") -> str:
+def tree(paths: List[str], prefix: str = "") -> str:
     """
     A recursive generator, given a directory Path object
     will yield a visual tree structure line by line
@@ -41,7 +44,7 @@ def tree(paths: list[str], prefix: str = "") -> str:
             yield from tree(paths[path], prefix=prefix + extension)
 
 
-def show_symbolic_file_tree(paths: list[str]) -> int:
+def show_symbolic_file_tree(paths: List[str]) -> int:
     try:
         # convert paths to dict
         dict_paths = convert_paths_to_dict(paths)

@@ -33,7 +33,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10'
+        python-version: '3.8'
     - name: Install dependencies
       run: |
         sudo add-apt-repository ppa:savoury1/ffmpeg4
@@ -43,6 +43,6 @@ jobs:
         pip install .[test]
     - name: Run pytest
       run: |
-        PYTHONPATH=. python3.10 -m pytest tests/krixik/modules && 
-        PYTHONPATH=. python3.10 -m pytest tests/krixik/pipeline_builder &&
-        PYTHONPATH=. python3.10 -m pytest tests/krixik/utilities
+        PYTHONPATH=. python3.8 -m pytest tests/krixik/modules && 
+        PYTHONPATH=. python3.8 -m pytest tests/krixik/pipeline_builder &&
+        PYTHONPATH=. python3.8 -m pytest tests/krixik/utilities

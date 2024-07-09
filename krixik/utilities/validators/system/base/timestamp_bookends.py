@@ -1,4 +1,5 @@
 import copy
+from typing import Optional, Tuple
 from datetime import datetime, timezone
 from krixik.utilities.utilities import vprint
 
@@ -22,7 +23,7 @@ def numerical_timestamp_checker(timestamp_int: int, timestamp_name: str) -> None
         raise ValueError(f"{timestamp_name} must be a positive integer but was given as {timestamp_int}")
 
 
-def string_timestamp_to_int(timestamp_str: str, timestamp_name: str) -> int | None:
+def string_timestamp_to_int(timestamp_str: str, timestamp_name: str) -> Optional[int]:
     dt_object = None
     dt_object_utc = None
     dt_check = 0
@@ -64,7 +65,7 @@ def is_valid_format(timestamp_str: str, timestamp_name: str) -> None:
         raise ValueError(f"{timestamp_name} must be in format YYYY-MM-DD or YYYY-MM-DD HH:MM:SS but was given as {timestamp_str}")
 
 
-def is_stump(timestamp_str: str, start_end: str | None = None, verbose: bool = False) -> str:
+def is_stump(timestamp_str: str, start_end: Optional[str] = None, verbose: bool = False) -> str:
     try:  # if timestamp_str is format '%Y-%m-%d' then add '23:59:59' to the end of the timestamp
         datetime.strptime(timestamp_str, "%Y-%m-%d")
         og_timestamp_str = copy.deepcopy(timestamp_str)
@@ -91,7 +92,7 @@ def is_after_bot(timestamp: str, timestamp_name: str) -> None:
         raise ValueError(f"{timestamp_name} must be before 9999-12-31 but was given as {timestamp}")
 
 
-def timestamp_checker(timestamp: str, timestamp_name: str, start_end: str, verbose: bool = False) -> int | None:
+def timestamp_checker(timestamp: str, timestamp_name: str, start_end: str, verbose: bool = False) -> Optional[int]:
     # check if timestamp is a string
     if not isinstance(timestamp, str):
         raise TypeError(f"{timestamp_name} must be a string but was given as {timestamp}")
@@ -115,10 +116,10 @@ def timestamp_checker(timestamp: str, timestamp_name: str, start_end: str, verbo
 
 
 def timestamp_bookends_checker(
-    created_at_start: str | None = None,
-    created_at_end: str | None = None,
-    last_updated_start: str | None = None,
-    last_updated_end: str | None = None,
+    created_at_start: Optional[str] = None,
+    created_at_end: Optional[str] = None,
+    last_updated_start: Optional[str] = None,
+    last_updated_end: Optional[str] = None,
     verbose: bool = False,
 ) -> None:
     # make copy for reference messaging
@@ -155,11 +156,11 @@ def timestamp_bookends_checker(
 
 
 def convert_timestamps(
-    created_at_start: str | None,
-    created_at_end: str | None,
-    last_updated_start: str | None,
-    last_updated_end: str | None,
-) -> tuple[int | None, int | None, int | None, int | None]:
+    created_at_start: Optional[str],
+    created_at_end: Optional[str],
+    last_updated_start: Optional[str],
+    last_updated_end: Optional[str],
+) -> Tuple[Optional[int], Optional[int], Optional[int], Optional[int]]:
     created_at_start_int = None
     created_at_end_int = None
     last_updated_start_int = None

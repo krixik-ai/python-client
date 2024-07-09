@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+from typing import Optional
 from krixik.system_builder.functions import fetch_output_endpoint
 
 
@@ -21,7 +22,7 @@ def save_output(url: str, file_id: str, extension: str, output_save_directory: s
     return save_path
 
 
-def fetch_output(self, file_id: str, local_save_directory: str) -> dict | None:
+def fetch_output(self, file_id: str, local_save_directory: str) -> Optional[dict]:
     if file_id is None:
         raise ValueError("please provide a file_id")
     if not os.path.exists(local_save_directory):

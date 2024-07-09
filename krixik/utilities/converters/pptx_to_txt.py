@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from pptx import Presentation
 from krixik.utilities.validators.system.base.utilities.decorators import (
     file_converters_input_check,
@@ -21,9 +22,9 @@ def delete_file(*, file_path: str, exception: str):
 def extract(
     *,
     local_file_path: str,
-    local_save_directory: str | None = None,
+    local_save_directory: Optional[str] = None,
     verbose: bool = True,
-) -> str | None:
+) -> Optional[str]:
     if local_file_path is None:
         raise NameError("local_file_path not defined")
     if os.path.exists(local_file_path) is False:
@@ -96,8 +97,8 @@ def extract(
 @file_converters_input_check
 def convert(
     *,
-    local_file_path: str | None,
-    local_save_directory: str | None = None,
+    local_file_path: Optional[str],
+    local_save_directory: Optional[str] = None,
     verbose: bool = True,
 ) -> str:
     """pptx converter - converts pptx file to txt using the pptx library

@@ -87,8 +87,8 @@ class BuildPipeline:
 
     def _remove(
         self,
-        module_name: str | None = None,
-        index: int | None = None,
+        module_name: Optional[str] = None,
+        index: Optional[int] = None,
     ) -> None:
         if index is not None and (module_name is not None):
             raise Exception("index and module_name cannot both be not None")

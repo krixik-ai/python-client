@@ -1,5 +1,5 @@
 import inspect
-from typing import Any
+from typing import Any, Dict, Optional, Set
 from krixik.utilities.converters.default_clean_options import acceptable_chars
 
 
@@ -11,8 +11,8 @@ class classproperty:
         return self.fget(owner)
 
 
-def invalid_char_check(line: str) -> set[str]:
-    invalid_char: set[str] = set()
+def invalid_char_check(line: str) -> Set[str]:
+    invalid_char: Set[str] = set()
     for char in line:
         if ord(char) > 128 and char not in acceptable_chars:
             invalid_char.add(char)
@@ -33,9 +33,9 @@ def vprint(message: str, *, verbose: bool = False) -> None:
 
 
 def get_input(
-    input_name: str | None,
+    input_name: Optional[str],
     signature: inspect.Signature,
-    kwargs: dict[str, str],
+    kwargs: Dict[str, str],
     default_value: Any = None,
 ) -> Any:
     inspect._empty
