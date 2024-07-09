@@ -14,4 +14,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - min python version requirement dropped from 3.10 --> 3.8
-- messaging for input size failures updated
+- messaging for input size failures updated for open beta
+
+### Removed
+
+- audio length check for a/v uploads, and corresponding ffmpeg requirement

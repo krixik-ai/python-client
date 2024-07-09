@@ -139,12 +139,9 @@ class krixik:
             dictionary with module details
         """
         return get_module_details(module_name)
-    
-    
+
     @classmethod
-    def check_cap(
-        cls
-    ) -> Optional[dict]:
+    def check_cap(cls) -> Optional[dict]:
         """_summary_
 
         Returns
@@ -152,10 +149,9 @@ class krixik:
         Optional[dict]
             _description_
         """
-        
+
         # make request
         return cap_check(cls.__api_key, cls.__api_url, cls.__version)
-    
 
     @classmethod
     def view_module_click_data(cls, *, module_name: str) -> dict:

@@ -658,7 +658,6 @@ class KrixikBasePipeline:
             return report
         return report
 
-
     def __getattr__(self, attr):
         if attr == "keyword_search":
             raise AttributeError(

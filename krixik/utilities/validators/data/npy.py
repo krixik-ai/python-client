@@ -52,10 +52,13 @@ def is_size(
         # check that file size in megabytes is greater than minimum_file_size and less than maximum_file_size
         if file_size < minimum_file_size:
             raise ValueError(
-                f"input file size is {round(file_size,2)} megabytes: either less than {minimum_file_size} megabytes (current minimum size allowable) or greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}"
+                f"input file size is {round(file_size,2)} megabytes: less than {minimum_file_size} megabytes (current minimum size allowable)"
             )
+
         if file_size > maximum_file_size:
-            raise ValueError(f"file size is greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path}")
+            raise ValueError(
+                f"*** Krixik Open Beta warning *** input file size is {round(file_size,2)} megabytes: greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path} during Krixik Open Beta"
+            )
 
     except ValueError as ve:
         raise ve
