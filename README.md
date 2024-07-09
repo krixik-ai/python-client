@@ -1,4 +1,4 @@
-[![Upload Python Package](https://github.com/krixik-ai/krixik-cli/actions/workflows/python-publish.yml/badge.svg)](https://github.com/krixik-ai/krixik-cli/actions/workflows/python-app.yml/python-publish.yml)
+[![Upload Python Package](https://github.com/krixik-ai/python-client/actions/workflows/python-publish.yml/badge.svg)](https://github.com/krixik-ai/python-client/actions/workflows/python-app.yml/python-publish.yml)
 [![Python application](https://github.com/krixik-ai/krixik-docs/actions/workflows/python-app.yml/badge.svg)](https://github.com/krixik-ai/krixik-docs/actions/workflows/python-app.yml/python-app.yml)
 [![python](https://img.shields.io/badge/Python-3.8-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
@@ -20,13 +20,13 @@ That's why we're here. **Welcome to Krixik**, where you can easily assemble and 
 
 ### Account Registration
 
-Krixik is currently in beta, so access to the Krixik CLI is by request only.
+Krixik is currently in beta, so access to the Krixik Python client is by request only.
 
 If you'd like to participate as a beta tester, please complete [this brief Google form](https://forms.gle/RyBAvjN1HEWPScb67).
 
 ### Install Krixik
 
-Run the following command to [install](https://krixik-docs.readthedocs.io/latest/system/initialization/install_cli/) the Krixik Python CLI:
+Run the following command to [install](https://krixik-docs.readthedocs.io/latest/system/initialization/install_client/) the Krixik Python client:
 
 ```pip
 pip install krixik
@@ -37,7 +37,7 @@ Note: Python version 3.10 or higher is required.
 
 ### Initialize your Session
 
-To [initialize](https://krixik-docs.readthedocs.io/latest/system/initialization/initialize_and_authenticate/) your Krixik CLI session you will need your unique `api_key` and `api_url` secrets.  Beta testers will receive their secrets from Krixik admin.
+To [initialize](https://krixik-docs.readthedocs.io/latest/system/initialization/initialize_and_authenticate/) your Krixik client session you will need your unique `api_key` and `api_url` secrets.  Beta testers will receive their secrets from Krixik admin.
 
 Instead of handling your secrets directly, we strongly recommend storing them in an `.env` file and loading them via [python-dotenv](https://pypi.org/project/python-dotenv/).
 
