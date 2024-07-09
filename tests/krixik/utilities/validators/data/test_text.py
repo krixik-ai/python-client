@@ -40,7 +40,7 @@ test_failure_data = [
 @pytest.mark.parametrize("local_file_path", test_failure_data)
 def test_3(local_file_path):
     """file too small"""
-    with pytest.raises(ValueError, match=r".*current maximum size allowable\.*"):
+    with pytest.raises(ValueError, match=r".*current minimum size allowable\.*"):
         is_size(local_file_path=local_file_path)
 
 
