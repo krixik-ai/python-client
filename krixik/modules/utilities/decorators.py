@@ -31,7 +31,7 @@ def type_check_inputs(func):
                     summarizer_limit = 0.25
                     if file_size > summarizer_limit:
                         raise ValueError(
-                            f"during Krixik Open Beta summarize models can only intake files with a maximum size of {summarizer_limit}MB at present, the size of your input is {round(file_size,2)}MB"
+                            f"***Krixik Open Beta warning*** summarize models can only intake files with a maximum size of {summarizer_limit}MB at present, the size of your input is {round(file_size,3)}MB"
                         )
 
             if modules != hydrated_modules:

@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 - Messaging for open beta data caps centralized to krixik/utilities/validators/data/__init__.py
 - Rounding messaging updated
+- open beta messaging for summarizer updated
 
 
 
