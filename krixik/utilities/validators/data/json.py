@@ -1,6 +1,7 @@
 import os
 import json
 from typing import Optional
+from krixik.utilities.validators.data import file_size_check
 
 
 def is_valid(local_file_path: str) -> Optional[bool]:
@@ -112,15 +113,7 @@ def is_size(
         file_size = compute_size(local_file_path)
 
         # check that file size in megabytes is greater than minimum_file_size and less than maximum_file_size
-        if file_size < minimum_file_size:
-            raise ValueError(
-                f"input file size is {round(file_size,2)} megabytes: less than {minimum_file_size} megabytes (current minimum size allowable)"
-            )
-
-        if file_size > maximum_file_size:
-            raise ValueError(
-                f"*** Krixik Open Beta warning *** input file size is {round(file_size,2)} megabytes: greater than {maximum_file_size} megabytes (current maximum size allowable) - {local_file_path} during Krixik Open Beta"
-            )
+        file_size_check(local_file_path, file_size, minimum_file_size, maximum_file_size)
 
         (
             maximum_key_length,
