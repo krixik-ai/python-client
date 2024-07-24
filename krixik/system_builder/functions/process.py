@@ -38,19 +38,25 @@ def process_local_file(self) -> Tuple[bool, requests.Response]:
             upload_response = requests.post(url, data=fields, files=files, timeout=45)
             upload_response_success = True
     except requests.exceptions.HTTPError as e:
-        raise requests.exceptions.HTTPError(f"local file upload request with upload request_id {self.process_id} failed with HTTPError {e}, for assistance please create an issue on github with this request id and traceback")
+        raise requests.exceptions.HTTPError(
+            f"local file upload request with upload request_id {self.process_id} failed with HTTPError {e}, for assistance please create an issue on github with this request id and traceback"
+        )
     except requests.exceptions.ConnectionError as e:
         raise requests.exceptions.ConnectionError(
             f"local file upload request with upload request_id {self.process_id} failed with ConnectionError {e}, for assistance please create an issue on github with this request id and traceback"
         )
     except requests.exceptions.Timeout as e:
-        raise requests.exceptions.Timeout(f"local file upload request with upload request_id {self.process_id} failed with Timeout {e}, for assistance please create an issue on github with this request id and traceback")
+        raise requests.exceptions.Timeout(
+            f"local file upload request with upload request_id {self.process_id} failed with Timeout {e}, for assistance please create an issue on github with this request id and traceback"
+        )
     except requests.exceptions.RequestException as e:
         raise requests.exceptions.RequestException(
             f"local file upload request with upload request_id {self.process_id} failed with request exception {e}, for assistance please create an issue on github with this request id and traceback"
         )
     except Exception as e:
-        raise Exception(f"local file upload request with upload request_id {self.process_id} failed with exception {e}, for assistance please create an issue on github with this request id and traceback")
+        raise Exception(
+            f"local file upload request with upload request_id {self.process_id} failed with exception {e}, for assistance please create an issue on github with this request id and traceback"
+        )
     finally:
         if not upload_response_success:
             delete_server_files(self)
