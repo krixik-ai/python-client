@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
  
+## Version update [1.1.19] 2024-08-30
+
+## Added
+- `reset_pipeline` method moved from docs utilities to client, now available through main krixik api.
 
 
 ## 2024-07-10

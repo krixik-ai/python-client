@@ -90,6 +90,15 @@ def run_test(module_name, module_selection, pipeline, test_file):
     for file in process_output_files:
         os.remove(file)
 
-    # assert that all output files have been deleted
+    # assert that all output files have been deleted locally
     for file in process_output_files:
         assert not os.path.isfile(file)
+        
+    # remove all files from server
+    list_output = pipeline.list(symbolic_directory_paths=["/*"])
+    list_count_before_reset = len(list_output["items"])
+    assert list_count_before_reset >= 0
+    krixik.reset_pipeline(pipeline)
+    list_output = pipeline.list(symbolic_directory_paths=["/*"])
+    list_count_after_reset = len(list_output["items"])
+    assert list_count_after_reset == 0, f"items remain in pipeline ledgers {list_output}"
