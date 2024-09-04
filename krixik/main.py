@@ -125,6 +125,13 @@ class krixik:
         return pipeline_object
 
     @classmethod
+    def reset_pipeline(cls, pipeline: KrixikBasePipeline):
+        current_files = pipeline.list(symbolic_directory_paths=["/*"])
+        if len(current_files["items"]) > 0:
+            for item in current_files["items"]:
+                delete_result = pipeline.delete(file_id=item["file_id"])
+
+    @classmethod
     def view_module_config(cls, *, module_name: str) -> dict:
         """convenience method for examinng module details
 

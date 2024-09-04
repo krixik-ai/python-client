@@ -51,3 +51,12 @@ def run_test(pipeline_name):
     # assert that all output files have been deleted
     for file in process_output_files:
         assert not os.path.isfile(file)
+        
+    # remove all files from server
+    list_output = pipeline.list(symbolic_directory_paths=["/*"])
+    list_count_before_reset = len(list_output["items"])
+    assert list_count_before_reset >= 0
+    krixik.reset_pipeline(pipeline)
+    list_output = pipeline.list(symbolic_directory_paths=["/*"])
+    list_count_after_reset = len(list_output["items"])
+    assert list_count_after_reset == 0

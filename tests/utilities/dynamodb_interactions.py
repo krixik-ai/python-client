@@ -465,6 +465,7 @@ def check_meter_decorator(func):
                             "Status from results does not match status from meter"
                         )
                 if len(meter) > 1:
+                    print(f"meter from check meter wrapper --> {meter}")
                     raise ValueError("More than one meter record found")
                 if len(meter) == 0:
                     count += 1
