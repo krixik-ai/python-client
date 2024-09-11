@@ -1,10 +1,8 @@
-import os
 import yaml
 from typing import Optional, List
 from collections import OrderedDict
 from krixik.pipeline_builder.module import Module
 from krixik.utilities.validators.data.utilities.decorators import datatype_validator
-from krixik.utilities.validators.data.utilities.read_config import check_inverse_config
 from krixik.pipeline_builder.utilities.config_checker import config_check
 from krixik.pipeline_builder.utilities.name_checker import name_check
 from krixik.pipeline_builder.utilities.chain_checker import chain_check

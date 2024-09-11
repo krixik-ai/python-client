@@ -1,5 +1,4 @@
 from krixik.utilities.validators import Q_MIN, Q_MAX
-from krixik.utilities.utilities import invalid_char_check
 
 
 def query_checker(query: str) -> None:
