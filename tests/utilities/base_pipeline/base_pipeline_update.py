@@ -1,6 +1,5 @@
 from tests.utilities.base_pipeline.base_pipeline_tools import BasePipelineTools
 from tests.utilities.dynamodb_interactions import check_meter
-from tests.utilities.dynamodb_interactions import check_history
 from tests.utilities.dynamodb_interactions import check_expire
 from tests.utilities.scheduler_interactions import check_schedule
 from tests.utilities.decorators import capture_printed_output
@@ -8,7 +7,6 @@ from krixik.utilities.validators.system import EXPIRE_TIME_DEFAULT
 import pytest
 import uuid
 from datetime import datetime
-from tests.utilities.search_inits import krixik
 
 
 def confirm_pipeline(items: list, target_pipeline: str):
