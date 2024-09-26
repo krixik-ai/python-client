@@ -1,7 +1,7 @@
-from typing import Optional
-from krixik.__version__ import __version__
 import tempfile
 import types
+from typing import Optional
+from krixik.__version__ import __version__
 from krixik.utilities.utilities import classproperty
 from krixik.modules import available_modules, get_module_details
 from krixik.system_builder.functions.checkin import checkin
