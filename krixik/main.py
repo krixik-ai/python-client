@@ -6,7 +6,6 @@ from krixik.utilities.utilities import classproperty
 from krixik.modules import available_modules, get_module_details
 from krixik.system_builder.functions.checkin import checkin
 from krixik.system_builder.functions.cap_check import cap_check
-from krixik.pipeline_builder.pipeline import BuildPipeline
 from krixik.system_builder.base import KrixikBasePipeline
 from krixik.system_builder.functions.semantic_search import semantic_search
 from krixik.system_builder.functions.keyword_search import keyword_search
